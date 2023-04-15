@@ -7,13 +7,82 @@ view charts of your progress and export your data at any time.
 
 Reference `ideas` document for more details.
 
-- [ ] Routes
-  - [ ] Workouts
-  - [ ] Exercises
-  - [ ] Measurements
-- [ ] Core blueprints
-- [ ] Fields
-- [ ] Charts
+- [ ] New route `/active/:id` (for active Workouts with active Exercises)
+
+- [ ] New `DatabaseTypes`
+
+  ```typescript
+  export enum DatabaseType {
+    LOG = 'Logs', // First in order
+    SETTING = 'Settings',
+    WORKOUT = 'Workouts',
+    EXERCISE = 'Exercises',
+    MEASUREMENT = 'Measurements',
+    WORKOUT_RESULT = 'Workout Results',
+    EXERCISE_RESULT = 'Exercise Results',
+    MEASUREMENT_RESULT = 'Measurement Results',
+    ACTIVE_WORKOUT_RESULTS = 'Active Workouts',
+    ACTIVE_EXERCISE_RESULTS = 'Active Exercises',
+  }
+  ```
+
+- [ ] New `DatabaseFields`
+
+  ```typescript
+  // ...
+  // Workouts
+  EXERCISE_IDS = 'exerciseIds',
+  // Exercises
+  EXERCISE_INPUTS = 'exerciseInputs',
+  // Measurements
+  MEASUREMENT_INPUTS = 'measurementInputs',
+  // Workout Results & Active Workouts
+  FINISHED_TIMESTAMP = 'finishedTimestamp',
+  EXERCISE_RESULTS_IDS = 'exerciseResultIds',
+  // Exercise Results & Active Exercises
+  REPS = 'reps',
+  WEIGHT_LBS = 'weightLbs',
+  WEIGHT_KG = 'weightKg',
+  DISTANCE_MILES = 'distanceMiles',
+  DISTANCE_KM = 'distanceKm',
+  DURATION_MINUTES = 'durationMinutes',
+  RESISTANCE = 'resistance',
+  // Measurement Results
+  MEASUREMENT_VALUES = 'measurementValues',
+  ```
+
+- [ ] New `MeasurementInputs`
+
+  ```typescript
+  export enum MeasurementInputs {
+    LBS = 'Lbs',
+    FEET = 'Feet',
+    INCHES = 'Inches',
+    PERCENT = '%',
+    BEATS_PER_MINUTE = 'BPM',
+    BLODD_PRESSURE_SYSTOLIC = 'Systolic',
+    BLODD_PRESSURE_DIASTOLIC = 'Diastolic',
+  }
+  ```
+
+- [ ] New `ExerciseInputs`
+
+  ```typescript
+  export enum ExerciseInputs {
+    REMINDER = 'Reminder',
+    CONFIRMATION = 'Confirmation',
+    MULTIPLE_SETS = 'Multiple Sets',
+    REPS = 'Reps',
+    WEIGHT_LBS = 'Weight (lbs)',
+    WEIGHT_KG = 'Weight (kg)',
+    DISTANCE_MILES = 'Distance (miles)',
+    DISTANCE_KM = 'Distance (km)',
+    DURATION_MINUTES = 'Duration (minutes)',
+    RESISTANCE = 'Resistence',
+  }
+  ```
+
+- [ ] New `Blueprints`
 
 ## Post Cloning Steps
 
