@@ -5,17 +5,6 @@ developing. Read through this README to have a better understanding of how this 
 
 ## Post Cloning Steps
 
-- [ ] Update `GitHub` repository settings
-
-  - [ ] Add a Description
-  - [ ] Add the Website
-  - [ ] Add Topics
-  - [ ] Update the `Include in the home page` section
-
-    - [ ] Uncheck `Releases`
-    - [ ] Uncheck `Packages`
-    - [ ] Uncheck `Environments`
-
 - [ ] Generate a new Favicon here: <https://favicon.io/> (credit original artists)
 
 - [ ] Update `README.md`
