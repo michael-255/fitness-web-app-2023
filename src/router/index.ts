@@ -28,6 +28,19 @@ const router = createRouter({
       },
     },
     {
+      path: '/active-workout/:id',
+      name: RouteName.ACTIVE_WORKOUT,
+      meta: { layout: 'MenuLayout' },
+      component: () => import('../views/ActiveWorkoutView.vue'),
+      beforeEnter(to, from, next) {
+        if (isIdValid(to?.params?.id as string)) {
+          next()
+        } else {
+          next('/404')
+        }
+      },
+    },
+    {
       path: '/inspect/:databaseTypeSlug/:id',
       name: RouteName.ACTION_INSPECT,
       meta: { layout: 'MenuLayout' },

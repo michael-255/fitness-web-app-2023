@@ -15,21 +15,33 @@ export const DatabaseVersion = 1
 export enum DatabaseType {
   LOG = 'Logs', // First in order
   SETTING = 'Settings',
-  EXAMPLE = 'Examples',
-  EXAMPLE_RESULT = 'Example Results',
-  TEST = 'Tests',
-  TEST_RESULT = 'Test Results',
+  WORKOUT = 'Workouts',
+  EXERCISE = 'Exercises',
+  MEASUREMENT = 'Measurements',
+  WORKOUT_RESULT = 'Workout Results',
+  EXERCISE_RESULT = 'Exercise Results',
+  MEASUREMENT_RESULT = 'Measurement Results',
+  ACTIVE_WORKOUT_RESULT = 'Active Workouts',
+  ACTIVE_EXERCISE_RESULT = 'Active Exercises',
 }
 
 /**
  * Parent types in the database.
  */
-export type DatabaseParentType = DatabaseType.EXAMPLE | DatabaseType.TEST
+export type DatabaseParentType =
+  | DatabaseType.WORKOUT
+  | DatabaseType.EXERCISE
+  | DatabaseType.MEASUREMENT
 
 /**
  * Child types to parent types in the database.
  */
-export type DatabaseChildType = DatabaseType.EXAMPLE_RESULT | DatabaseType.TEST_RESULT
+export type DatabaseChildType =
+  | DatabaseType.WORKOUT_RESULT
+  | DatabaseType.EXERCISE_RESULT
+  | DatabaseType.MEASUREMENT_RESULT
+  | DatabaseType.ACTIVE_WORKOUT_RESULT
+  | DatabaseType.ACTIVE_EXERCISE_RESULT
 
 /**
  * Each database type has a category. These determine how certain parts of the app treat them.
@@ -55,15 +67,33 @@ export enum DatabaseField {
   SEVERITY = 'severity',
   LABEL = 'label',
   DETAILS = 'details',
-  // Examples
+  // Parent
   NAME = 'name',
   DESCRIPTION = 'description',
   IS_FAVORITED = 'isFavorited',
   IS_ENABLED = 'isEnabled',
-  // Example Results
+  // Child
   PARENT_ID = 'parentId',
   NOTE = 'note',
-  NUMBER = 'number',
+  // Workouts
+  EXERCISE_IDS = 'exerciseIds',
+  // Exercises
+  EXERCISE_INPUTS = 'exerciseInputs',
+  // Measurements
+  MEASUREMENT_INPUTS = 'measurementInputs',
+  // Workout Results & Active Workouts
+  FINISHED_TIMESTAMP = 'finishedTimestamp',
+  EXERCISE_RESULT_IDS = 'exerciseResultIds',
+  // Exercise Results & Active Exercises
+  REPS = 'reps',
+  WEIGHT_LBS = 'weightLbs',
+  WEIGHT_KG = 'weightKg',
+  DISTANCE_MILES = 'distanceMiles',
+  DISTANCE_KM = 'distanceKm',
+  DURATION_MINUTES = 'durationMinutes',
+  RESISTANCE = 'resistance',
+  // Measurement Results
+  MEASUREMENT_VALUES = 'measurementValues',
 }
 
 /**
@@ -91,6 +121,35 @@ export enum Severity {
   INFO = 'INFO',
   WARN = 'WARN',
   ERROR = 'ERROR',
+}
+
+/**
+ * Available measurement input types.
+ */
+export enum MeasurementInputs {
+  LBS = 'Lbs',
+  FEET = 'Feet',
+  INCHES = 'Inches',
+  PERCENT = '%',
+  BEATS_PER_MINUTE = 'BPM',
+  BLODD_PRESSURE_SYSTOLIC = 'Systolic',
+  BLODD_PRESSURE_DIASTOLIC = 'Diastolic',
+}
+
+/**
+ * Available exercise input types.
+ */
+export enum ExerciseInputs {
+  REMINDER = 'Reminder',
+  CONFIRMATION = 'Confirmation',
+  MULTIPLE_SETS = 'Multiple Sets',
+  REPS = 'Reps',
+  WEIGHT_LBS = 'Weight (lbs)',
+  WEIGHT_KG = 'Weight (kg)',
+  DISTANCE_MILES = 'Distance (miles)',
+  DISTANCE_KM = 'Distance (km)',
+  DURATION_MINUTES = 'Duration (minutes)',
+  RESISTANCE = 'Resistence',
 }
 
 /**
