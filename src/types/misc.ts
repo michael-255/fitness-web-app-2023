@@ -15,7 +15,7 @@ import type { QTableColumn } from 'quasar'
 export const AppName = 'Fitness Tracker'
 
 export const AppDescription = `
-${AppName} is a simple application for tracking workouts, exercises, and measurements. The app was created by michael-255 on GitHub.
+${AppName} is a simple application for tracking workouts, exercises, and measurements. You can view charts of your progress and export your data at any time.
 `
 
 /**

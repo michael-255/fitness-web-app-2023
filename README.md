@@ -1,7 +1,17 @@
-# Web App Template
+# Fitness Tracker
 
-This Vue 3 Typescript project can be used as a web application template to help you get started
-developing. Read through this README to have a better understanding of how this project is setup.
+Fitness Tracker is a simple application for tracking workouts, exercises, and measurements. You can
+view charts of your progress and export your data at any time.
+
+## TODO
+
+- [ ] Routes
+  - [ ] Workouts
+  - [ ] Exercises
+  - [ ] Measurements
+- [ ] Core blueprints
+- [ ] Fields
+- [ ] Charts
 
 ## Post Cloning Steps
 
@@ -9,8 +19,6 @@ developing. Read through this README to have a better understanding of how this 
 
 - [ ] Update `README.md`
 
-  - [ ] Change README main heading to your project name
-  - [ ] Add detailed project description
   - [ ] Update the `Credits` section as needed
   - [ ] Remove unneeded sections (including this one)
 
