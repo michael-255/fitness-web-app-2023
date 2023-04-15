@@ -5,6 +5,8 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
+Reference `ideas` document for more details.
+
 - [ ] Routes
   - [ ] Workouts
   - [ ] Exercises
