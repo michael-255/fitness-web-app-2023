@@ -72,21 +72,23 @@ async function onCloseIntroduction() {
         right away by clicking the button below.
       </div>
 
-      <QBtn
-        color="primary"
-        class="q-mb-md"
-        label="Barbell Strength Workouts"
-        :icon="Icon.ADD_NOTE"
-        @click="onAddBarbellStrengthWorkouts()"
-      />
+      <div class="q-mb-md">
+        <QBtn
+          color="primary"
+          label="Barbell Strength Workouts"
+          :icon="Icon.ADD_NOTE"
+          @click="onAddBarbellStrengthWorkouts()"
+        />
+      </div>
 
-      <QBtn
-        color="primary"
-        class="q-mb-md"
-        label="Standard Measurements"
-        :icon="Icon.ADD_NOTE"
-        @click="onAddStandardMeasurements()"
-      />
+      <div class="q-mb-md">
+        <QBtn
+          color="primary"
+          label="Standard Measurements"
+          :icon="Icon.ADD_NOTE"
+          @click="onAddStandardMeasurements()"
+        />
+      </div>
 
       <!-- Donation Information -->
       <div class="q-mb-md">

@@ -295,7 +295,8 @@ async function onDeleteDatabase() {
 
         <!-- Examples -->
         <div class="q-mb-md">
-          Add default workouts, exercises, and measurements to the database.
+          You can add default workouts, exercises, and measurements to the database below if you
+          don't feel like creating your own.
         </div>
 
         <div class="q-mb-md">
