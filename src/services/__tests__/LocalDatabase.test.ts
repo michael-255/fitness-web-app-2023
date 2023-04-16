@@ -42,28 +42,31 @@ describe('LocalDatabase service', () => {
     [DatabaseField.DETAILS]: { stuff: 'abc', test: '123' },
   }
   const exampleMock = {
-    [DatabaseField.TYPE]: DatabaseType.EXAMPLE,
+    [DatabaseField.TYPE]: DatabaseType.WORKOUT,
     [DatabaseField.ID]: 'example-id',
     [DatabaseField.NAME]: 'example-name',
     [DatabaseField.DESCRIPTION]: 'example-description',
     [DatabaseField.IS_FAVORITED]: true,
     [DatabaseField.IS_ENABLED]: true,
+    [DatabaseField.EXERCISE_IDS]: ['exercise-id-1', 'exercise-id-2'],
   }
   const exampleResultMock1 = {
-    [DatabaseField.TYPE]: DatabaseType.EXAMPLE_RESULT,
+    [DatabaseField.TYPE]: DatabaseType.WORKOUT_RESULT,
     [DatabaseField.ID]: 'example-result-id-1',
     [DatabaseField.CREATED_TIMESTAMP]: 1234567890,
     [DatabaseField.PARENT_ID]: exampleMock[DatabaseField.ID],
     [DatabaseField.NOTE]: 'example-result-note-1',
-    [DatabaseField.NUMBER]: 1,
+    [DatabaseField.FINISHED_TIMESTAMP]: 1234567890,
+    [DatabaseField.EXERCISE_RESULT_IDS]: ['exercise-result-id-1', 'exercise-result-id-2'],
   }
   const exampleResultMock2 = {
-    [DatabaseField.TYPE]: DatabaseType.EXAMPLE_RESULT,
+    [DatabaseField.TYPE]: DatabaseType.WORKOUT_RESULT,
     [DatabaseField.ID]: 'example-result-id-2',
     [DatabaseField.CREATED_TIMESTAMP]: 12345,
     [DatabaseField.PARENT_ID]: exampleMock[DatabaseField.ID],
     [DatabaseField.NOTE]: 'example-result-note-2',
-    [DatabaseField.NUMBER]: 2,
+    [DatabaseField.FINISHED_TIMESTAMP]: 1234567890,
+    [DatabaseField.EXERCISE_RESULT_IDS]: ['exercise-result-id-1', 'exercise-result-id-2'],
   }
 
   beforeEach(() => {
@@ -166,10 +169,10 @@ describe('LocalDatabase service', () => {
 
   test('getEnabledParentRecords returns enabled parent records of a given type', async () => {
     db.Records.where().equals().filter().toArray = vi.fn().mockReturnValue([exampleMock])
-    const result = await db.getEnabledParentRecords(DatabaseType.EXAMPLE)
+    const result = await db.getEnabledParentRecords(DatabaseType.WORKOUT)
 
     expect(db.Records.where).toHaveBeenCalledWith(DatabaseField.TYPE)
-    expect(db.Records.where().equals).toHaveBeenCalledWith(DatabaseType.EXAMPLE)
+    expect(db.Records.where().equals).toHaveBeenCalledWith(DatabaseType.WORKOUT)
     expect(db.Records.where().equals().filter).toHaveBeenCalled()
     expect(db.Records.where().equals().filter().toArray).toHaveBeenCalled()
     expect(result).toEqual(expect.arrayContaining([exampleMock]))
@@ -179,10 +182,10 @@ describe('LocalDatabase service', () => {
     db.Records.where().sortBy().reverse = vi
       .fn()
       .mockReturnValue([exampleResultMock1, exampleResultMock2])
-    const result = await db.getPreviousChildRecord(DatabaseType.EXAMPLE_RESULT, 'example-id')
+    const result = await db.getPreviousChildRecord(DatabaseType.WORKOUT_RESULT, 'example-id')
 
     expect(db.Records.where).toHaveBeenCalledWith({
-      [DatabaseField.TYPE]: DatabaseType.EXAMPLE_RESULT,
+      [DatabaseField.TYPE]: DatabaseType.WORKOUT_RESULT,
       [DatabaseField.PARENT_ID]: 'example-id',
     })
     expect(db.Records.where().sortBy).toHaveBeenCalledWith(DatabaseField.CREATED_TIMESTAMP)
@@ -192,10 +195,10 @@ describe('LocalDatabase service', () => {
 
   test('getChildRecordsByParentId returns child records of a given type and parent id', async () => {
     db.Records.where().sortBy = vi.fn().mockReturnValue([exampleResultMock1, exampleResultMock2])
-    const result = await db.getChildRecordsByParentId(DatabaseType.EXAMPLE_RESULT, 'example-id')
+    const result = await db.getChildRecordsByParentId(DatabaseType.WORKOUT_RESULT, 'example-id')
 
     expect(db.Records.where).toHaveBeenCalledWith({
-      [DatabaseField.TYPE]: DatabaseType.EXAMPLE_RESULT,
+      [DatabaseField.TYPE]: DatabaseType.WORKOUT_RESULT,
       [DatabaseField.PARENT_ID]: 'example-id',
     })
     expect(db.Records.where().sortBy).toHaveBeenCalledWith(DatabaseField.CREATED_TIMESTAMP)
