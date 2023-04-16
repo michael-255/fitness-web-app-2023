@@ -28,6 +28,8 @@ import {
   durationMinutesField,
   resistanceField,
   finishedTimestampField,
+  messageField,
+  stackField,
 } from '@/services/blueprints/field-bluprints'
 import {
   requiredTypeColumn,
@@ -49,6 +51,8 @@ import {
   exerciseInputsColumn,
   measurementInputsColumn,
   activeColumn,
+  messageColumn,
+  stackColumn,
 } from '@/services/blueprints/table-columns'
 import { exerciseResultIdsField } from '@/services/blueprints/field-bluprints'
 import { measurementValuesField } from '@/services/blueprints/field-bluprints'
@@ -93,6 +97,8 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       severityField,
       labelField,
       detailsField,
+      messageField,
+      stackField,
     ],
     visibleColumns: [
       DatabaseField.ID,
@@ -108,6 +114,8 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       severityColumn,
       labelColumn,
       detailsColumn,
+      messageColumn,
+      stackColumn,
     ],
   },
   /**
