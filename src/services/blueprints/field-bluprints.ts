@@ -5,7 +5,7 @@ import {
   ExerciseInput,
   MeasurementInput,
 } from '@/types/database'
-import type { AppObject, FieldBlueprint } from '@/types/misc'
+import type { FieldBlueprint } from '@/types/misc'
 import { getDisplayDate } from '@/utils/common'
 import { defineAsyncComponent } from 'vue'
 

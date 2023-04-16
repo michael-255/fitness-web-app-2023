@@ -17,7 +17,6 @@ defineProps<{
   // Will be undefined if no records have been recorded yet
   previousNote?: string
   previousCreatedTimestamp?: number
-  previousNumber?: number
 }>()
 
 // Composables & Stores
@@ -196,12 +195,6 @@ async function onDeleteRecord(type: DatabaseType, id: string) {
         <div v-if="previousCreatedTimestamp">
           <QIcon :name="Icon.CALENDAR_CHECK" />
           <span class="text-caption q-ml-xs">{{ getDisplayDate(previousCreatedTimestamp) }}</span>
-        </div>
-
-        <!-- Previous Record Number -->
-        <div v-if="previousNumber !== undefined && previousNumber !== null">
-          <QIcon :name="Icon.EXAMPLES" />
-          <span class="text-caption q-ml-xs">{{ previousNumber }}</span>
         </div>
       </div>
 
