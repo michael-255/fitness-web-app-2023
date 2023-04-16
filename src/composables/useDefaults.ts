@@ -125,9 +125,9 @@ export default function useDefaults() {
           ]
 
           await DB.bulkAddRecords(records)
-          log.info('Barbell Strength workouts added')
+          log.info('Barbell Strength workouts added', { newRecords: records?.length ?? 0 })
         } catch (error) {
-          log.error('Failed to add Barbell Strength workouts', error)
+          log.error('Error adding Barbell Strength workouts', error)
         }
       }
     )
@@ -258,9 +258,9 @@ export default function useDefaults() {
           ]
 
           await DB.bulkAddRecords(records)
-          log.info('Stretch Routine added')
+          log.info('Stretch Routine added', { newRecords: records?.length ?? 0 })
         } catch (error) {
-          log.error('Failed to add Stretch Routine', error)
+          log.error('Error adding Stretch Routine', error)
         }
       }
     )
@@ -357,9 +357,9 @@ export default function useDefaults() {
           ]
 
           await DB.bulkAddRecords(records)
-          log.info('Carpal Tunnel Routine added')
+          log.info('Carpal Tunnel Routine added', { newRecords: records?.length ?? 0 })
         } catch (error) {
-          log.error('Failed to add Carpal Tunnel Routine', error)
+          log.error('Error adding Carpal Tunnel Routine', error)
         }
       }
     )
@@ -527,9 +527,9 @@ export default function useDefaults() {
           ]
 
           await DB.bulkAddRecords(records)
-          log.info('Standard Measurements added')
+          log.info('Standard Measurements added', { newRecords: records?.length ?? 0 })
         } catch (error) {
-          log.error('Failed to add Standard Measurements', error)
+          log.error('Error adding Standard Measurements', error)
         }
       }
     )
