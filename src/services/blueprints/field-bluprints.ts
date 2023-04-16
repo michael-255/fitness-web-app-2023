@@ -264,18 +264,6 @@ export const weightLbsField: FieldBlueprint = {
 }
 
 /**
- * Weight Kg field used by exercise results and active exercises.
- */
-export const weightKgField: FieldBlueprint = {
-  field: DatabaseField.WEIGHT_KG,
-  label: 'Weight (kg)',
-  inspectFormat: (val: number[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputWeightKg.vue')
-  // ),
-}
-
-/**
  * Distance Miles field used by exercise results and active exercises.
  */
 export const distanceMilesField: FieldBlueprint = {
@@ -284,18 +272,6 @@ export const distanceMilesField: FieldBlueprint = {
   inspectFormat: (val: number[]) => `${val}`,
   // component: defineAsyncComponent(
   //   () => import('@/components/action-inputs/ActionInputDistanceMiles.vue')
-  // ),
-}
-
-/**
- * Distance Km field used by exercise results and active exercises.
- */
-export const distanceKmField: FieldBlueprint = {
-  field: DatabaseField.DISTANCE_KM,
-  label: 'Distance (km)',
-  inspectFormat: (val: number[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputDistanceKm.vue')
   // ),
 }
 

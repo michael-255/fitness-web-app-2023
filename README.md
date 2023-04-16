@@ -5,14 +5,46 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
-Reference `ideas` document for more details.
+- [ ] Build `ActionInput*` components for `field-blueprints`
 
-- [ ] If no `ExerciseInput` is used on an exercise
-  - [ ] Show the `Description` with a reminder bell next to it
-  - [ ] Don't save the record to the database (nothing to record anyway)
-- [ ] Create some default record generators in `useDefaults`
+  - [ ] `ActionInputActive`
+  - [ ] `ActionInputExerciseIds`
+  - [ ] `ActionInputExerciseInput`
+  - [ ] `ActionInputMeasurementInput`
+  - [ ] `ActionInputFinishedTimestamp`
+  - [ ] `ActionInputExerciseResultIds`
+  - [ ] `ActionInputReps`
+  - [ ] `ActionInputWeightLbs`
+  - [ ] `ActionInputDistanceMiles`
+  - [ ] `ActionInputDurationMinutes`
+  - [ ] `ActionInputResistance`
+  - [ ] `ActionInputMeasurementValues`
+
+- [ ] Build `Chart` components for `chart-blueprints`
+
+  - [ ] `ChartWorkoutDuration`
+  - [ ] `ChartExerciseReps`
+  - [ ] `ChartExerciseWeight`
+  - [ ] `ChartExerciseDistance`
+  - [ ] `ChartExerciseDuration`
+  - [ ] `ChartExerciseResistance`
+
+- [ ] Show a bell and `Description` if no inputs on `ExerciseInput` (no not save record)
 - [ ] Test overall functionality with defaults (actions, views, etc.)
-- [ ] Correct test files
+- [ ] Separate import function for legacy `fitness-tracker-v16` data records in `Settings`
+- [ ] Implement `Active Workout` view
+
+  - [ ] Exercise inputs should display previous performance (135 lbs, as orange placeholder text?)
+  - [ ] Feature to view previous performance increments for exercies (5, 5, -5, 10, -10, as a
+        dialog?)
+  - [ ] Feature that makes additonal `Inspect` field for exercises that summarizes data (see below)
+    - `(1)` 105x15
+    - `(2)` 115x10
+    - `(3)` 125x5
+  - [ ] Feature for `Inspect` or other option to view workout `Metadata` (maybe in charts?)
+    - `(heaviest weight)` 125
+    - `(total lifted)` 3350
+    - `(total reps)` 30
 
 ## Post Cloning Steps
 

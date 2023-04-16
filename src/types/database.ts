@@ -86,9 +86,7 @@ export enum DatabaseField {
   // Exercise Results & Active Exercises
   REPS = 'reps',
   WEIGHT_LBS = 'weightLbs',
-  WEIGHT_KG = 'weightKg',
   DISTANCE_MILES = 'distanceMiles',
-  DISTANCE_KM = 'distanceKm',
   DURATION_MINUTES = 'durationMinutes',
   RESISTANCE = 'resistance',
   // Measurement Results
@@ -143,9 +141,7 @@ export enum ExerciseInput {
   MULTIPLE_SETS = 'Multiple Sets',
   REPS = 'Reps',
   WEIGHT_LBS = 'Weight (lbs)',
-  WEIGHT_KG = 'Weight (kg)',
   DISTANCE_MILES = 'Distance (miles)',
-  DISTANCE_KM = 'Distance (km)',
   DURATION_MINUTES = 'Duration (minutes)',
   RESISTANCE = 'Resistence',
 }

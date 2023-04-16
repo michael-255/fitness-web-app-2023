@@ -37,9 +37,7 @@ export interface DatabaseRecord {
   [DatabaseField.EXERCISE_RESULT_IDS]?: string[]
   [DatabaseField.REPS]?: number[]
   [DatabaseField.WEIGHT_LBS]?: number[]
-  [DatabaseField.WEIGHT_KG]?: number[]
   [DatabaseField.DISTANCE_MILES]?: number[]
-  [DatabaseField.DISTANCE_KM]?: number[]
   [DatabaseField.DURATION_MINUTES]?: number[]
   [DatabaseField.RESISTANCE]?: number[]
   [DatabaseField.MEASUREMENT_VALUES]?: number[]
@@ -136,9 +134,7 @@ export type ExerciseResult = Pick<
   | DatabaseField.IS_ACTIVE
   | DatabaseField.REPS
   | DatabaseField.WEIGHT_LBS
-  | DatabaseField.WEIGHT_KG
   | DatabaseField.DISTANCE_MILES
-  | DatabaseField.DISTANCE_KM
   | DatabaseField.DURATION_MINUTES
   | DatabaseField.RESISTANCE
 >
