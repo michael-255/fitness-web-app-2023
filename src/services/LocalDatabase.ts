@@ -83,12 +83,17 @@ export class LocalDatabase extends Dexie {
   }
 
   /**
-   * Observable of the Settings, Examples, and Tests database types sorted by name (when present).
+   * Observable of the Settings, Workouts, Exercises, and Measurements database types sorted by name (when present)
    */
   liveDashboard() {
     return liveQuery(() =>
       this.Records.where(DatabaseField.TYPE)
-        .anyOf(DatabaseType.SETTING, DatabaseType.EXAMPLE, DatabaseType.TEST)
+        .anyOf(
+          DatabaseType.SETTING,
+          DatabaseType.WORKOUT,
+          DatabaseType.EXERCISE,
+          DatabaseType.MEASUREMENT
+        )
         .sortBy(DatabaseField.NAME)
     )
   }

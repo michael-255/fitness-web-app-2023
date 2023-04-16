@@ -28,8 +28,8 @@ export enum Icon {
   CHARTS = 'bar_chart',
   RECORDS = 'storage',
   WORKOUT = 'assignment',
-  EXAMPLES = 'smart_toy',
-  TESTS = 'cruelty_free',
+  EXERCISE = 'fitness_center',
+  MEASUREMENT = 'straighten',
   PERF = 'speed',
   // Misc
   LOCK = 'lock',

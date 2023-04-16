@@ -40,12 +40,10 @@ const subscription = DB.liveDashboard().subscribe({
     // Settings
     showIntroduction.value = records.find((s) => s.id === SettingId.SHOW_INTRODUCTION)?.value
 
-    // Examples
-    // Include only enabled examples
-    // Sort them by name
-    const dashboardExamples = await Promise.all(
+    // Workouts - Enabled only, sorted by name
+    const dashboardWorkouts = await Promise.all(
       records
-        .filter((r) => r.type === DatabaseType.EXAMPLE && r[DatabaseField.IS_ENABLED] === true)
+        .filter((r) => r.type === DatabaseType.WORKOUT && r[DatabaseField.IS_ENABLED] === true)
         .map(async (r) => {
           const previousChild = await DB.getPreviousChildRecord(
             getChildType(r[DatabaseField.TYPE]) as DatabaseChildType,
@@ -59,23 +57,23 @@ const subscription = DB.liveDashboard().subscribe({
             [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
             previousNote: previousChild?.[DatabaseField.NOTE],
             previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
-            previousNumber: previousChild?.[DatabaseField.NUMBER],
           } as DashboardParent
         })
     )
-    // Group favorites at the top
-    const exampleFavorites = dashboardExamples.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
-    const exampleNonFavorites = dashboardExamples.filter(
-      (r) => r[DatabaseField.IS_FAVORITED] === false
-    )
-    dashboardParentRefs[0].value = [...exampleFavorites, ...exampleNonFavorites]
 
-    // Tests
-    // Include only enabled tests
-    // Sort them by name
-    const dashboardTests = await Promise.all(
+    // Group favorites at the top
+    let favorites = dashboardWorkouts.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
+    let nonFavorites = dashboardWorkouts.filter((r) => r[DatabaseField.IS_FAVORITED] === false)
+    dashboardParentRefs[0].value = [...favorites, ...nonFavorites]
+
+    // Empty out the arrays
+    favorites = []
+    nonFavorites = []
+
+    // Exercises - Enabled only, sorted by name
+    const dashboardExercises = await Promise.all(
       records
-        .filter((r) => r.type === DatabaseType.TEST && r[DatabaseField.IS_ENABLED] === true)
+        .filter((r) => r.type === DatabaseType.EXERCISE && r[DatabaseField.IS_ENABLED] === true)
         .map(async (r) => {
           const previousChild = await DB.getPreviousChildRecord(
             getChildType(r[DatabaseField.TYPE]) as DatabaseChildType,
@@ -89,14 +87,44 @@ const subscription = DB.liveDashboard().subscribe({
             [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
             previousNote: previousChild?.[DatabaseField.NOTE],
             previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
-            previousNumber: previousChild?.[DatabaseField.NUMBER],
           } as DashboardParent
         })
     )
+
     // Group favorites at the top
-    const testFavorites = dashboardTests.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
-    const testNonFavorites = dashboardTests.filter((r) => r[DatabaseField.IS_FAVORITED] === false)
-    dashboardParentRefs[1].value = [...testFavorites, ...testNonFavorites]
+    favorites = dashboardExercises.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
+    nonFavorites = dashboardExercises.filter((r) => r[DatabaseField.IS_FAVORITED] === false)
+    dashboardParentRefs[1].value = [...favorites, ...nonFavorites]
+
+    // Empty out the arrays
+    favorites = []
+    nonFavorites = []
+
+    // Measurements - Enabled only, sorted by name
+    const dashboardMeasurements = await Promise.all(
+      records
+        .filter((r) => r.type === DatabaseType.MEASUREMENT && r[DatabaseField.IS_ENABLED] === true)
+        .map(async (r) => {
+          const previousChild = await DB.getPreviousChildRecord(
+            getChildType(r[DatabaseField.TYPE]) as DatabaseChildType,
+            r[DatabaseField.ID]
+          )
+
+          return {
+            [DatabaseField.TYPE]: r[DatabaseField.TYPE],
+            [DatabaseField.ID]: r[DatabaseField.ID],
+            [DatabaseField.NAME]: r[DatabaseField.NAME],
+            [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
+            previousNote: previousChild?.[DatabaseField.NOTE],
+            previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
+          } as DashboardParent
+        })
+    )
+
+    // Group favorites at the top
+    favorites = dashboardMeasurements.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
+    nonFavorites = dashboardMeasurements.filter((r) => r[DatabaseField.IS_FAVORITED] === false)
+    dashboardParentRefs[1].value = [...favorites, ...nonFavorites]
   },
   error: (error) => {
     log.error('Error loading live dashboard records', error)
@@ -126,7 +154,7 @@ onUnmounted(() => {
       </QCardSection>
     </QCard>
 
-    <!-- Examples - Using v-show so the DOM doesn't get updated when switching selections -->
+    <!-- Workouts - Using v-show so the DOM doesn't get updated when switching selections -->
     <div v-show="uiStore.dashboardListIndex === 0">
       <div v-for="(record, i) in dashboardParentRefs[0].value" :key="i">
         <DashboardParentCard
@@ -136,7 +164,6 @@ onUnmounted(() => {
           :isFavorite="record[DatabaseField.IS_FAVORITED]"
           :previousNote="record.previousNote"
           :previousCreatedTimestamp="record.previousCreatedTimestamp"
-          :previousNumber="record.previousNumber"
           class="q-mb-md"
         >
           <QBtn
@@ -144,13 +171,13 @@ onUnmounted(() => {
             color="positive"
             label="Add Record"
             :icon="Icon.NEW"
-            @click="goToCreate(DatabaseType.EXAMPLE_RESULT, record[DatabaseField.ID])"
+            @click="goToCreate(DatabaseType.WORKOUT_RESULT, record[DatabaseField.ID])"
           />
         </DashboardParentCard>
       </div>
     </div>
 
-    <!-- Tests - Using v-show so the DOM doesn't get updated when switching selections -->
+    <!-- Exercises - Using v-show so the DOM doesn't get updated when switching selections -->
     <div v-show="uiStore.dashboardListIndex === 1">
       <div v-for="(record, j) in dashboardParentRefs[1].value" :key="j">
         <DashboardParentCard
@@ -160,7 +187,6 @@ onUnmounted(() => {
           :isFavorite="record[DatabaseField.IS_FAVORITED]"
           :previousNote="record.previousNote"
           :previousCreatedTimestamp="record.previousCreatedTimestamp"
-          :previousNumber="record.previousNumber"
           class="q-mb-md"
         >
           <QBtn
@@ -168,7 +194,30 @@ onUnmounted(() => {
             color="positive"
             label="Add Record"
             :icon="Icon.NEW"
-            @click="goToCreate(DatabaseType.TEST_RESULT, record[DatabaseField.ID])"
+            @click="goToCreate(DatabaseType.EXERCISE_RESULT, record[DatabaseField.ID])"
+          />
+        </DashboardParentCard>
+      </div>
+    </div>
+
+    <!-- Measurements - Using v-show so the DOM doesn't get updated when switching selections -->
+    <div v-show="uiStore.dashboardListIndex === 1">
+      <div v-for="(record, j) in dashboardParentRefs[1].value" :key="j">
+        <DashboardParentCard
+          :type="record[DatabaseField.TYPE]"
+          :id="record[DatabaseField.ID]"
+          :name="record[DatabaseField.NAME]"
+          :isFavorite="record[DatabaseField.IS_FAVORITED]"
+          :previousNote="record.previousNote"
+          :previousCreatedTimestamp="record.previousCreatedTimestamp"
+          class="q-mb-md"
+        >
+          <QBtn
+            outline
+            color="positive"
+            label="Add Record"
+            :icon="Icon.NEW"
+            @click="goToCreate(DatabaseType.MEASUREMENT_RESULT, record[DatabaseField.ID])"
           />
         </DashboardParentCard>
       </div>

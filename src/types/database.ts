@@ -21,8 +21,6 @@ export enum DatabaseType {
   WORKOUT_RESULT = 'Workout Results',
   EXERCISE_RESULT = 'Exercise Results',
   MEASUREMENT_RESULT = 'Measurement Results',
-  ACTIVE_WORKOUT_RESULT = 'Active Workouts',
-  ACTIVE_EXERCISE_RESULT = 'Active Exercises',
 }
 
 /**
@@ -40,8 +38,6 @@ export type DatabaseChildType =
   | DatabaseType.WORKOUT_RESULT
   | DatabaseType.EXERCISE_RESULT
   | DatabaseType.MEASUREMENT_RESULT
-  | DatabaseType.ACTIVE_WORKOUT_RESULT
-  | DatabaseType.ACTIVE_EXERCISE_RESULT
 
 /**
  * Each database type has a category. These determine how certain parts of the app treat them.
@@ -75,6 +71,7 @@ export enum DatabaseField {
   // Child
   PARENT_ID = 'parentId',
   NOTE = 'note',
+  IS_ACTIVE = 'isActive', // For Active Workouts and Active Exercises
   // Workouts
   EXERCISE_IDS = 'exerciseIds',
   // Exercises

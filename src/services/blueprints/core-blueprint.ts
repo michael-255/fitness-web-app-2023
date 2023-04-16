@@ -1,7 +1,6 @@
 import { Icon } from '@/types/icons'
 import type { CoreBlueprint } from '@/types/misc'
 import { slugify } from '@/utils/common'
-import { numberChart } from '@/services/blueprints/chart-blueprints'
 import { DatabaseAction, DatabaseCategory, DatabaseField, DatabaseType } from '@/types/database'
 import {
   idField,
@@ -16,8 +15,19 @@ import {
   nameField,
   parentIdField,
   noteField,
-  numberField,
   typeField,
+  activeField,
+  exerciseIdsField,
+  exerciseInputsField,
+  measurementInputsField,
+  repsField,
+  weightLbsField,
+  weightKgField,
+  distanceMilesField,
+  distanceKmField,
+  durationMinutesField,
+  resistanceField,
+  finishedTimestampField,
 } from '@/services/blueprints/field-bluprints'
 import {
   requiredTypeColumn,
@@ -31,12 +41,27 @@ import {
   labelColumn,
   nameColumn,
   noteColumn,
-  numberColumn,
   parentIdColumn,
   partialIdColumn,
   severityColumn,
   valueColumn,
+  exerciseIdsColumn,
+  exerciseInputsColumn,
+  measurementInputsColumn,
+  activeColumn,
 } from '@/services/blueprints/table-columns'
+import { exerciseResultIdsField } from '@/services/blueprints/field-bluprints'
+import { measurementValuesField } from '@/services/blueprints/field-bluprints'
+import { finishedTimestampColumn } from '@/services/blueprints/table-columns'
+import { exerciseResultIdsColumn } from '@/services/blueprints/table-columns'
+import { repsColumn } from '@/services/blueprints/table-columns'
+import { weightLbsColumn } from '@/services/blueprints/table-columns'
+import { weightKgColumn } from '@/services/blueprints/table-columns'
+import { distanceMilesColumn } from '@/services/blueprints/table-columns'
+import { distanceKmColumn } from '@/services/blueprints/table-columns'
+import { durationMinutesColumn } from '@/services/blueprints/table-columns'
+import { resistanceColumn } from '@/services/blueprints/table-columns'
+import { measurementValuesColumn } from '@/services/blueprints/table-columns'
 
 /*
 This file contains the core blueprints for all database types.
@@ -104,17 +129,17 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
     tableColumns: [requiredTypeColumn, requiredIdColumn, idColumn, valueColumn],
   },
   /**
-   * Example Blueprint
+   * Workouts Blueprint
    */
   {
-    type: DatabaseType.EXAMPLE,
-    typeSlug: slugify(DatabaseType.EXAMPLE),
+    type: DatabaseType.WORKOUT,
+    typeSlug: slugify(DatabaseType.WORKOUT),
     category: DatabaseCategory.PARENT,
-    singularLabel: 'Example',
-    pluralLabel: 'Examples',
-    icon: Icon.EXAMPLES,
+    singularLabel: 'Workout',
+    pluralLabel: 'Workouts',
+    icon: Icon.WORKOUT,
     parentType: null,
-    childType: DatabaseType.EXAMPLE_RESULT,
+    childType: DatabaseType.WORKOUT_RESULT,
     supportedActions: [
       DatabaseAction.INSPECT,
       DatabaseAction.CREATE,
@@ -122,7 +147,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       DatabaseAction.DELETE,
       DatabaseAction.CHARTS,
     ],
-    chartBluprints: [numberChart],
+    chartBluprints: [], // TODO
     fieldBlueprints: [
       typeField,
       idField,
@@ -130,8 +155,15 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       descriptionField,
       favoritedField,
       enabledField,
+      activeField,
+      exerciseIdsField,
     ],
-    visibleColumns: [DatabaseField.ID, DatabaseField.NAME],
+    visibleColumns: [
+      DatabaseField.ID,
+      DatabaseField.NAME,
+      DatabaseField.IS_FAVORITED,
+      DatabaseField.IS_ENABLED,
+    ],
     tableColumns: [
       requiredTypeColumn,
       requiredIdColumn,
@@ -140,58 +172,21 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       descriptionColumn,
       favoritedColumn,
       enabledColumn,
+      exerciseIdsColumn,
     ],
   },
   /**
-   * Example Results Blueprint
+   * Exercies Blueprint
    */
   {
-    type: DatabaseType.EXAMPLE_RESULT,
-    typeSlug: slugify(DatabaseType.EXAMPLE_RESULT),
-    category: DatabaseCategory.CHILD,
-    singularLabel: 'Example Result',
-    pluralLabel: 'Example Results',
-    icon: Icon.RECORDS,
-    parentType: DatabaseType.EXAMPLE,
-    childType: null,
-    supportedActions: [
-      DatabaseAction.INSPECT,
-      DatabaseAction.CREATE,
-      DatabaseAction.EDIT,
-      DatabaseAction.DELETE,
-    ],
-    chartBluprints: [],
-    fieldBlueprints: [
-      typeField,
-      idField,
-      createdTimestampField,
-      parentIdField,
-      noteField,
-      numberField,
-    ],
-    visibleColumns: [DatabaseField.ID, DatabaseField.CREATED_TIMESTAMP, DatabaseField.PARENT_ID],
-    tableColumns: [
-      requiredTypeColumn,
-      requiredIdColumn,
-      partialIdColumn,
-      createdTimestampColumn,
-      parentIdColumn,
-      noteColumn,
-      numberColumn,
-    ],
-  },
-  /**
-   * Test Blueprint
-   */
-  {
-    type: DatabaseType.TEST,
-    typeSlug: slugify(DatabaseType.TEST),
+    type: DatabaseType.EXERCISE,
+    typeSlug: slugify(DatabaseType.EXERCISE),
     category: DatabaseCategory.PARENT,
-    singularLabel: 'Test',
-    pluralLabel: 'Tests',
-    icon: Icon.TESTS,
+    singularLabel: 'Exercise',
+    pluralLabel: 'Exercises',
+    icon: Icon.EXERCISE,
     parentType: null,
-    childType: DatabaseType.TEST_RESULT,
+    childType: DatabaseType.EXERCISE_RESULT,
     supportedActions: [
       DatabaseAction.INSPECT,
       DatabaseAction.CREATE,
@@ -199,7 +194,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       DatabaseAction.DELETE,
       DatabaseAction.CHARTS,
     ],
-    chartBluprints: [numberChart],
+    chartBluprints: [], // TODO
     fieldBlueprints: [
       typeField,
       idField,
@@ -207,8 +202,15 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       descriptionField,
       favoritedField,
       enabledField,
+      activeField,
+      exerciseInputsField,
     ],
-    visibleColumns: [DatabaseField.ID, DatabaseField.NAME],
+    visibleColumns: [
+      DatabaseField.ID,
+      DatabaseField.NAME,
+      DatabaseField.IS_FAVORITED,
+      DatabaseField.IS_ENABLED,
+    ],
     tableColumns: [
       requiredTypeColumn,
       requiredIdColumn,
@@ -217,19 +219,67 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       descriptionColumn,
       favoritedColumn,
       enabledColumn,
+      exerciseInputsColumn,
     ],
   },
   /**
-   * Test Results Blueprint
+   * Measurements Blueprint
    */
   {
-    type: DatabaseType.TEST_RESULT,
-    typeSlug: slugify(DatabaseType.TEST_RESULT),
+    type: DatabaseType.MEASUREMENT,
+    typeSlug: slugify(DatabaseType.MEASUREMENT),
+    category: DatabaseCategory.PARENT,
+    singularLabel: 'Measurement',
+    pluralLabel: 'Measurements',
+    icon: Icon.MEASUREMENT,
+    parentType: null,
+    childType: DatabaseType.MEASUREMENT_RESULT,
+    supportedActions: [
+      DatabaseAction.INSPECT,
+      DatabaseAction.CREATE,
+      DatabaseAction.EDIT,
+      DatabaseAction.DELETE,
+      DatabaseAction.CHARTS,
+    ],
+    chartBluprints: [], // TODO
+    fieldBlueprints: [
+      typeField,
+      idField,
+      nameField,
+      descriptionField,
+      favoritedField,
+      enabledField,
+      activeField,
+      measurementInputsField,
+    ],
+    visibleColumns: [
+      DatabaseField.ID,
+      DatabaseField.NAME,
+      DatabaseField.IS_FAVORITED,
+      DatabaseField.IS_ENABLED,
+    ],
+    tableColumns: [
+      requiredTypeColumn,
+      requiredIdColumn,
+      partialIdColumn,
+      nameColumn,
+      descriptionColumn,
+      favoritedColumn,
+      enabledColumn,
+      measurementInputsColumn,
+    ],
+  },
+  /**
+   * Workout Results Blueprint
+   */
+  {
+    type: DatabaseType.WORKOUT_RESULT,
+    typeSlug: slugify(DatabaseType.WORKOUT_RESULT),
     category: DatabaseCategory.CHILD,
-    singularLabel: 'Test Result',
-    pluralLabel: 'Test Results',
+    singularLabel: 'Workout Result',
+    pluralLabel: 'Workout Results',
     icon: Icon.RECORDS,
-    parentType: DatabaseType.TEST,
+    parentType: DatabaseType.WORKOUT,
     childType: null,
     supportedActions: [
       DatabaseAction.INSPECT,
@@ -237,24 +287,119 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       DatabaseAction.EDIT,
       DatabaseAction.DELETE,
     ],
-    chartBluprints: [],
+    chartBluprints: [], // TODO
     fieldBlueprints: [
       typeField,
       idField,
-      createdTimestampField,
       parentIdField,
       noteField,
-      numberField,
+      activeField,
+      finishedTimestampField,
+      exerciseResultIdsField,
     ],
-    visibleColumns: [DatabaseField.ID, DatabaseField.CREATED_TIMESTAMP, DatabaseField.PARENT_ID],
+    visibleColumns: [DatabaseField.ID, DatabaseField.PARENT_ID, DatabaseField.FINISHED_TIMESTAMP],
     tableColumns: [
       requiredTypeColumn,
       requiredIdColumn,
       partialIdColumn,
-      createdTimestampColumn,
       parentIdColumn,
       noteColumn,
-      numberColumn,
+      activeColumn,
+      finishedTimestampColumn,
+      exerciseResultIdsColumn,
+    ],
+  },
+  /**
+   * Exercise Results Blueprint
+   */
+  {
+    type: DatabaseType.EXERCISE_RESULT,
+    typeSlug: slugify(DatabaseType.EXERCISE_RESULT),
+    category: DatabaseCategory.CHILD,
+    singularLabel: 'Exercise Result',
+    pluralLabel: 'Exercise Results',
+    icon: Icon.RECORDS,
+    parentType: DatabaseType.EXERCISE,
+    childType: null,
+    supportedActions: [
+      DatabaseAction.INSPECT,
+      DatabaseAction.CREATE,
+      DatabaseAction.EDIT,
+      DatabaseAction.DELETE,
+    ],
+    chartBluprints: [], // TODO
+    fieldBlueprints: [
+      typeField,
+      idField,
+      parentIdField,
+      noteField,
+      activeField,
+      repsField,
+      weightLbsField,
+      weightKgField,
+      distanceMilesField,
+      distanceKmField,
+      durationMinutesField,
+      resistanceField,
+    ],
+    visibleColumns: [DatabaseField.ID, DatabaseField.PARENT_ID, DatabaseField.NOTE],
+    tableColumns: [
+      requiredTypeColumn,
+      requiredIdColumn,
+      partialIdColumn,
+      parentIdColumn,
+      noteColumn,
+      activeColumn,
+      repsColumn,
+      weightLbsColumn,
+      weightKgColumn,
+      distanceMilesColumn,
+      distanceKmColumn,
+      durationMinutesColumn,
+      resistanceColumn,
+    ],
+  },
+  /**
+   * Measurement Results Blueprint
+   */
+  {
+    type: DatabaseType.MEASUREMENT_RESULT,
+    typeSlug: slugify(DatabaseType.MEASUREMENT_RESULT),
+    category: DatabaseCategory.CHILD,
+    singularLabel: 'Measurement Result',
+    pluralLabel: 'Measurement Results',
+    icon: Icon.RECORDS,
+    parentType: DatabaseType.MEASUREMENT,
+    childType: null,
+    supportedActions: [
+      DatabaseAction.INSPECT,
+      DatabaseAction.CREATE,
+      DatabaseAction.EDIT,
+      DatabaseAction.DELETE,
+    ],
+    chartBluprints: [], // TODO
+    fieldBlueprints: [
+      typeField,
+      idField,
+      parentIdField,
+      noteField,
+      activeField,
+      measurementValuesField,
+    ],
+    visibleColumns: [
+      DatabaseField.ID,
+      DatabaseField.PARENT_ID,
+      DatabaseField.NOTE,
+      DatabaseField.MEASUREMENT_VALUES,
+    ],
+    tableColumns: [
+      requiredTypeColumn,
+      requiredIdColumn,
+      partialIdColumn,
+      parentIdColumn,
+      noteColumn,
+      activeColumn,
+      measurementValuesColumn,
     ],
   },
 ]

@@ -1,4 +1,10 @@
-import { DatabaseField, Severity, type SettingValue } from '@/types/database'
+import {
+  DatabaseField,
+  Severity,
+  type SettingValue,
+  ExerciseInputs,
+  MeasurementInputs,
+} from '@/types/database'
 import type { AppObject, FieldBlueprint } from '@/types/misc'
 import { getDisplayDate } from '@/utils/common'
 import { defineAsyncComponent } from 'vue'
@@ -143,12 +149,170 @@ export const noteField: FieldBlueprint = {
   component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputNote.vue')),
 }
 
+// TODO - Implement new action input components for these fields.
 /**
- * Number field used by child records.
+ * Active field used by child records. Inspection format converts boolean to Yes/No.
+ * Used to determine if a workout or exercise result is active.
  */
-export const numberField: FieldBlueprint = {
-  field: DatabaseField.NUMBER,
-  label: 'Number',
-  inspectFormat: (val: number) => `${val}`,
-  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputNumber.vue')),
+export const activeField: FieldBlueprint = {
+  field: DatabaseField.IS_ACTIVE,
+  label: 'Active',
+  inspectFormat: (val: boolean) => (val ? 'Yes' : 'No'),
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputActive.vue')
+  // ),
+}
+
+/**
+ * Exercise Ids field used by workouts.
+ */
+export const exerciseIdsField: FieldBlueprint = {
+  field: DatabaseField.EXERCISE_IDS,
+  label: 'Exercise Ids',
+  inspectFormat: (val: string[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputExerciseIds.vue')
+  // ),
+}
+
+/**
+ * Exercise Inputs field used by exercises.
+ */
+export const exerciseInputsField: FieldBlueprint = {
+  field: DatabaseField.EXERCISE_INPUTS,
+  label: 'Exercise Inputs',
+  inspectFormat: (val: ExerciseInputs[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputExerciseInputs.vue')
+  // ),
+}
+
+/**
+ * Measurement Inputs field used by measurements.
+ */
+export const measurementInputsField: FieldBlueprint = {
+  field: DatabaseField.MEASUREMENT_INPUTS,
+  label: 'Measurement Inputs',
+  inspectFormat: (val: MeasurementInputs[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputMeasurementInputs.vue')
+  // ),
+}
+
+/**
+ * Finished Timestamp field used by workout results and active workouts.
+ */
+export const finishedTimestampField: FieldBlueprint = {
+  field: DatabaseField.FINISHED_TIMESTAMP,
+  label: 'Finished Date',
+  inspectFormat: (val: number) => getDisplayDate(val),
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputFinishedTimestamp.vue.vue')
+  // ),
+}
+
+/**
+ * Exercise Result Ids field used by workout results and active workouts.
+ */
+export const exerciseResultIdsField: FieldBlueprint = {
+  field: DatabaseField.EXERCISE_RESULT_IDS,
+  label: 'Exercise Result Ids',
+  inspectFormat: (val: string[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputExerciseResultIds.vue')
+  // ),
+}
+
+/**
+ * Reps field used by exercise results and active exercises.
+ */
+export const repsField: FieldBlueprint = {
+  field: DatabaseField.REPS,
+  label: 'Reps',
+  inspectFormat: (val: number[]) => `${val}`,
+  // component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputReps.vue')),
+}
+
+/**
+ * Weight Lbs field used by exercise results and active exercises.
+ */
+export const weightLbsField: FieldBlueprint = {
+  field: DatabaseField.WEIGHT_LBS,
+  label: 'Weight (lbs)',
+  inspectFormat: (val: number[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputWeightLbs.vue')
+  // ),
+}
+
+/**
+ * Weight Kg field used by exercise results and active exercises.
+ */
+export const weightKgField: FieldBlueprint = {
+  field: DatabaseField.WEIGHT_KG,
+  label: 'Weight (kg)',
+  inspectFormat: (val: number[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputWeightKg.vue')
+  // ),
+}
+
+/**
+ * Distance Miles field used by exercise results and active exercises.
+ */
+export const distanceMilesField: FieldBlueprint = {
+  field: DatabaseField.DISTANCE_MILES,
+  label: 'Distance (miles)',
+  inspectFormat: (val: number[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputDistanceMiles.vue')
+  // ),
+}
+
+/**
+ * Distance Km field used by exercise results and active exercises.
+ */
+export const distanceKmField: FieldBlueprint = {
+  field: DatabaseField.DISTANCE_KM,
+  label: 'Distance (km)',
+  inspectFormat: (val: number[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputDistanceKm.vue')
+  // ),
+}
+
+/**
+ * Duration Minutes field used by exercise results and active exercises.
+ */
+export const durationMinutesField: FieldBlueprint = {
+  field: DatabaseField.DURATION_MINUTES,
+  label: 'Duration (minutes)',
+  inspectFormat: (val: number[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputDurationMinutes.vue')
+  // ),
+}
+
+/**
+ * Resistance field used by exercise results and active exercises.
+ */
+export const resistanceField: FieldBlueprint = {
+  field: DatabaseField.RESISTANCE,
+  label: 'Resistance',
+  inspectFormat: (val: number[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputResistance.vue')
+  // ),
+}
+
+/**
+ * Measurement Values field used by measurement results.
+ */
+export const measurementValuesField: FieldBlueprint = {
+  field: DatabaseField.MEASUREMENT_VALUES,
+  label: 'Measurement Values',
+  inspectFormat: (val: number[]) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputMeasurementValues.vue')
+  // ),
 }

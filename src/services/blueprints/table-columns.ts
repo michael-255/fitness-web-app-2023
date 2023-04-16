@@ -1,4 +1,10 @@
-import { DatabaseField, DatabaseType, Severity } from '@/types/database'
+import {
+  DatabaseField,
+  DatabaseType,
+  ExerciseInputs,
+  MeasurementInputs,
+  Severity,
+} from '@/types/database'
 import type { AppObject } from '@/types/misc'
 import { truncateString } from '@/utils/common'
 import { getDisplayDate } from '@/utils/common'
@@ -224,14 +230,183 @@ export const noteColumn: QTableColumn = {
 }
 
 /**
- * Number column used by child records.
+ * Active column used by Active Workouts and Active Exercises. Format converts boolean to Yes/No.
  */
-export const numberColumn: QTableColumn = {
-  name: DatabaseField.NUMBER,
-  label: 'Number',
+export const activeColumn: QTableColumn = {
+  name: DatabaseField.IS_ACTIVE,
+  label: 'Active',
   align: 'left',
   sortable: true,
   required: false,
-  field: (row: any) => row[DatabaseField.NUMBER],
-  format: (val: number) => `${val}`,
+  field: (row: any) => row[DatabaseField.IS_ACTIVE],
+  format: (val: boolean) => (val ? 'Yes' : 'No'),
+}
+
+/**
+ * Exercise Ids column used by Workouts. Format truncates value in case it is to large.
+ */
+export const exerciseIdsColumn: QTableColumn = {
+  name: DatabaseField.EXERCISE_IDS,
+  label: 'Exercise Ids',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.EXERCISE_IDS],
+  format: (val: string[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Exercise Inputs column used by Exercises. Format truncates value in case it is to large.
+ */
+export const exerciseInputsColumn: QTableColumn = {
+  name: DatabaseField.EXERCISE_INPUTS,
+  label: 'Exercise Inputs',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.EXERCISE_INPUTS],
+  format: (val: ExerciseInputs[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Measurement Inputs column used by Measurements. Format truncates value in case it is to large.
+ */
+export const measurementInputsColumn: QTableColumn = {
+  name: DatabaseField.MEASUREMENT_INPUTS,
+  label: 'Measurement Inputs',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.MEASUREMENT_INPUTS],
+  format: (val: MeasurementInputs[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Finished Date column used by Active Workouts and Active Exercises. Format converts the timestamp to a readable date.
+ */
+export const finishedTimestampColumn: QTableColumn = {
+  name: DatabaseField.FINISHED_TIMESTAMP,
+  label: 'Finished Date',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.FINISHED_TIMESTAMP],
+  format: (val: number) => getDisplayDate(val),
+}
+
+/**
+ * Exercise Result Ids column used by Workout Results. Format truncates value in case it is to large.
+ */
+export const exerciseResultIdsColumn: QTableColumn = {
+  name: DatabaseField.EXERCISE_RESULT_IDS,
+  label: 'Exercise Result Ids',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.EXERCISE_RESULT_IDS],
+  format: (val: string[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Reps column used by Exercise Results. Format truncates value in case it is to large.
+ */
+export const repsColumn: QTableColumn = {
+  name: DatabaseField.REPS,
+  label: 'Reps',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.REPS],
+  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Weight Lbs column used by Exercise Results. Format truncates value in case it is to large.
+ */
+export const weightLbsColumn: QTableColumn = {
+  name: DatabaseField.WEIGHT_LBS,
+  label: 'Weight (lbs)',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.WEIGHT_LBS],
+  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Weight Kg column used by Exercise Results. Format truncates value in case it is to large.
+ */
+export const weightKgColumn: QTableColumn = {
+  name: DatabaseField.WEIGHT_KG,
+  label: 'Weight (kg)',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.WEIGHT_KG],
+  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Distance Miles column used by Exercise Results. Format truncates value in case it is to large.
+ */
+export const distanceMilesColumn: QTableColumn = {
+  name: DatabaseField.DISTANCE_MILES,
+  label: 'Distance (miles)',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.DISTANCE_MILES],
+  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Distance Km column used by Exercise Results. Format truncates value in case it is to large.
+ */
+export const distanceKmColumn: QTableColumn = {
+  name: DatabaseField.DISTANCE_KM,
+  label: 'Distance (km)',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.DISTANCE_KM],
+  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Duration Minutes column used by Exercise Results. Format truncates value in case it is to large.
+ */
+export const durationMinutesColumn: QTableColumn = {
+  name: DatabaseField.DURATION_MINUTES,
+  label: 'Duration (minutes)',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.DURATION_MINUTES],
+  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Resistance column used by Exercise Results. Format truncates value in case it is to large.
+ */
+export const resistanceColumn: QTableColumn = {
+  name: DatabaseField.RESISTANCE,
+  label: 'Resistance',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.RESISTANCE],
+  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
+}
+
+/**
+ * Measurement Values column used by Measurement Results. Format truncates value in case it is to large.
+ */
+export const measurementValuesColumn: QTableColumn = {
+  name: DatabaseField.MEASUREMENT_VALUES,
+  label: 'Measurement Values',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.MEASUREMENT_VALUES],
+  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
 }

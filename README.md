@@ -7,7 +7,8 @@ view charts of your progress and export your data at any time.
 
 Reference `ideas` document for more details.
 
-- [ ] New `Blueprints`
+- [ ] Create some default record generators in `useDefaults`
+- [ ] Test overall functionality with defaults (actions, views, etc.)
 
 ## Post Cloning Steps
 

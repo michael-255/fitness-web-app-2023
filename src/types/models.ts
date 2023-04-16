@@ -28,6 +28,7 @@ export interface DatabaseRecord {
   [DatabaseField.IS_ENABLED]?: boolean
   [DatabaseField.PARENT_ID]?: string
   [DatabaseField.NOTE]?: Optional<string>
+  [DatabaseField.IS_ACTIVE]?: boolean
   [DatabaseField.EXERCISE_IDS]?: string[]
   [DatabaseField.EXERCISE_INPUTS]?: ExerciseInputs[]
   [DatabaseField.MEASUREMENT_INPUTS]?: MeasurementInputs[]
@@ -115,6 +116,7 @@ export type WorkoutResult = Pick<
   | DatabaseField.ID
   | DatabaseField.PARENT_ID
   | DatabaseField.NOTE
+  | DatabaseField.IS_ACTIVE
   | DatabaseField.FINISHED_TIMESTAMP
   | DatabaseField.EXERCISE_RESULT_IDS
 >
@@ -128,6 +130,7 @@ export type ExerciseResult = Pick<
   | DatabaseField.ID
   | DatabaseField.PARENT_ID
   | DatabaseField.NOTE
+  | DatabaseField.IS_ACTIVE
   | DatabaseField.REPS
   | DatabaseField.WEIGHT_LBS
   | DatabaseField.WEIGHT_KG
@@ -146,5 +149,6 @@ export type MeasurementResult = Pick<
   | DatabaseField.ID
   | DatabaseField.PARENT_ID
   | DatabaseField.NOTE
+  | DatabaseField.IS_ACTIVE
   | DatabaseField.MEASUREMENT_VALUES
 >
