@@ -359,19 +359,6 @@ export const weightLbsColumn: QTableColumn = {
 }
 
 /**
- * Weight Kg column used by Exercise Results. Format truncates value in case it is to large.
- */
-export const weightKgColumn: QTableColumn = {
-  name: DatabaseField.WEIGHT_KG,
-  label: 'Weight (kg)',
-  align: 'left',
-  sortable: true,
-  required: false,
-  field: (row: any) => row[DatabaseField.WEIGHT_KG],
-  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
-}
-
-/**
  * Distance Miles column used by Exercise Results. Format truncates value in case it is to large.
  */
 export const distanceMilesColumn: QTableColumn = {
@@ -381,19 +368,6 @@ export const distanceMilesColumn: QTableColumn = {
   sortable: true,
   required: false,
   field: (row: any) => row[DatabaseField.DISTANCE_MILES],
-  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
-}
-
-/**
- * Distance Km column used by Exercise Results. Format truncates value in case it is to large.
- */
-export const distanceKmColumn: QTableColumn = {
-  name: DatabaseField.DISTANCE_KM,
-  label: 'Distance (km)',
-  align: 'left',
-  sortable: true,
-  required: false,
-  field: (row: any) => row[DatabaseField.DISTANCE_KM],
   format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
 }
 

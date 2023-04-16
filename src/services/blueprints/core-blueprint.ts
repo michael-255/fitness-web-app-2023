@@ -28,6 +28,8 @@ import {
   finishedTimestampField,
   messageField,
   stackField,
+  exerciseResultIdsField,
+  measurementValuesField,
 } from '@/services/blueprints/field-bluprints'
 import {
   requiredTypeColumn,
@@ -51,19 +53,15 @@ import {
   activeColumn,
   messageColumn,
   stackColumn,
+  finishedTimestampColumn,
+  exerciseResultIdsColumn,
+  repsColumn,
+  weightLbsColumn,
+  distanceMilesColumn,
+  durationMinutesColumn,
+  resistanceColumn,
+  measurementValuesColumn,
 } from '@/services/blueprints/table-columns'
-import { exerciseResultIdsField } from '@/services/blueprints/field-bluprints'
-import { measurementValuesField } from '@/services/blueprints/field-bluprints'
-import { finishedTimestampColumn } from '@/services/blueprints/table-columns'
-import { exerciseResultIdsColumn } from '@/services/blueprints/table-columns'
-import { repsColumn } from '@/services/blueprints/table-columns'
-import { weightLbsColumn } from '@/services/blueprints/table-columns'
-import { weightKgColumn } from '@/services/blueprints/table-columns'
-import { distanceMilesColumn } from '@/services/blueprints/table-columns'
-import { distanceKmColumn } from '@/services/blueprints/table-columns'
-import { durationMinutesColumn } from '@/services/blueprints/table-columns'
-import { resistanceColumn } from '@/services/blueprints/table-columns'
-import { measurementValuesColumn } from '@/services/blueprints/table-columns'
 
 /*
 This file contains the core blueprints for all database types.
@@ -356,9 +354,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       activeColumn,
       repsColumn,
       weightLbsColumn,
-      weightKgColumn,
       distanceMilesColumn,
-      distanceKmColumn,
       durationMinutesColumn,
       resistanceColumn,
     ],
