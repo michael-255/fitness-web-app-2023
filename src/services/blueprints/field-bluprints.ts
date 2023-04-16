@@ -2,8 +2,8 @@ import {
   DatabaseField,
   Severity,
   type SettingValue,
-  ExerciseInputs,
-  MeasurementInputs,
+  ExerciseInput,
+  MeasurementInput,
 } from '@/types/database'
 import type { AppObject, FieldBlueprint } from '@/types/misc'
 import { getDisplayDate } from '@/utils/common'
@@ -78,7 +78,7 @@ export const labelField: FieldBlueprint = {
 export const detailsField: FieldBlueprint = {
   field: DatabaseField.DETAILS,
   label: 'Details',
-  inspectFormat: (val: AppObject) => JSON.stringify(val),
+  inspectFormat: (val: any) => JSON.stringify(val),
 }
 
 /**
@@ -181,9 +181,9 @@ export const exerciseIdsField: FieldBlueprint = {
 export const exerciseInputsField: FieldBlueprint = {
   field: DatabaseField.EXERCISE_INPUTS,
   label: 'Exercise Inputs',
-  inspectFormat: (val: ExerciseInputs[]) => `${val}`,
+  inspectFormat: (val: ExerciseInput[]) => `${val}`,
   // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputExerciseInputs.vue')
+  //   () => import('@/components/action-inputs/ActionInputExerciseInput.vue')
   // ),
 }
 
@@ -193,9 +193,9 @@ export const exerciseInputsField: FieldBlueprint = {
 export const measurementInputsField: FieldBlueprint = {
   field: DatabaseField.MEASUREMENT_INPUTS,
   label: 'Measurement Inputs',
-  inspectFormat: (val: MeasurementInputs[]) => `${val}`,
+  inspectFormat: (val: MeasurementInput[]) => `${val}`,
   // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputMeasurementInputs.vue')
+  //   () => import('@/components/action-inputs/ActionInputMeasurementInput.vue')
   // ),
 }
 

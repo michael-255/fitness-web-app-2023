@@ -1,6 +1,6 @@
 import Dexie, { liveQuery, type Table } from 'dexie'
 import type { DatabaseRecord, Log, Setting } from '@/types/models'
-import { LogRetention, Milliseconds, type AppObject, AppName } from '@/types/misc'
+import { LogRetention, Milliseconds, AppName } from '@/types/misc'
 import { Dark, uid } from 'quasar'
 import {
   DatabaseVersion,
@@ -129,14 +129,14 @@ export class LocalDatabase extends Dexie {
    * @param label
    * @param details
    */
-  async addLog(severity: Severity, label: string, details?: AppObject) {
+  async addLog(severity: Severity, label: string, details?: any) {
     const log: Log = {
       [DatabaseField.TYPE]: DatabaseType.LOG,
       [DatabaseField.ID]: uid(),
       [DatabaseField.CREATED_TIMESTAMP]: new Date().getTime(),
       [DatabaseField.SEVERITY]: severity,
       [DatabaseField.LABEL]: label,
-      [DatabaseField.DETAILS]: details,
+      [DatabaseField.DETAILS]: details?.stack,
     }
 
     return await this.Records.add(log as DatabaseRecord)

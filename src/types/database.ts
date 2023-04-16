@@ -123,20 +123,20 @@ export enum Severity {
 /**
  * Available measurement input types.
  */
-export enum MeasurementInputs {
+export enum MeasurementInput {
   LBS = 'Lbs',
   FEET = 'Feet',
   INCHES = 'Inches',
   PERCENT = '%',
   BEATS_PER_MINUTE = 'BPM',
-  BLODD_PRESSURE_SYSTOLIC = 'Systolic',
-  BLODD_PRESSURE_DIASTOLIC = 'Diastolic',
+  BP_SYSTOLIC = 'Systolic',
+  BP_DIASTOLIC = 'Diastolic',
 }
 
 /**
  * Available exercise input types.
  */
-export enum ExerciseInputs {
+export enum ExerciseInput {
   REMINDER = 'Reminder',
   CONFIRMATION = 'Confirmation',
   MULTIPLE_SETS = 'Multiple Sets',

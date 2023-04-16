@@ -21,7 +21,7 @@ const { log } = useLogger()
 const { notify } = useNotifications()
 const { confirmDialog } = useDialogs()
 const { goToData, goToRecordCuring } = useRoutables()
-const { onDefaults } = useDefaults()
+const { onAddBarbellStrengthWorkouts } = useDefaults()
 
 // Data
 const settings: Ref<any[]> = ref([])
@@ -294,11 +294,13 @@ async function onDeleteDatabase() {
         <div class="text-h6 q-mb-md">Defaults</div>
 
         <!-- Examples -->
-        <div class="q-mb-md">
-          Load default demostration records into the database. This action can be repeated.
-        </div>
+        <div class="q-mb-md">Load Barbell Strength workouts into the database.</div>
 
-        <QBtn label="Load Examples" color="primary" @click="onDefaults()" />
+        <QBtn
+          label="Load Barbell Strength Workouts"
+          color="primary"
+          @click="onAddBarbellStrengthWorkouts()"
+        />
       </QCardSection>
     </QCard>
 

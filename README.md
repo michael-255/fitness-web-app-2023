@@ -9,6 +9,7 @@ Reference `ideas` document for more details.
 
 - [ ] Create some default record generators in `useDefaults`
 - [ ] Test overall functionality with defaults (actions, views, etc.)
+- [ ] Correct test files
 
 ## Post Cloning Steps
 

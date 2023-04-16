@@ -1,9 +1,8 @@
-import type { AppObject } from '@/types/misc'
 import type {
   DatabaseField,
   DatabaseType,
-  ExerciseInputs,
-  MeasurementInputs,
+  ExerciseInput,
+  MeasurementInput,
   SettingId,
   SettingValue,
   Severity,
@@ -21,7 +20,7 @@ export interface DatabaseRecord {
   [DatabaseField.CREATED_TIMESTAMP]?: number
   [DatabaseField.SEVERITY]?: Severity
   [DatabaseField.LABEL]?: string
-  [DatabaseField.DETAILS]?: Optional<AppObject>
+  [DatabaseField.DETAILS]?: Optional<any>
   [DatabaseField.NAME]?: string
   [DatabaseField.DESCRIPTION]?: Optional<string>
   [DatabaseField.IS_FAVORITED]?: boolean
@@ -30,8 +29,8 @@ export interface DatabaseRecord {
   [DatabaseField.NOTE]?: Optional<string>
   [DatabaseField.IS_ACTIVE]?: boolean
   [DatabaseField.EXERCISE_IDS]?: string[]
-  [DatabaseField.EXERCISE_INPUTS]?: ExerciseInputs[]
-  [DatabaseField.MEASUREMENT_INPUTS]?: MeasurementInputs[]
+  [DatabaseField.EXERCISE_INPUTS]?: ExerciseInput[]
+  [DatabaseField.MEASUREMENT_INPUTS]?: MeasurementInput[]
   [DatabaseField.FINISHED_TIMESTAMP]?: Optional<number>
   [DatabaseField.EXERCISE_RESULT_IDS]?: string[]
   [DatabaseField.REPS]?: number[]

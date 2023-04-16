@@ -1,11 +1,10 @@
 import {
   DatabaseField,
   DatabaseType,
-  ExerciseInputs,
-  MeasurementInputs,
+  ExerciseInput,
+  MeasurementInput,
   Severity,
 } from '@/types/database'
-import type { AppObject } from '@/types/misc'
 import { truncateString } from '@/utils/common'
 import { getDisplayDate } from '@/utils/common'
 import type { QTableColumn } from 'quasar'
@@ -135,7 +134,7 @@ export const detailsColumn: QTableColumn = {
   sortable: false,
   required: false,
   field: (row: any) => row[DatabaseField.DETAILS],
-  format: (val: AppObject) => truncateString(JSON.stringify(val), 30, '...'),
+  format: (val: any) => truncateString(JSON.stringify(val), 30, '...'),
 }
 
 /**
@@ -265,7 +264,7 @@ export const exerciseInputsColumn: QTableColumn = {
   sortable: true,
   required: false,
   field: (row: any) => row[DatabaseField.EXERCISE_INPUTS],
-  format: (val: ExerciseInputs[]) => truncateString(JSON.stringify(val), 30, '...'),
+  format: (val: ExerciseInput[]) => truncateString(JSON.stringify(val), 30, '...'),
 }
 
 /**
@@ -278,7 +277,7 @@ export const measurementInputsColumn: QTableColumn = {
   sortable: true,
   required: false,
   field: (row: any) => row[DatabaseField.MEASUREMENT_INPUTS],
-  format: (val: MeasurementInputs[]) => truncateString(JSON.stringify(val), 30, '...'),
+  format: (val: MeasurementInput[]) => truncateString(JSON.stringify(val), 30, '...'),
 }
 
 /**

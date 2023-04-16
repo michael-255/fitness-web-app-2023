@@ -10,7 +10,7 @@ import DB from '@/services/LocalDatabase'
 
 // Composables & Stores
 const uiStore = useUIStore()
-const { onDefaults } = useDefaults()
+const { onAddBarbellStrengthWorkouts, onAddStandardMeasurements } = useDefaults()
 
 // Data
 const exampleFavorite: Ref<number> = ref(0)
@@ -68,16 +68,24 @@ async function onCloseIntroduction() {
 
       <!-- Defaults Information -->
       <div class="q-mb-md">
-        You can load default demostration data into the database to get started with the app right
-        away by clicking the button below. This action can be repeated.
+        You can add some default records into the database to help you get started with the app
+        right away by clicking the button below.
       </div>
 
       <QBtn
         color="primary"
         class="q-mb-md"
-        label="Add Defaults"
+        label="Barbell Strength Workouts"
         :icon="Icon.ADD_NOTE"
-        @click="onDefaults()"
+        @click="onAddBarbellStrengthWorkouts()"
+      />
+
+      <QBtn
+        color="primary"
+        class="q-mb-md"
+        label="Standard Measurements"
+        :icon="Icon.ADD_NOTE"
+        @click="onAddStandardMeasurements()"
       />
 
       <!-- Donation Information -->

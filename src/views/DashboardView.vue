@@ -124,7 +124,7 @@ const subscription = DB.liveDashboard().subscribe({
     // Group favorites at the top
     favorites = dashboardMeasurements.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
     nonFavorites = dashboardMeasurements.filter((r) => r[DatabaseField.IS_FAVORITED] === false)
-    dashboardParentRefs[1].value = [...favorites, ...nonFavorites]
+    dashboardParentRefs[2].value = [...favorites, ...nonFavorites]
   },
   error: (error) => {
     log.error('Error loading live dashboard records', error)
@@ -201,8 +201,8 @@ onUnmounted(() => {
     </div>
 
     <!-- Measurements - Using v-show so the DOM doesn't get updated when switching selections -->
-    <div v-show="uiStore.dashboardListIndex === 1">
-      <div v-for="(record, j) in dashboardParentRefs[1].value" :key="j">
+    <div v-show="uiStore.dashboardListIndex === 2">
+      <div v-for="(record, j) in dashboardParentRefs[2].value" :key="j">
         <DashboardParentCard
           :type="record[DatabaseField.TYPE]"
           :id="record[DatabaseField.ID]"
