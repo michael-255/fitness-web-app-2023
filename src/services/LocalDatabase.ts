@@ -13,6 +13,8 @@ import {
   type SettingValue,
 } from '@/types/database'
 import { getUserCategoryTypes } from '@/services/Blueprints'
+import { getParentCategoryTypes } from '@/services/Blueprints'
+import { getChildCategoryTypes } from '@/services/Blueprints'
 
 /**
  * A Dexie wrapper class that acts as a local database.
@@ -99,13 +101,35 @@ export class LocalDatabase extends Dexie {
   }
 
   /**
-   * Observable of the provided database type sorted by the created timestamp.
+   * Observable of the provided database type with preferred sorting.
    * @param type
    */
   liveDataType(type: DatabaseType) {
-    return liveQuery(() =>
-      this.Records.where(DatabaseField.TYPE).equals(type).sortBy(DatabaseField.CREATED_TIMESTAMP)
-    )
+    if (getParentCategoryTypes().includes(type as DatabaseParentType)) {
+      // Parent types are sorted by name
+      return liveQuery(() =>
+        this.Records.where(DatabaseField.TYPE).equals(type).sortBy(DatabaseField.NAME)
+      )
+    } else if (
+      getChildCategoryTypes().includes(type as DatabaseChildType) ||
+      type === DatabaseType.LOG
+    ) {
+      // Child types and Logs are sorted by created timestamp in reverse order (desc).
+      return liveQuery(() =>
+        this.Records.where(DatabaseField.TYPE)
+          .equals(type)
+          .reverse()
+          .sortBy(DatabaseField.CREATED_TIMESTAMP)
+      )
+    } else if (type === DatabaseType.SETTING) {
+      // Settings are sorted by id
+      return liveQuery(() =>
+        this.Records.where(DatabaseField.TYPE).equals(type).sortBy(DatabaseField.ID)
+      )
+    } else {
+      // Everything else is not sorted
+      return liveQuery(() => this.Records.where(DatabaseField.TYPE).equals(type).toArray())
+    }
   }
 
   /**

@@ -115,6 +115,7 @@ export type WorkoutResult = Pick<
   DatabaseRecord,
   | DatabaseField.TYPE
   | DatabaseField.ID
+  | DatabaseField.CREATED_TIMESTAMP
   | DatabaseField.PARENT_ID
   | DatabaseField.NOTE
   | DatabaseField.IS_ACTIVE
@@ -129,6 +130,7 @@ export type ExerciseResult = Pick<
   DatabaseRecord,
   | DatabaseField.TYPE
   | DatabaseField.ID
+  | DatabaseField.CREATED_TIMESTAMP
   | DatabaseField.PARENT_ID
   | DatabaseField.NOTE
   | DatabaseField.IS_ACTIVE
@@ -146,6 +148,7 @@ export type MeasurementResult = Pick<
   DatabaseRecord,
   | DatabaseField.TYPE
   | DatabaseField.ID
+  | DatabaseField.CREATED_TIMESTAMP
   | DatabaseField.PARENT_ID
   | DatabaseField.NOTE
   | DatabaseField.IS_ACTIVE

@@ -32,6 +32,14 @@ view charts of your progress and export your data at any time.
 - [ ] Show a bell and `Description` if no inputs on `ExerciseInput` (no not save record)
 - [ ] Test overall functionality with defaults (actions, views, etc.)
 - [ ] Separate import function for legacy `fitness-tracker-v16` data records in `Settings`
+
+  - [ ] Use `workouts` key
+  - [ ] Use `exercises` key
+  - [ ] Use `measurements` key
+  - [ ] Use `workoutRecords` key
+  - [ ] Use `exerciseRecords` key
+  - [ ] Use `measurementRecords` key
+
 - [ ] Implement `Active Workout` view
 
   - [ ] Exercise inputs should display previous performance (135 lbs, as orange placeholder text?)
