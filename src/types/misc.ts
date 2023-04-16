@@ -11,12 +11,23 @@ import type { Icon } from '@/types/icons'
 import type { DatabaseRecord } from '@/types/models'
 import type { QTableColumn } from 'quasar'
 
-// Application strings
+/**
+ * App display name.
+ */
 export const AppName = 'Fitness Tracker'
 
+/**
+ * App description used in useMeta and About page.
+ */
 export const AppDescription = `
 ${AppName} is a simple application for tracking workouts, exercises, and measurements. You can view charts of your progress and export your data at any time.
 `
+
+/**
+ * App header color. Must be a valid Quasar color.
+ * @see https://quasar.dev/style/color-palette
+ */
+export const AppHeaderColor = 'red-10'
 
 /**
  * Type that allows for a value to be null or undefined.
