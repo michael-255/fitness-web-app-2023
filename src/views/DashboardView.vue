@@ -167,10 +167,9 @@ onUnmounted(() => {
           class="q-mb-md"
         >
           <QBtn
-            outline
+            round
             color="positive"
-            label="Add Record"
-            :icon="Icon.NEW"
+            :icon="Icon.ADD_NOTE"
             @click="goToCreate(DatabaseType.WORKOUT_RESULT, record[DatabaseField.ID])"
           />
         </DashboardParentCard>
@@ -190,10 +189,9 @@ onUnmounted(() => {
           class="q-mb-md"
         >
           <QBtn
-            outline
+            round
             color="positive"
-            label="Add Record"
-            :icon="Icon.NEW"
+            :icon="Icon.ADD_NOTE"
             @click="goToCreate(DatabaseType.EXERCISE_RESULT, record[DatabaseField.ID])"
           />
         </DashboardParentCard>
@@ -213,10 +211,9 @@ onUnmounted(() => {
           class="q-mb-md"
         >
           <QBtn
-            outline
+            round
             color="positive"
-            label="Add Record"
-            :icon="Icon.NEW"
+            :icon="Icon.ADD_NOTE"
             @click="goToCreate(DatabaseType.MEASUREMENT_RESULT, record[DatabaseField.ID])"
           />
         </DashboardParentCard>
