@@ -27,7 +27,7 @@ ${AppName} is a simple application for tracking workouts, exercises, and measure
  * App header color. Must be a valid Quasar color.
  * @see https://quasar.dev/style/color-palette
  */
-export const AppHeaderColor = 'red-10'
+export const AppHeaderColor = 'deep-orange-14'
 
 /**
  * Type that allows for a value to be null or undefined.

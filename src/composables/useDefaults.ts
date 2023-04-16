@@ -134,12 +134,244 @@ export default function useDefaults() {
   }
 
   /**
+   * On confirmation, add the stretch routine into the database.
+   */
+  async function onAddStretchRoutine() {
+    confirmDialog(
+      'Add Stretch Routine',
+      `Would you like to add the Stretch Routine into the database?`,
+      Icon.INFO,
+      'info',
+      async () => {
+        try {
+          const records: DatabaseRecord[] = [
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'e0cd33be-e28a-46c3-80e6-263240ad5b87',
+              [DatabaseField.NAME]: 'Lying Glute Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Lying on your back, bring your knee to your chest and then across your body. Hold for 30 seconds and then repeat on the other side.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '9007a082-249b-48b7-ba59-463d58a20ba5',
+              [DatabaseField.NAME]: 'Pigeon Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Bring one leg in front of you at an angle with the other behind you. Hold for 30 seconds and then repeat on the other side.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '8653a6cf-8d26-4115-bda3-d28598065d02',
+              [DatabaseField.NAME]: 'Frog Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Get on all fours and spread your knees apart. Hold for 30 seconds.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'a6e35a70-9249-4515-a45f-6b7787e23156',
+              [DatabaseField.NAME]: 'Standing Quad Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Standing on one leg, bring your other leg up behind you. Hold for 30 seconds and then repeat on the other side.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '7f40466f-8621-4567-9181-5fd45fa2418b',
+              [DatabaseField.NAME]: 'Standing Toe Touch Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Standing with your legs straight, bend over and try to touch your toes. Hold for 30 seconds.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'a291154a-bd22-4738-8559-0e4ee48e570d',
+              [DatabaseField.NAME]: 'Standing Calf Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Lean against a wall with one leg in front of the other. Hold for 30 seconds and then repeat on the other side. Alternatively, you can do both legs at the same time.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '5756d452-9272-4cbd-a144-e2b98acf8a3f',
+              [DatabaseField.NAME]: 'Standing Chest Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Lean against a wall with your elbows behind you. Hold for 15 seconds.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '66c24ef3-0d53-460f-bff4-4888fb687b93',
+              [DatabaseField.NAME]: 'Cross Spinal Foam Roll',
+              [DatabaseField.DESCRIPTION]:
+                'Foam roll your back going up and down your spine for 90 seconds.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '2a940995-08fc-4faf-9e52-d94f01e684b8',
+              [DatabaseField.NAME]: 'Parallel Spinal Foam Roll',
+              [DatabaseField.DESCRIPTION]:
+                'Lay on a foam roller with it aligned with your spine. Rest with your arms out to the side for 90 seconds.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.WORKOUT,
+              [DatabaseField.ID]: '80add653-aa96-4253-9d94-a30cb10cfa5f',
+              [DatabaseField.NAME]: 'Stretch Routine',
+              [DatabaseField.DESCRIPTION]:
+                'Simple routine with a variety of stretches focusing on larger muscle groups to help you relax and recover.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_IDS]: [
+                'e0cd33be-e28a-46c3-80e6-263240ad5b87',
+                '9007a082-249b-48b7-ba59-463d58a20ba5',
+                '8653a6cf-8d26-4115-bda3-d28598065d02',
+                'a6e35a70-9249-4515-a45f-6b7787e23156',
+                '7f40466f-8621-4567-9181-5fd45fa2418b',
+                'a291154a-bd22-4738-8559-0e4ee48e570d',
+                '5756d452-9272-4cbd-a144-e2b98acf8a3f',
+                '66c24ef3-0d53-460f-bff4-4888fb687b93',
+                '2a940995-08fc-4faf-9e52-d94f01e684b8',
+              ],
+            } as Workout,
+          ]
+
+          await DB.bulkAddRecords(records)
+          log.info('Stretch Routine added')
+        } catch (error) {
+          log.error('Failed to add Stretch Routine', error)
+        }
+      }
+    )
+  }
+
+  /**
+   * On confirmation, add the carpal tunnel routine into the database.
+   */
+  async function onAddCarpalTunnelRoutine() {
+    confirmDialog(
+      'Add Carpal Tunnel Routine',
+      `Would you like to add the Carpal Tunnel Routine into the database?`,
+      Icon.INFO,
+      'info',
+      async () => {
+        try {
+          const records: DatabaseRecord[] = [
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'db513a6b-b0c0-497a-a034-7456d072d98b',
+              [DatabaseField.NAME]: 'Median Nerve Sliders',
+              [DatabaseField.DESCRIPTION]:
+                'Bring you hand in front of your face, then fully extend your arm to the side while stretching your hand back and forth. Repeat 15 times on each hand.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '3776575a-3c89-4286-904f-f724bd143aca',
+              [DatabaseField.NAME]: 'Fist, Knuckle, Finger Extensions',
+              [DatabaseField.DESCRIPTION]:
+                'Start with your hands in a fist, then role out to your knuckles, and then extend your fingers. Repeat 15 times.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'ceac93d5-6db9-4cca-bcaf-570a25e4a282',
+              [DatabaseField.NAME]: 'Finger Tip Flexion',
+              [DatabaseField.DESCRIPTION]:
+                'Flex each of your finger (including your thumbs) without bending your knuckles if possible one at a time. Repeat 15 times per finger.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'e7ddd519-807e-456e-9cb5-7496be50cb9c',
+              [DatabaseField.NAME]: 'Finger Knuckle Flexion',
+              [DatabaseField.DESCRIPTION]:
+                'Flex each of your finger knuckles one at a time. Repeat 15 times per finger (minus the thumb).',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'ee84a9f7-961c-4dbc-bf97-aa9f5b8a353e',
+              [DatabaseField.NAME]: 'In/Out Thumb Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Touch your thumbs as close to the base of your pinky as possible, then open your hands and spread them far apart. Repeat 15 times.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_IDS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'f66d5c5f-03fc-43a4-b0f3-af0af58b41a7',
+              [DatabaseField.NAME]: 'Gentle Wrist Stretch',
+              [DatabaseField.DESCRIPTION]:
+                'Relax your arms in a T-Rex position, then bring them back while opening your hands for a brief stretch. Repeat 15 times.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_IDS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.WORKOUT,
+              [DatabaseField.ID]: 'cba94a35-d450-4d0f-955f-df6315522622',
+              [DatabaseField.NAME]: 'Carpal Tunnel Routine',
+              [DatabaseField.DESCRIPTION]: 'Physical therapy routine for carpal tunnel syndrome.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_IDS]: [
+                'db513a6b-b0c0-497a-a034-7456d072d98b',
+                '3776575a-3c89-4286-904f-f724bd143aca',
+                'ceac93d5-6db9-4cca-bcaf-570a25e4a282',
+                'e7ddd519-807e-456e-9cb5-7496be50cb9c',
+                'ee84a9f7-961c-4dbc-bf97-aa9f5b8a353e',
+                'f66d5c5f-03fc-43a4-b0f3-af0af58b41a7',
+              ],
+            } as Workout,
+          ]
+
+          await DB.bulkAddRecords(records)
+          log.info('Carpal Tunnel Routine added')
+        } catch (error) {
+          log.error('Failed to add Carpal Tunnel Routine', error)
+        }
+      }
+    )
+  }
+
+  /**
    * On confirmation, add standard measurements into the database.
    */
   async function onAddStandardMeasurements() {
     confirmDialog(
       'Add Standard Measurements',
-      `Would you like to add the standard measurements into the database?`,
+      `Would you like to add the Standard Measurements into the database?`,
       Icon.INFO,
       'info',
       async () => {
@@ -295,13 +527,18 @@ export default function useDefaults() {
           ]
 
           await DB.bulkAddRecords(records)
-          log.info('Standard measurements added')
+          log.info('Standard Measurements added')
         } catch (error) {
-          log.error('Failed to add standard measurements', error)
+          log.error('Failed to add Standard Measurements', error)
         }
       }
     )
   }
 
-  return { onAddBarbellStrengthWorkouts, onAddStandardMeasurements }
+  return {
+    onAddBarbellStrengthWorkouts,
+    onAddStretchRoutine,
+    onAddCarpalTunnelRoutine,
+    onAddStandardMeasurements,
+  }
 }

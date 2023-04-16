@@ -10,7 +10,12 @@ import DB from '@/services/LocalDatabase'
 
 // Composables & Stores
 const uiStore = useUIStore()
-const { onAddBarbellStrengthWorkouts, onAddStandardMeasurements } = useDefaults()
+const {
+  onAddBarbellStrengthWorkouts,
+  onAddStretchRoutine,
+  onAddCarpalTunnelRoutine,
+  onAddStandardMeasurements,
+} = useDefaults()
 
 // Data
 const exampleFavorite: Ref<number> = ref(0)
@@ -78,6 +83,24 @@ async function onCloseIntroduction() {
           label="Barbell Strength Workouts"
           :icon="Icon.ADD_NOTE"
           @click="onAddBarbellStrengthWorkouts()"
+        />
+      </div>
+
+      <div class="q-mb-md">
+        <QBtn
+          color="primary"
+          label="Stretch Routine"
+          :icon="Icon.ADD_NOTE"
+          @click="onAddStretchRoutine()"
+        />
+      </div>
+
+      <div class="q-mb-md">
+        <QBtn
+          color="primary"
+          label="Carple Tunnel Routine"
+          :icon="Icon.ADD_NOTE"
+          @click="onAddCarpalTunnelRoutine()"
         />
       </div>
 

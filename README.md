@@ -7,6 +7,9 @@ view charts of your progress and export your data at any time.
 
 Reference `ideas` document for more details.
 
+- [ ] If no `ExerciseInput` is used on an exercise
+  - [ ] Show the `Description` with a reminder bell next to it
+  - [ ] Don't save the record to the database (nothing to record anyway)
 - [ ] Create some default record generators in `useDefaults`
 - [ ] Test overall functionality with defaults (actions, views, etc.)
 - [ ] Correct test files

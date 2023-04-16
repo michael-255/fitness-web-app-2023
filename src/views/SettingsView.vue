@@ -21,7 +21,12 @@ const { log } = useLogger()
 const { notify } = useNotifications()
 const { confirmDialog } = useDialogs()
 const { goToData, goToRecordCuring } = useRoutables()
-const { onAddBarbellStrengthWorkouts, onAddStandardMeasurements } = useDefaults()
+const {
+  onAddBarbellStrengthWorkouts,
+  onAddStretchRoutine,
+  onAddCarpalTunnelRoutine,
+  onAddStandardMeasurements,
+} = useDefaults()
 
 // Data
 const settings: Ref<any[]> = ref([])
@@ -305,6 +310,14 @@ async function onDeleteDatabase() {
             color="primary"
             @click="onAddBarbellStrengthWorkouts()"
           />
+        </div>
+
+        <div class="q-mb-md">
+          <QBtn label="Stretch Routine" color="primary" @click="onAddStretchRoutine()" />
+        </div>
+
+        <div class="q-mb-md">
+          <QBtn label="Carpal Tunnel Routine" color="primary" @click="onAddCarpalTunnelRoutine()" />
         </div>
 
         <div>
