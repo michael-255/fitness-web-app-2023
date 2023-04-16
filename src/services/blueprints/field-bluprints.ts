@@ -87,7 +87,7 @@ export const detailsField: FieldBlueprint = {
 export const messageField: FieldBlueprint = {
   field: DatabaseField.MESSAGE,
   label: 'Message',
-  inspectFormat: (val: string) => `${val}`,
+  inspectFormat: (val: string) => `${val ?? '-'}`,
 }
 
 /**
@@ -96,7 +96,7 @@ export const messageField: FieldBlueprint = {
 export const stackField: FieldBlueprint = {
   field: DatabaseField.STACK,
   label: 'Stack',
-  inspectFormat: (val: string) => `${val}`,
+  inspectFormat: (val: string) => `${val ?? '-'}`,
 }
 
 /**

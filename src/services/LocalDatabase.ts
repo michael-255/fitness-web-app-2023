@@ -149,7 +149,7 @@ export class LocalDatabase extends Dexie {
       log[DatabaseField.MESSAGE] = details.message
       log[DatabaseField.STACK] = details.stack
     } else {
-      log[DatabaseField.DETAILS] = JSON.stringify(details)
+      log[DatabaseField.DETAILS] = details
     }
 
     return await this.Records.add(log as DatabaseRecord)
