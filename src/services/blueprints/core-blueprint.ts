@@ -159,7 +159,6 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       descriptionField,
       favoritedField,
       enabledField,
-      activeField,
       exerciseIdsField,
     ],
     visibleColumns: [
@@ -206,7 +205,6 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       descriptionField,
       favoritedField,
       enabledField,
-      activeField,
       exerciseInputsField,
     ],
     visibleColumns: [
@@ -253,7 +251,6 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       descriptionField,
       favoritedField,
       enabledField,
-      activeField,
       measurementInputsField,
     ],
     visibleColumns: [
@@ -295,17 +292,24 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
     fieldBlueprints: [
       typeField,
       idField,
+      createdTimestampField,
       parentIdField,
       noteField,
       activeField,
       finishedTimestampField,
       exerciseResultIdsField,
     ],
-    visibleColumns: [DatabaseField.ID, DatabaseField.PARENT_ID, DatabaseField.FINISHED_TIMESTAMP],
+    visibleColumns: [
+      DatabaseField.ID,
+      DatabaseField.CREATED_TIMESTAMP,
+      DatabaseField.PARENT_ID,
+      DatabaseField.FINISHED_TIMESTAMP,
+    ],
     tableColumns: [
       requiredTypeColumn,
       requiredIdColumn,
       partialIdColumn,
+      createdTimestampColumn,
       parentIdColumn,
       noteColumn,
       activeColumn,
@@ -335,6 +339,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
     fieldBlueprints: [
       typeField,
       idField,
+      createdTimestampField,
       parentIdField,
       noteField,
       activeField,
@@ -344,11 +349,17 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       durationMinutesField,
       resistanceField,
     ],
-    visibleColumns: [DatabaseField.ID, DatabaseField.PARENT_ID, DatabaseField.NOTE],
+    visibleColumns: [
+      DatabaseField.ID,
+      DatabaseField.CREATED_TIMESTAMP,
+      DatabaseField.PARENT_ID,
+      DatabaseField.NOTE,
+    ],
     tableColumns: [
       requiredTypeColumn,
       requiredIdColumn,
       partialIdColumn,
+      createdTimestampColumn,
       parentIdColumn,
       noteColumn,
       activeColumn,
@@ -381,6 +392,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
     fieldBlueprints: [
       typeField,
       idField,
+      createdTimestampField,
       parentIdField,
       noteField,
       activeField,
@@ -388,6 +400,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
     ],
     visibleColumns: [
       DatabaseField.ID,
+      DatabaseField.CREATED_TIMESTAMP,
       DatabaseField.PARENT_ID,
       DatabaseField.NOTE,
       DatabaseField.MEASUREMENT_VALUES,
@@ -396,6 +409,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       requiredTypeColumn,
       requiredIdColumn,
       partialIdColumn,
+      createdTimestampColumn,
       parentIdColumn,
       noteColumn,
       activeColumn,

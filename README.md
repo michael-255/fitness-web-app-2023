@@ -7,10 +7,10 @@ view charts of your progress and export your data at any time.
 
 - [ ] Build `ActionInput*` components for `field-blueprints`
 
-  - [ ] `ActionInputActive`
-  - [ ] `ActionInputExerciseIds`
-  - [ ] `ActionInputExerciseInput`
-  - [ ] `ActionInputMeasurementInput`
+  - [x] `ActionInputActive`
+  - [x] `ActionInputExerciseIds`
+  - [x] `ActionInputExerciseInput`
+  - [x] `ActionInputMeasurementInput`
   - [ ] `ActionInputFinishedTimestamp`
   - [ ] `ActionInputExerciseResultIds`
   - [ ] `ActionInputReps`
@@ -28,6 +28,44 @@ view charts of your progress and export your data at any time.
   - [ ] `ChartExerciseDistance`
   - [ ] `ChartExerciseDuration`
   - [ ] `ChartExerciseResistance`
+
+- [ ] Chart Options Example:
+
+  ```typescript
+  export const numberChart: ChartBlueprint = {
+    label: 'Numbers',
+    chartOptions: {
+      reactive: true,
+      responsive: true,
+      radius: 2,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            title: (tooltipItem: any) => {
+              return date.formatDate(tooltipItem?.[0]?.label, 'ddd, YYYY MMM D, h:mm a')
+            },
+          },
+        },
+      },
+      interaction: {
+        intersect: false,
+      },
+      scales: {
+        x: {
+          ticks: {
+            autoSkip: true,
+            maxRotation: 70,
+            minRotation: 70,
+          },
+        },
+      },
+    },
+    component: defineAsyncComponent(() => import('@/components/charts/ChartNumbers.vue')),
+  }
+  ```
 
 - [ ] Show a bell and `Description` if no inputs on `ExerciseInput` (no not save record)
 - [ ] Test overall functionality with defaults (actions, views, etc.)

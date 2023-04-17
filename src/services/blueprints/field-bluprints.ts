@@ -167,7 +167,6 @@ export const noteField: FieldBlueprint = {
   component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputNote.vue')),
 }
 
-// TODO - Implement new action input components for these fields.
 /**
  * Active field used by child records. Inspection format converts boolean to Yes/No.
  * Used to determine if a workout or exercise result is active.
@@ -176,9 +175,7 @@ export const activeField: FieldBlueprint = {
   field: DatabaseField.IS_ACTIVE,
   label: 'Active',
   inspectFormat: (val: boolean) => (val ? 'Yes' : 'No'),
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputActive.vue')
-  // ),
+  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputActive.vue')),
 }
 
 /**
@@ -188,9 +185,9 @@ export const exerciseIdsField: FieldBlueprint = {
   field: DatabaseField.EXERCISE_IDS,
   label: 'Exercise Ids',
   inspectFormat: (val: string[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputExerciseIds.vue')
-  // ),
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputExerciseIds.vue')
+  ),
 }
 
 /**
@@ -200,9 +197,9 @@ export const exerciseInputsField: FieldBlueprint = {
   field: DatabaseField.EXERCISE_INPUTS,
   label: 'Exercise Inputs',
   inspectFormat: (val: ExerciseInput[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputExerciseInput.vue')
-  // ),
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputExerciseInputs.vue')
+  ),
 }
 
 /**
@@ -212,9 +209,9 @@ export const measurementInputsField: FieldBlueprint = {
   field: DatabaseField.MEASUREMENT_INPUTS,
   label: 'Measurement Inputs',
   inspectFormat: (val: MeasurementInput[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputMeasurementInput.vue')
-  // ),
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputMeasurementInputs.vue')
+  ),
 }
 
 /**

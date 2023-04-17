@@ -82,12 +82,16 @@ async function onCreateRecord() {
 }
 
 /**
- * Determines which fields are locked when a routeParentId is present.
+ * Determines which fields are locked and hidden when a routeParentId is present.
  * Having a routeParentId means you are creating a child record for a parent record.
  * @param field
  */
 function lockFields(field: DatabaseField) {
-  const lockedFields = [DatabaseField.PARENT_ID, DatabaseField.CREATED_TIMESTAMP]
+  const lockedFields = [
+    DatabaseField.PARENT_ID,
+    DatabaseField.CREATED_TIMESTAMP,
+    DatabaseField.IS_ACTIVE,
+  ]
 
   if (routeParentId && lockedFields.includes(field)) {
     return true

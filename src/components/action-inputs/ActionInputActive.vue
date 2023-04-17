@@ -13,9 +13,9 @@ defineProps<{
 const actionRecordStore = useActionRecordStore()
 
 onMounted(() => {
-  actionRecordStore.actionRecord[DatabaseField.IS_ENABLED] =
-    actionRecordStore.actionRecord[DatabaseField.IS_ENABLED] ?? true
-  actionRecordStore.valid[DatabaseField.IS_ENABLED] = true
+  actionRecordStore.actionRecord[DatabaseField.IS_ACTIVE] =
+    actionRecordStore.actionRecord[DatabaseField.IS_ACTIVE] ?? false
+  actionRecordStore.valid[DatabaseField.IS_ACTIVE] = true
 })
 </script>
 
@@ -23,17 +23,18 @@ onMounted(() => {
   <QCard v-show="!locked">
     <QCardSection>
       <div class="text-h6 q-mb-md">
-        Enabled
+        Active
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
       <div class="q-mb-md">
-        Toggle the record as enabled or not. Only enabled records will appear on the Dashboard.
+        Toggle whether this Child record is part of the current Active Workout. Do NOT edit this
+        value unless you know what you are doing.
       </div>
 
       <QToggle
         :disable="locked"
-        v-model="actionRecordStore.actionRecord[DatabaseField.IS_ENABLED]"
+        v-model="actionRecordStore.actionRecord[DatabaseField.IS_ACTIVE]"
       />
     </QCardSection>
   </QCard>
