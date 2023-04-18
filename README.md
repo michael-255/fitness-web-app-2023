@@ -11,7 +11,7 @@ view charts of your progress and export your data at any time.
   - [x] `ActionInputExerciseIds`
   - [x] `ActionInputExerciseInput`
   - [x] `ActionInputMeasurementInput`
-  - [ ] `ActionInputFinishedTimestamp`
+  - [x] `ActionInputFinishedTimestamp`
   - [ ] `ActionInputExerciseResultIds`
   - [ ] `ActionInputReps`
   - [ ] `ActionInputWeightLbs`

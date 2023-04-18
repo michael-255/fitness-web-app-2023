@@ -3,6 +3,7 @@ import { date } from 'quasar'
 import { onMounted, type Ref, ref } from 'vue'
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
+import type { Optional } from '@/types/misc'
 import useActionRecordStore from '@/stores/action-record'
 
 // Props & Emits
@@ -15,16 +16,18 @@ const actionRecordStore = useActionRecordStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
-const displayedDate: Ref<string> = ref('')
+const displayedDate: Ref<Optional<string>> = ref(null)
 const dateTimePicker: Ref<string> = ref('')
 
 onMounted(() => {
-  if (actionRecordStore.actionRecord[DatabaseField.CREATED_TIMESTAMP]) {
-    updateDates(actionRecordStore.actionRecord[DatabaseField.CREATED_TIMESTAMP])
+  if (actionRecordStore.actionRecord[DatabaseField.FINISHED_TIMESTAMP]) {
+    updateDates(actionRecordStore.actionRecord[DatabaseField.FINISHED_TIMESTAMP])
   } else {
     updateDates()
   }
-  actionRecordStore.valid[DatabaseField.CREATED_TIMESTAMP] = true
+
+  // Valid state starts true because you can have no finished date if you want.
+  actionRecordStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
 })
 
 /**
@@ -32,8 +35,8 @@ onMounted(() => {
  * @param timestamp
  */
 function updateDates(timestamp: number = new Date().getTime()) {
-  actionRecordStore.actionRecord[DatabaseField.CREATED_TIMESTAMP] = timestamp
-  actionRecordStore.valid[DatabaseField.CREATED_TIMESTAMP] = true
+  actionRecordStore.actionRecord[DatabaseField.FINISHED_TIMESTAMP] = timestamp
+  actionRecordStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
   displayedDate.value = date.formatDate(timestamp, 'ddd, YYYY MMM Do, h:mm A')
 }
 
@@ -47,10 +50,18 @@ function onPickerDateTime() {
 }
 
 /**
+ * Clears the displayed date and action record date for the finished timestamp.
+ */
+function clearDates(): void {
+  actionRecordStore.actionRecord[DatabaseField.FINISHED_TIMESTAMP] = null
+  displayedDate.value = null
+}
+
+/**
  * Runs the input validation and sets the store valid property to the result.
  */
 function validateInput() {
-  actionRecordStore.valid[DatabaseField.CREATED_TIMESTAMP] = !!inputRef?.value?.validate()
+  actionRecordStore.valid[DatabaseField.FINISHED_TIMESTAMP] = !!inputRef?.value?.validate()
 }
 </script>
 
@@ -58,19 +69,19 @@ function validateInput() {
   <QCard v-show="!locked">
     <QCardSection>
       <div class="text-h6 q-mb-md">
-        Created Date
+        Finished Date
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
       <div class="q-mb-md">
-        Exact date and time the record was created. Use the buttons on the right to select a
-        customized date and time, or auto select it.
+        Exact date and time the Workout was finished. Use the buttons on the right to select a
+        customized date and time, or remove it.
       </div>
 
       <QInput
         v-model="displayedDate"
         ref="inputRef"
-        label="Created Date"
+        label="Finished Date"
         dense
         outlined
         disable
@@ -103,13 +114,12 @@ function validateInput() {
             </QPopupProxy>
           </QBtn>
 
-          <!-- Set DateTime to now -->
+          <!-- Clear DateTime -->
           <QBtn
-            :disable="locked"
-            :icon="Icon.CALENDAR_CHECK"
-            color="positive"
+            :icon="Icon.CALENDAR_CLEAR"
+            color="negative"
             class="q-ml-sm q-px-sm"
-            @click="updateDates()"
+            @click="clearDates()"
           />
         </template>
       </QInput>

@@ -221,9 +221,9 @@ export const finishedTimestampField: FieldBlueprint = {
   field: DatabaseField.FINISHED_TIMESTAMP,
   label: 'Finished Date',
   inspectFormat: (val: number) => getDisplayDate(val),
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputFinishedTimestamp.vue.vue')
-  // ),
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputFinishedTimestamp.vue')
+  ),
 }
 
 /**
