@@ -20,13 +20,11 @@ const actionRecordStore = useActionRecordStore()
 const inputRef: Ref<any> = ref(null)
 const options: Ref<any[]> = ref([])
 
-/**
- * Sets the select box options.
- */
 onMounted(async () => {
   try {
     const allExerciseResults = await DB.getRecordsByType(DatabaseType.EXERCISE_RESULT)
 
+    // Build select box options
     options.value = allExerciseResults.map((r: DatabaseRecord) => ({
       value: r.id,
       label: r.id,

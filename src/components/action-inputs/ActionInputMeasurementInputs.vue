@@ -18,13 +18,11 @@ const actionRecordStore = useActionRecordStore()
 const inputRef: Ref<any> = ref(null)
 const options: Ref<any[]> = ref([])
 
-/**
- * Sets the select box options.
- */
 onMounted(async () => {
   try {
     const measurementInputs = Object.values(MeasurementInput)
 
+    // Build select box options
     options.value = measurementInputs.map((m: MeasurementInput) => ({
       value: m,
       label: m,

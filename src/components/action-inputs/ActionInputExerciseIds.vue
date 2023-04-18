@@ -21,14 +21,11 @@ const actionRecordStore = useActionRecordStore()
 const inputRef: Ref<any> = ref(null)
 const options: Ref<any[]> = ref([])
 
-/**
- * Sets the select box options.
- */
 onMounted(async () => {
   try {
     const allEnabledExercises = await DB.getEnabledParentRecords(DatabaseType.EXERCISE)
 
-    // Build options with value as the id, and the label as the name and truncated id
+    // Build select box options
     options.value = allEnabledExercises.map((r: DatabaseRecord) => ({
       value: r.id,
       label: `${r.name} (${truncateString(r.id, 4, '*')})`, // Truncate id for readability
