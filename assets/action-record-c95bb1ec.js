@@ -1,1 +1,0 @@
-import{bs as d,T as t}from"./index-f2d97f4b.js";const s=d({id:"action-record",state:()=>({actionRecord:Object.values(t).reduce((e,r)=>(e[r]=null,e),{}),valid:Object.values(t).reduce((e,r)=>(e[r]=null,e),{})}),getters:{areRecordFieldsValid:e=>r=>r.every(a=>e.valid[a]===!0)}});export{s as u};
