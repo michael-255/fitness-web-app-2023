@@ -233,9 +233,9 @@ export const exerciseResultIdsField: FieldBlueprint = {
   field: DatabaseField.EXERCISE_RESULT_IDS,
   label: 'Exercise Result Ids',
   inspectFormat: (val: string[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputExerciseResultIds.vue')
-  // ),
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputExerciseResultIds.vue')
+  ),
 }
 
 /**

@@ -22,7 +22,7 @@ const inputRef: Ref<any> = ref(null)
 const options: Ref<any[]> = ref([])
 
 /**
- * Sets the select box options with the parent items from the database.
+ * Sets the select box options.
  */
 onMounted(async () => {
   try {

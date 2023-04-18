@@ -12,13 +12,13 @@ view charts of your progress and export your data at any time.
   - [x] `ActionInputExerciseInput`
   - [x] `ActionInputMeasurementInput`
   - [x] `ActionInputFinishedTimestamp`
-  - [ ] `ActionInputExerciseResultIds`
-  - [ ] `ActionInputReps`
-  - [ ] `ActionInputWeightLbs`
-  - [ ] `ActionInputDistanceMiles`
-  - [ ] `ActionInputDurationMinutes`
-  - [ ] `ActionInputResistance`
-  - [ ] `ActionInputMeasurementValues`
+  - [x] `ActionInputExerciseResultIds`
+  - [ ] `ActionInputReps` -> remember to update `field-blueprints`
+  - [ ] `ActionInputWeightLbs` -> remember to update `field-blueprints`
+  - [ ] `ActionInputDistanceMiles` -> remember to update `field-blueprints`
+  - [ ] `ActionInputDurationMinutes` -> remember to update `field-blueprints`
+  - [ ] `ActionInputResistance` -> remember to update `field-blueprints`
+  - [ ] `ActionInputMeasurementValues` -> remember to update `field-blueprints`
 
 - [ ] Build `Chart` components for `chart-blueprints`
 
