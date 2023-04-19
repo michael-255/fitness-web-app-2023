@@ -7,8 +7,20 @@ view charts of your progress and export your data at any time.
 
 - [ ] Build `ActionInput*` components for `field-blueprints`
 
-  - [ ] `MeasurementValues` (do this one first)
+  - [ ] `Measurement Result` (do this one first)
+
+    - [ ] `ActionInputPercent`
+    - [ ] `ActionInputLbs`
+    - [ ] `ActionInputFeet`
+    - [ ] `ActionInputInches`
+    - [ ] `ActionInputHeartBpm`
+    - [ ] `ActionInputHeartRate` (Systolic,Diastolic)
+    - [ ] `table-columns` for new measurements
+    - [ ] `field-blueprints` for new measurements
+    - [ ] `core-bluprints` for new measurements
+
   - [ ] `ActionInputSet`
+
     - [ ] `Reps`
     - [ ] `WeightLbs`
     - [ ] `DistanceMiles`

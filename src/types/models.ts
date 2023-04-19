@@ -14,33 +14,49 @@ import type { Optional } from '@/types/misc'
  * Cast back to this type when saving or updating the database.
  */
 export interface DatabaseRecord {
+  // All
   [DatabaseField.TYPE]: DatabaseType
   [DatabaseField.ID]: string | SettingId
+  // Settings
   [DatabaseField.VALUE]?: SettingValue
+  // Logs
   [DatabaseField.CREATED_TIMESTAMP]?: number
   [DatabaseField.SEVERITY]?: Severity
   [DatabaseField.LABEL]?: string
   [DatabaseField.DETAILS]?: Optional<any>
   [DatabaseField.MESSAGE]?: Optional<string>
   [DatabaseField.STACK]?: Optional<string>
+  // Parent
   [DatabaseField.NAME]?: string
   [DatabaseField.DESCRIPTION]?: Optional<string>
   [DatabaseField.IS_FAVORITED]?: boolean
   [DatabaseField.IS_ENABLED]?: boolean
+  // Child
   [DatabaseField.PARENT_ID]?: string
   [DatabaseField.NOTE]?: Optional<string>
   [DatabaseField.IS_ACTIVE]?: boolean
+  // Workouts
   [DatabaseField.EXERCISE_IDS]?: string[]
+  // Exercises
   [DatabaseField.EXERCISE_INPUTS]?: ExerciseInput[]
+  // Measurements
   [DatabaseField.MEASUREMENT_INPUTS]?: MeasurementInput[]
+  // Workout Results & Active Workouts
   [DatabaseField.FINISHED_TIMESTAMP]?: Optional<number>
   [DatabaseField.EXERCISE_RESULT_IDS]?: string[]
+  // Exercise Results & Active Exercises (all arrays due to sets)
   [DatabaseField.REPS]?: number[]
   [DatabaseField.WEIGHT_LBS]?: number[]
   [DatabaseField.DISTANCE_MILES]?: number[]
   [DatabaseField.DURATION_MINUTES]?: number[]
   [DatabaseField.RESISTANCE]?: number[]
-  [DatabaseField.MEASUREMENT_VALUES]?: number[]
+  // Measurement Results
+  [DatabaseField.PERCENT]?: number
+  [DatabaseField.LBS]?: number
+  [DatabaseField.FEET]?: number
+  [DatabaseField.INCHES]?: number
+  [DatabaseField.HEART_BPM]?: number
+  [DatabaseField.HEART_RATE]?: [number, number] // Systolic,Diastolic
 }
 
 /**
@@ -152,5 +168,10 @@ export type MeasurementResult = Pick<
   | DatabaseField.PARENT_ID
   | DatabaseField.NOTE
   | DatabaseField.IS_ACTIVE
-  | DatabaseField.MEASUREMENT_VALUES
+  | DatabaseField.PERCENT
+  | DatabaseField.LBS
+  | DatabaseField.FEET
+  | DatabaseField.INCHES
+  | DatabaseField.HEART_BPM
+  | DatabaseField.HEART_RATE
 >
