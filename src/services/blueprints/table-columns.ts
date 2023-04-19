@@ -409,3 +409,16 @@ export const percentColumn: QTableColumn = {
   field: (row: any) => row[DatabaseField.PERCENT],
   format: (val: number) => `${val}%`,
 }
+
+/**
+ * Lbs column used by Measurement Results. Format with lbs string.
+ */
+export const lbsColumn: QTableColumn = {
+  name: DatabaseField.LBS,
+  label: 'Lbs',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.LBS],
+  format: (val: number) => `${val} lbs`,
+}

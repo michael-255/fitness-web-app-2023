@@ -259,3 +259,13 @@ export const percentField: FieldBlueprint = {
     () => import('@/components/action-inputs/ActionInputPercent.vue')
   ),
 }
+
+/**
+ * Lbs field used by measurement results.
+ */
+export const lbsField: FieldBlueprint = {
+  field: DatabaseField.LBS,
+  label: 'Lbs',
+  inspectFormat: (val: number) => `${val} lbs`,
+  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputLbs.vue')),
+}

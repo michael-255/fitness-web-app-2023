@@ -26,6 +26,7 @@ import {
   exerciseResultIdsField,
   setField,
   percentField,
+  lbsField,
 } from '@/services/blueprints/field-bluprints'
 import {
   requiredTypeColumn,
@@ -57,6 +58,7 @@ import {
   durationMinutesColumn,
   resistanceColumn,
   percentColumn,
+  lbsColumn,
 } from '@/services/blueprints/table-columns'
 
 /*
@@ -389,6 +391,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       noteField,
       activeField,
       percentField,
+      lbsField,
     ],
     visibleColumns: [
       DatabaseField.ID,
@@ -405,6 +408,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       noteColumn,
       activeColumn,
       percentColumn,
+      lbsColumn,
     ],
   },
 ]
