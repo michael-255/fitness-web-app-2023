@@ -24,8 +24,8 @@ import {
   messageField,
   stackField,
   exerciseResultIdsField,
-  measurementValuesField,
   setField,
+  percentField,
 } from '@/services/blueprints/field-bluprints'
 import {
   requiredTypeColumn,
@@ -56,7 +56,7 @@ import {
   distanceMilesColumn,
   durationMinutesColumn,
   resistanceColumn,
-  measurementValuesColumn,
+  percentColumn,
 } from '@/services/blueprints/table-columns'
 
 /*
@@ -388,14 +388,13 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       parentIdField,
       noteField,
       activeField,
-      measurementValuesField,
+      percentField,
     ],
     visibleColumns: [
       DatabaseField.ID,
       DatabaseField.CREATED_TIMESTAMP,
       DatabaseField.PARENT_ID,
       DatabaseField.NOTE,
-      DatabaseField.MEASUREMENT_VALUES,
     ],
     tableColumns: [
       requiredTypeColumn,
@@ -405,7 +404,7 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       parentIdColumn,
       noteColumn,
       activeColumn,
-      measurementValuesColumn,
+      percentColumn,
     ],
   },
 ]

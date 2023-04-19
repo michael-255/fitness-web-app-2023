@@ -249,13 +249,13 @@ export const setField: FieldBlueprint = {
 }
 
 /**
- * Measurement Values field used by measurement results.
+ * Percent field used by measurement results.
  */
-export const measurementValuesField: FieldBlueprint = {
-  field: DatabaseField.MEASUREMENT_VALUES,
-  label: 'Measurement Values',
-  inspectFormat: (val: number[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputMeasurementValues.vue')
-  // ),
+export const percentField: FieldBlueprint = {
+  field: DatabaseField.PERCENT,
+  label: 'Percent',
+  inspectFormat: (val: number) => `${val}%`, // % symbol
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputPercent.vue')
+  ),
 }

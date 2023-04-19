@@ -9,7 +9,7 @@ view charts of your progress and export your data at any time.
 
   - [ ] `Measurement Result` (do this one first)
 
-    - [ ] `ActionInputPercent`
+    - [x] `ActionInputPercent`
     - [ ] `ActionInputLbs`
     - [ ] `ActionInputFeet`
     - [ ] `ActionInputInches`

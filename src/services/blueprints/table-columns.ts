@@ -398,14 +398,14 @@ export const resistanceColumn: QTableColumn = {
 }
 
 /**
- * Measurement Values column used by Measurement Results. Format truncates value in case it is to large.
+ * Percent column used by Measurement Results. Format with % symbol.
  */
-export const measurementValuesColumn: QTableColumn = {
-  name: DatabaseField.MEASUREMENT_VALUES,
-  label: 'Measurement Values',
+export const percentColumn: QTableColumn = {
+  name: DatabaseField.PERCENT,
+  label: 'Percent',
   align: 'left',
   sortable: true,
   required: false,
-  field: (row: any) => row[DatabaseField.MEASUREMENT_VALUES],
-  format: (val: number[]) => truncateString(JSON.stringify(val), 30, '...'),
+  field: (row: any) => row[DatabaseField.PERCENT],
+  format: (val: number) => `${val}%`,
 }
