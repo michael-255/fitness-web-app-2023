@@ -7,18 +7,13 @@ view charts of your progress and export your data at any time.
 
 - [ ] Build `ActionInput*` components for `field-blueprints`
 
-  - [x] `ActionInputActive`
-  - [x] `ActionInputExerciseIds`
-  - [x] `ActionInputExerciseInput`
-  - [x] `ActionInputMeasurementInput`
-  - [x] `ActionInputFinishedTimestamp`
-  - [x] `ActionInputExerciseResultIds`
-  - [ ] `ActionInputReps` -> remember to update `field-blueprints`
-  - [ ] `ActionInputWeightLbs` -> remember to update `field-blueprints`
-  - [ ] `ActionInputDistanceMiles` -> remember to update `field-blueprints`
-  - [ ] `ActionInputDurationMinutes` -> remember to update `field-blueprints`
-  - [ ] `ActionInputResistance` -> remember to update `field-blueprints`
-  - [ ] `ActionInputMeasurementValues` -> remember to update `field-blueprints`
+  - [ ] `MeasurementValues` (do this one first)
+  - [ ] `ActionInputSet`
+    - [ ] `Reps`
+    - [ ] `WeightLbs`
+    - [ ] `DistanceMiles`
+    - [ ] `DurationMinutes`
+    - [ ] `Resistance`
 
 - [ ] Build `Chart` components for `chart-blueprints`
 
@@ -67,7 +62,7 @@ view charts of your progress and export your data at any time.
   }
   ```
 
-- [ ] Show a bell and `Description` if no inputs on `ExerciseInput` (no not save record)
+- [ ] Show a bell and `Description` if no inputs on `ExerciseInput` (do not save record)
 - [ ] Test overall functionality with defaults (actions, views, etc.)
 - [ ] Separate import function for legacy `fitness-tracker-v16` data records in `Settings`
 

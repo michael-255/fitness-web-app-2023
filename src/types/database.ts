@@ -137,8 +137,7 @@ export enum MeasurementInput {
  * Available exercise input types.
  */
 export enum ExerciseInput {
-  CONFIRMATION = 'Confirmation',
-  MULTIPLE_SETS = 'Multiple Sets',
+  NO_SETS = 'No Sets',
   REPS = 'Reps',
   WEIGHT_LBS = 'Weight (lbs)',
   DISTANCE_MILES = 'Distance (miles)',

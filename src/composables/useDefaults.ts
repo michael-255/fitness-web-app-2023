@@ -33,11 +33,7 @@ export default function useDefaults() {
                 'Standing barbell squat with the bar resting near your neck.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.EXERCISE_INPUTS]: [
-                ExerciseInput.MULTIPLE_SETS,
-                ExerciseInput.REPS,
-                ExerciseInput.WEIGHT_LBS,
-              ],
+              [DatabaseField.EXERCISE_INPUTS]: [ExerciseInput.REPS, ExerciseInput.WEIGHT_LBS],
             } as Exercise,
             {
               [DatabaseField.TYPE]: DatabaseType.EXERCISE,
@@ -46,11 +42,7 @@ export default function useDefaults() {
               [DatabaseField.DESCRIPTION]: 'Lying barbell bench press chest exercise.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.EXERCISE_INPUTS]: [
-                ExerciseInput.MULTIPLE_SETS,
-                ExerciseInput.REPS,
-                ExerciseInput.WEIGHT_LBS,
-              ],
+              [DatabaseField.EXERCISE_INPUTS]: [ExerciseInput.REPS, ExerciseInput.WEIGHT_LBS],
             } as Exercise,
             {
               [DatabaseField.TYPE]: DatabaseType.EXERCISE,
@@ -60,11 +52,7 @@ export default function useDefaults() {
                 'Standing barbell rows where you hinge at the waist and pull the bar up into your stomach.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.EXERCISE_INPUTS]: [
-                ExerciseInput.MULTIPLE_SETS,
-                ExerciseInput.REPS,
-                ExerciseInput.WEIGHT_LBS,
-              ],
+              [DatabaseField.EXERCISE_INPUTS]: [ExerciseInput.REPS, ExerciseInput.WEIGHT_LBS],
             } as Exercise,
             {
               [DatabaseField.TYPE]: DatabaseType.EXERCISE,
@@ -74,11 +62,7 @@ export default function useDefaults() {
                 'Standing barbell overhead press. Flex your glutes and abs to keep your back straight while pushing the bar above your head.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.EXERCISE_INPUTS]: [
-                ExerciseInput.MULTIPLE_SETS,
-                ExerciseInput.REPS,
-                ExerciseInput.WEIGHT_LBS,
-              ],
+              [DatabaseField.EXERCISE_INPUTS]: [ExerciseInput.REPS, ExerciseInput.WEIGHT_LBS],
             } as Exercise,
             {
               [DatabaseField.TYPE]: DatabaseType.EXERCISE,
@@ -88,11 +72,7 @@ export default function useDefaults() {
                 'Standing barbell deadlift. Keep your back straight and flexed while lifting with your legs and lower back.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.EXERCISE_INPUTS]: [
-                ExerciseInput.MULTIPLE_SETS,
-                ExerciseInput.REPS,
-                ExerciseInput.WEIGHT_LBS,
-              ],
+              [DatabaseField.EXERCISE_INPUTS]: [ExerciseInput.REPS, ExerciseInput.WEIGHT_LBS],
             } as Exercise,
             {
               [DatabaseField.TYPE]: DatabaseType.WORKOUT,

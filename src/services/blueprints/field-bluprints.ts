@@ -239,61 +239,13 @@ export const exerciseResultIdsField: FieldBlueprint = {
 }
 
 /**
- * Reps field used by exercise results and active exercises.
+ * Exercise Result set contains all exercise input fields.
  */
-export const repsField: FieldBlueprint = {
-  field: DatabaseField.REPS,
-  label: 'Reps',
-  inspectFormat: (val: number[]) => `${val}`,
-  // component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputReps.vue')),
-}
-
-/**
- * Weight Lbs field used by exercise results and active exercises.
- */
-export const weightLbsField: FieldBlueprint = {
-  field: DatabaseField.WEIGHT_LBS,
-  label: 'Weight (lbs)',
-  inspectFormat: (val: number[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputWeightLbs.vue')
-  // ),
-}
-
-/**
- * Distance Miles field used by exercise results and active exercises.
- */
-export const distanceMilesField: FieldBlueprint = {
-  field: DatabaseField.DISTANCE_MILES,
-  label: 'Distance (miles)',
-  inspectFormat: (val: number[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputDistanceMiles.vue')
-  // ),
-}
-
-/**
- * Duration Minutes field used by exercise results and active exercises.
- */
-export const durationMinutesField: FieldBlueprint = {
-  field: DatabaseField.DURATION_MINUTES,
-  label: 'Duration (minutes)',
-  inspectFormat: (val: number[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputDurationMinutes.vue')
-  // ),
-}
-
-/**
- * Resistance field used by exercise results and active exercises.
- */
-export const resistanceField: FieldBlueprint = {
-  field: DatabaseField.RESISTANCE,
-  label: 'Resistance',
-  inspectFormat: (val: number[]) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputResistance.vue')
-  // ),
+export const setField: FieldBlueprint = {
+  field: 'set' as DatabaseField, // Special field to collect all exercise inputs
+  label: 'Set',
+  inspectFormat: (val: number) => `${val}`,
+  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputSet.vue')),
 }
 
 /**
