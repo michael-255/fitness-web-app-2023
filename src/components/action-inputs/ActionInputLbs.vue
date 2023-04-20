@@ -26,7 +26,7 @@ onMounted(() => {
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionRecordStore.actionRecord[DatabaseField.LBS]
+  const val = actionRecordStore.actionRecord[DatabaseField.LBS] ?? 0
 
   if (!(typeof val === 'number') || val < 0) {
     actionRecordStore.actionRecord[DatabaseField.LBS] = 0

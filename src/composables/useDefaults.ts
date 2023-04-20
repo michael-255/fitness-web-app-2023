@@ -357,15 +357,15 @@ export default function useDefaults() {
       async () => {
         try {
           const records: DatabaseRecord[] = [
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '43e3fc4e-b419-468c-9888-b5e072d81dfb', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Body Fat',
-              [DatabaseField.DESCRIPTION]: 'Body fat percentage.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.PERCENT],
-            } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '43e3fc4e-b419-468c-9888-b5e072d81dfb', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Body Fat',
+            //   [DatabaseField.DESCRIPTION]: 'Body fat percentage.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.PERCENT],
+            // } as Measurement,
             {
               [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
               [DatabaseField.ID]: 'b4450018-1506-450f-a429-9903aded5c9b', // From Fitness Tracker v16
@@ -483,27 +483,27 @@ export default function useDefaults() {
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
             } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '417b47fd-bb32-4f28-a887-e5f0d50f37b5', // New!
-              [DatabaseField.NAME]: 'Heart Rate',
-              [DatabaseField.DESCRIPTION]: 'Heart rate in beats per minute.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BEATS_PER_MINUTE],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '40968b77-cc2a-4f07-b812-a48bb459c2bc', // New!
-              [DatabaseField.NAME]: 'Blood Pressure',
-              [DatabaseField.DESCRIPTION]: 'Blood pressure systolic and diastolic reading.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [
-                MeasurementInput.BP_SYSTOLIC,
-                MeasurementInput.BP_DIASTOLIC,
-              ],
-            } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '417b47fd-bb32-4f28-a887-e5f0d50f37b5', // New!
+            //   [DatabaseField.NAME]: 'Heart Rate',
+            //   [DatabaseField.DESCRIPTION]: 'Heart rate in beats per minute.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BEATS_PER_MINUTE],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '40968b77-cc2a-4f07-b812-a48bb459c2bc', // New!
+            //   [DatabaseField.NAME]: 'Blood Pressure',
+            //   [DatabaseField.DESCRIPTION]: 'Blood pressure systolic and diastolic reading.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [
+            //     MeasurementInput.BP_SYSTOLIC,
+            //     MeasurementInput.BP_DIASTOLIC,
+            //   ],
+            // } as Measurement,
           ]
 
           await DB.bulkAddRecords(records)

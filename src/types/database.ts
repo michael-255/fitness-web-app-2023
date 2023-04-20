@@ -90,12 +90,8 @@ export enum DatabaseField {
   DURATION_MINUTES = 'durationMinutes',
   RESISTANCE = 'resistance',
   // Measurement Results
-  PERCENT = '%',
-  LBS = 'Lbs',
-  FEET = 'Feet',
-  INCHES = 'Inches',
-  HEART_BPM = 'Heart BPM',
-  HEART_RATE = 'Heart Rate', // Systolic/Diastolic
+  LBS = 'lbs',
+  INCHES = 'inches',
 }
 
 /**
@@ -129,12 +125,8 @@ export enum Severity {
  * Available measurement input types.
  */
 export enum MeasurementInput {
-  PERCENT = '%',
   LBS = 'Lbs',
-  FEET = 'Feet',
   INCHES = 'Inches',
-  HEART_BPM = 'Heart BPM',
-  HEART_RATE = 'Heart Rate', // Systolic/Diastolic
 }
 
 /**

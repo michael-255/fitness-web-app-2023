@@ -249,18 +249,6 @@ export const setField: FieldBlueprint = {
 }
 
 /**
- * Percent field used by measurement results.
- */
-export const percentField: FieldBlueprint = {
-  field: DatabaseField.PERCENT,
-  label: 'Percent',
-  inspectFormat: (val: number) => `${val}%`, // % symbol
-  component: defineAsyncComponent(
-    () => import('@/components/action-inputs/ActionInputPercent.vue')
-  ),
-}
-
-/**
  * Lbs field used by measurement results.
  */
 export const lbsField: FieldBlueprint = {
@@ -268,4 +256,14 @@ export const lbsField: FieldBlueprint = {
   label: 'Lbs',
   inspectFormat: (val: number) => `${val} lbs`,
   component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputLbs.vue')),
+}
+
+/**
+ * Inches field used by measurement results.
+ */
+export const inchesField: FieldBlueprint = {
+  field: DatabaseField.INCHES,
+  label: 'Inches',
+  inspectFormat: (val: number) => `${val} in`,
+  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputInches.vue')),
 }

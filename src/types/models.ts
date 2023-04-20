@@ -51,12 +51,8 @@ export interface DatabaseRecord {
   [DatabaseField.DURATION_MINUTES]?: number[]
   [DatabaseField.RESISTANCE]?: number[]
   // Measurement Results
-  [DatabaseField.PERCENT]?: number
   [DatabaseField.LBS]?: number
-  [DatabaseField.FEET]?: number
   [DatabaseField.INCHES]?: number
-  [DatabaseField.HEART_BPM]?: number
-  [DatabaseField.HEART_RATE]?: [number, number] // Systolic,Diastolic
 }
 
 /**
@@ -168,10 +164,6 @@ export type MeasurementResult = Pick<
   | DatabaseField.PARENT_ID
   | DatabaseField.NOTE
   | DatabaseField.IS_ACTIVE
-  | DatabaseField.PERCENT
   | DatabaseField.LBS
-  | DatabaseField.FEET
   | DatabaseField.INCHES
-  | DatabaseField.HEART_BPM
-  | DatabaseField.HEART_RATE
 >

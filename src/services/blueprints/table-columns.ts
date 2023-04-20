@@ -398,20 +398,7 @@ export const resistanceColumn: QTableColumn = {
 }
 
 /**
- * Percent column used by Measurement Results. Format with % symbol.
- */
-export const percentColumn: QTableColumn = {
-  name: DatabaseField.PERCENT,
-  label: 'Percent',
-  align: 'left',
-  sortable: true,
-  required: false,
-  field: (row: any) => row[DatabaseField.PERCENT],
-  format: (val: number) => `${val}%`,
-}
-
-/**
- * Lbs column used by Measurement Results. Format with lbs string.
+ * Lbs column used by Measurement Results.
  */
 export const lbsColumn: QTableColumn = {
   name: DatabaseField.LBS,
@@ -421,4 +408,17 @@ export const lbsColumn: QTableColumn = {
   required: false,
   field: (row: any) => row[DatabaseField.LBS],
   format: (val: number) => `${val} lbs`,
+}
+
+/**
+ * Inches column used by Measurement Results.
+ */
+export const inchesColumn: QTableColumn = {
+  name: DatabaseField.INCHES,
+  label: 'Inches',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.INCHES],
+  format: (val: number) => `${val} in`,
 }
