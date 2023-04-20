@@ -5,10 +5,21 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
+- [ ] `Form` and other improvements to `Web App Template` implemented?
+
 - [ ] Build `ActionInput*` components for `field-blueprints`
 
   - [ ] `Measurement Result` (do this one first)
 
+    - [ ] `ActionInputPercent`
+    - [x] `ActionInputLbs`
+    - [ ] `ActionInputFeet`
+    - [x] `ActionInputInches`
+    - [ ] `ActionInputHeartBpm`
+    - [ ] `ActionInputHeartRate` (Systolic,Diastolic)
+    - [ ] `table-columns` for new measurements
+    - [ ] `field-blueprints` for new measurements
+    - [ ] `core-bluprints` for new measurements
     - [ ] `onMounted` determine if input should be displayed based on `MeasurementInputs`
 
   - [ ] `ActionInputSet`
