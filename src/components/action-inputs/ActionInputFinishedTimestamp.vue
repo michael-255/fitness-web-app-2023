@@ -12,7 +12,7 @@ defineProps<{
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -20,14 +20,14 @@ const displayedDate: Ref<Optional<string>> = ref(null)
 const dateTimePicker: Ref<string> = ref('')
 
 onMounted(() => {
-  if (actionRecordStore.record[DatabaseField.FINISHED_TIMESTAMP]) {
-    updateDates(actionRecordStore.record[DatabaseField.FINISHED_TIMESTAMP])
+  if (actionStore.record[DatabaseField.FINISHED_TIMESTAMP]) {
+    updateDates(actionStore.record[DatabaseField.FINISHED_TIMESTAMP])
   } else {
     updateDates()
   }
 
   // Valid state starts true because you can have no finished date if you want.
-  actionRecordStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
+  actionStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
 })
 
 /**
@@ -35,8 +35,8 @@ onMounted(() => {
  * @param timestamp
  */
 function updateDates(timestamp: number = new Date().getTime()) {
-  actionRecordStore.record[DatabaseField.FINISHED_TIMESTAMP] = timestamp
-  actionRecordStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
+  actionStore.record[DatabaseField.FINISHED_TIMESTAMP] = timestamp
+  actionStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
   displayedDate.value = date.formatDate(timestamp, 'ddd, YYYY MMM Do, h:mm A')
 }
 
@@ -53,7 +53,7 @@ function onPickerDateTime() {
  * Clears the displayed date and action record date for the finished timestamp.
  */
 function clearDates(): void {
-  actionRecordStore.record[DatabaseField.FINISHED_TIMESTAMP] = null
+  actionStore.record[DatabaseField.FINISHED_TIMESTAMP] = null
   displayedDate.value = null
 }
 
@@ -61,7 +61,7 @@ function clearDates(): void {
  * Runs the input validation and sets the store valid property to the result.
  */
 function validateInput() {
-  actionRecordStore.valid[DatabaseField.FINISHED_TIMESTAMP] = !!inputRef?.value?.validate()
+  actionStore.valid[DatabaseField.FINISHED_TIMESTAMP] = !!inputRef?.value?.validate()
 }
 </script>
 
@@ -92,8 +92,8 @@ function validateInput() {
         <template v-slot:after>
           <!-- Date Picker -->
           <QBtn :disable="locked" :icon="Icon.CALENDAR_DATE" color="primary" class="q-px-sm">
-            <QPopupProxy cover transition-show="scale" transition-hide="scale">
-              <QDate v-model="dateTimePicker" mask="YYYY-MM-DDTHH:mm:ss.000Z">
+            <QPopupProxy>
+              <QDate v-model="dateTimePicker">
                 <div class="row items-center justify-end q-gutter-sm">
                   <QBtn label="Cancel" flat v-close-popup />
                   <QBtn label="OK" color="primary" flat @click="onPickerDateTime()" v-close-popup />
@@ -104,8 +104,8 @@ function validateInput() {
 
           <!-- Time Picker -->
           <QBtn :disable="locked" :icon="Icon.CLOCK" color="primary" class="q-ml-sm q-px-sm">
-            <QPopupProxy cover transition-show="scale" transition-hide="scale">
-              <QTime v-model="dateTimePicker" now-btn mask="YYYY-MM-DDTHH:mm:ss.000Z">
+            <QPopupProxy>
+              <QTime v-model="dateTimePicker" now-btn>
                 <div class="row items-center justify-end q-gutter-sm">
                   <QBtn label="Cancel" flat v-close-popup />
                   <QBtn label="OK" color="primary" flat @click="onPickerDateTime()" v-close-popup />

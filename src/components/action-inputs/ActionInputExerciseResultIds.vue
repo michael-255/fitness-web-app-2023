@@ -14,7 +14,7 @@ defineProps<{
 
 // Composables & Stores
 const { log } = useLogger()
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -31,7 +31,7 @@ onMounted(async () => {
     }))
 
     // Valid state starts true because you can have no result ids if you want
-    actionRecordStore.valid[DatabaseField.EXERCISE_RESULT_IDS] = true
+    actionStore.valid[DatabaseField.EXERCISE_RESULT_IDS] = true
   } catch (error) {
     log.error('Error with exercise ids input', error)
   }
@@ -49,7 +49,7 @@ onMounted(async () => {
       <div class="q-mb-md">Exercise Result Ids associated with this Workout Result.</div>
 
       <QSelect
-        v-model="actionRecordStore.record[DatabaseField.EXERCISE_RESULT_IDS]"
+        v-model="actionStore.record[DatabaseField.EXERCISE_RESULT_IDS]"
         ref="inputRef"
         label="Exercise Result Ids"
         :disable="locked"

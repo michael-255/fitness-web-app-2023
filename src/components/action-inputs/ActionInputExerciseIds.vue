@@ -15,7 +15,7 @@ defineProps<{
 
 // Composables & Stores
 const { log } = useLogger()
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -33,12 +33,12 @@ onMounted(async () => {
 
     // Check for initial valid state
     if (
-      actionRecordStore.record[DatabaseField.EXERCISE_IDS] &&
-      actionRecordStore.record[DatabaseField.EXERCISE_IDS].length > 0
+      actionStore.record[DatabaseField.EXERCISE_IDS] &&
+      actionStore.record[DatabaseField.EXERCISE_IDS].length > 0
     ) {
-      actionRecordStore.valid[DatabaseField.EXERCISE_IDS] = true
+      actionStore.valid[DatabaseField.EXERCISE_IDS] = true
     } else {
-      actionRecordStore.valid[DatabaseField.EXERCISE_IDS] = false
+      actionStore.valid[DatabaseField.EXERCISE_IDS] = false
     }
   } catch (error) {
     log.error('Error with exercise ids input', error)
@@ -57,7 +57,7 @@ function validationRule(val: string[]) {
  * Runs the input validation and sets the store valid property to the result.
  */
 function validateInput() {
-  actionRecordStore.valid[DatabaseField.EXERCISE_IDS] = !!inputRef?.value?.validate()
+  actionStore.valid[DatabaseField.EXERCISE_IDS] = !!inputRef?.value?.validate()
 }
 </script>
 
@@ -75,7 +75,7 @@ function validateInput() {
       </div>
 
       <QSelect
-        v-model="actionRecordStore.record[DatabaseField.EXERCISE_IDS]"
+        v-model="actionStore.record[DatabaseField.EXERCISE_IDS]"
         ref="inputRef"
         label="Exercises"
         :disable="locked"

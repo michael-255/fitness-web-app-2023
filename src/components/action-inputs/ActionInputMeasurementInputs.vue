@@ -12,7 +12,7 @@ defineProps<{
 
 // Composables & Stores
 const { log } = useLogger()
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -30,12 +30,12 @@ onMounted(async () => {
 
     // Check for initial valid state
     if (
-      actionRecordStore.record[DatabaseField.MEASUREMENT_INPUTS] &&
-      actionRecordStore.record[DatabaseField.MEASUREMENT_INPUTS].length > 0
+      actionStore.record[DatabaseField.MEASUREMENT_INPUTS] &&
+      actionStore.record[DatabaseField.MEASUREMENT_INPUTS].length > 0
     ) {
-      actionRecordStore.valid[DatabaseField.MEASUREMENT_INPUTS] = true
+      actionStore.valid[DatabaseField.MEASUREMENT_INPUTS] = true
     } else {
-      actionRecordStore.valid[DatabaseField.MEASUREMENT_INPUTS] = false
+      actionStore.valid[DatabaseField.MEASUREMENT_INPUTS] = false
     }
   } catch (error) {
     log.error('Error with measurement inputs', error)
@@ -54,7 +54,7 @@ function validationRule(val: MeasurementInput[]) {
  * Runs the input validation and sets the store valid property to the result.
  */
 function validateInput() {
-  actionRecordStore.valid[DatabaseField.MEASUREMENT_INPUTS] = !!inputRef?.value?.validate()
+  actionStore.valid[DatabaseField.MEASUREMENT_INPUTS] = !!inputRef?.value?.validate()
 }
 </script>
 
@@ -71,7 +71,7 @@ function validateInput() {
       </div>
 
       <QSelect
-        v-model="actionRecordStore.record[DatabaseField.MEASUREMENT_INPUTS]"
+        v-model="actionStore.record[DatabaseField.MEASUREMENT_INPUTS]"
         ref="inputRef"
         label="Measurement Inputs"
         :disable="locked"

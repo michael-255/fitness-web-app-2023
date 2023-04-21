@@ -12,7 +12,7 @@ defineProps<{
 
 // Composables & Stores
 const { log } = useLogger()
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -29,7 +29,7 @@ onMounted(async () => {
     }))
 
     // Valid state starts true because you can have no inputs if you want
-    actionRecordStore.valid[DatabaseField.EXERCISE_INPUTS] = true
+    actionStore.valid[DatabaseField.EXERCISE_INPUTS] = true
   } catch (error) {
     log.error('Error with exercise inputs', error)
   }
@@ -51,7 +51,7 @@ onMounted(async () => {
       </div>
 
       <QSelect
-        v-model="actionRecordStore.record[DatabaseField.EXERCISE_INPUTS]"
+        v-model="actionStore.record[DatabaseField.EXERCISE_INPUTS]"
         ref="inputRef"
         label="Exercises"
         :disable="locked"

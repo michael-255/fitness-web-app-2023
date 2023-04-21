@@ -5,17 +5,18 @@ import { onMounted } from 'vue'
 import useActionStore from '@/stores/action'
 
 // Props & Emits
-defineProps<{
+const props = defineProps<{
   locked?: boolean
+  default?: any
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 onMounted(() => {
-  actionRecordStore.record[DatabaseField.IS_ACTIVE] =
-    actionRecordStore.record[DatabaseField.IS_ACTIVE] ?? false
-  actionRecordStore.valid[DatabaseField.IS_ACTIVE] = true
+  actionStore.record[DatabaseField.IS_ACTIVE] =
+    actionStore.record[DatabaseField.IS_ACTIVE] ?? props.default
+  actionStore.valid[DatabaseField.IS_ACTIVE] = true
 })
 </script>
 
@@ -32,7 +33,7 @@ onMounted(() => {
         value unless you know what you are doing.
       </div>
 
-      <QToggle :disable="locked" v-model="actionRecordStore.record[DatabaseField.IS_ACTIVE]" />
+      <QToggle :disable="locked" v-model="actionStore.record[DatabaseField.IS_ACTIVE]" />
     </QCardSection>
   </QCard>
 </template>

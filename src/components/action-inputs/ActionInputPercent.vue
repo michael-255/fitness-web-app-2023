@@ -10,28 +10,27 @@ defineProps<{
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  actionRecordStore.record[DatabaseField.PERCENT] =
-    actionRecordStore.record[DatabaseField.PERCENT] ?? 0
+  actionStore.record[DatabaseField.PERCENT] = actionStore.record[DatabaseField.PERCENT] ?? 0
   // This input defaults itself, so it should always be valid
-  actionRecordStore.valid[DatabaseField.PERCENT] = true
+  actionStore.valid[DatabaseField.PERCENT] = true
 })
 
 /**
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionRecordStore.record[DatabaseField.PERCENT] ?? 0
+  const val = actionStore.record[DatabaseField.PERCENT] ?? 0
 
   if (!(typeof val === 'number') || val < 0) {
-    actionRecordStore.record[DatabaseField.PERCENT] = 0
+    actionStore.record[DatabaseField.PERCENT] = 0
   } else if (val > 100) {
-    actionRecordStore.record[DatabaseField.PERCENT] = 100
+    actionStore.record[DatabaseField.PERCENT] = 100
   }
 }
 </script>
@@ -48,7 +47,7 @@ function defaultNonValidInput() {
 
       <!-- Note: v-model.number for number types -->
       <QInput
-        v-model.number="actionRecordStore.record[DatabaseField.PERCENT]"
+        v-model.number="actionStore.record[DatabaseField.PERCENT]"
         ref="inputRef"
         label="Percent"
         :disable="locked"

@@ -5,33 +5,34 @@ import { Icon } from '@/types/icons'
 import useActionStore from '@/stores/action'
 
 // Props & Emits
-defineProps<{
+const props = defineProps<{
   locked?: boolean
+  default?: any
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  actionRecordStore.record[DatabaseField.INCHES] =
-    actionRecordStore.record[DatabaseField.INCHES] ?? 0
+  actionStore.record[DatabaseField.INCHES] =
+    actionStore.record[DatabaseField.INCHES] ?? props.default
   // This input defaults itself, so it should always be valid
-  actionRecordStore.valid[DatabaseField.INCHES] = true
+  actionStore.valid[DatabaseField.INCHES] = true
 })
 
 /**
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionRecordStore.record[DatabaseField.INCHES] ?? 0
+  const val = actionStore.record[DatabaseField.INCHES] ?? 0
 
   if (!(typeof val === 'number') || val < 0) {
-    actionRecordStore.record[DatabaseField.INCHES] = 0
+    actionStore.record[DatabaseField.INCHES] = 0
   } else if (val > Number.MAX_SAFE_INTEGER) {
-    actionRecordStore.record[DatabaseField.INCHES] = Number.MAX_SAFE_INTEGER
+    actionStore.record[DatabaseField.INCHES] = Number.MAX_SAFE_INTEGER
   }
 }
 </script>
@@ -48,7 +49,7 @@ function defaultNonValidInput() {
 
       <!-- Note: v-model.number for number types -->
       <QInput
-        v-model.number="actionRecordStore.record[DatabaseField.INCHES]"
+        v-model.number="actionStore.record[DatabaseField.INCHES]"
         ref="inputRef"
         label="Inches"
         :disable="locked"

@@ -10,27 +10,27 @@ defineProps<{
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  actionRecordStore.record[DatabaseField.FEET] = actionRecordStore.record[DatabaseField.FEET] ?? 0
+  actionStore.record[DatabaseField.FEET] = actionStore.record[DatabaseField.FEET] ?? 0
   // This input defaults itself, so it should always be valid
-  actionRecordStore.valid[DatabaseField.FEET] = true
+  actionStore.valid[DatabaseField.FEET] = true
 })
 
 /**
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionRecordStore.record[DatabaseField.FEET] ?? 0
+  const val = actionStore.record[DatabaseField.FEET] ?? 0
 
   if (!(typeof val === 'number') || val < 0) {
-    actionRecordStore.record[DatabaseField.FEET] = 0
+    actionStore.record[DatabaseField.FEET] = 0
   } else if (val > Number.MAX_SAFE_INTEGER) {
-    actionRecordStore.record[DatabaseField.FEET] = Number.MAX_SAFE_INTEGER
+    actionStore.record[DatabaseField.FEET] = Number.MAX_SAFE_INTEGER
   }
 }
 </script>
@@ -47,7 +47,7 @@ function defaultNonValidInput() {
 
       <!-- Note: v-model.number for number types -->
       <QInput
-        v-model.number="actionRecordStore.record[DatabaseField.FEET]"
+        v-model.number="actionStore.record[DatabaseField.FEET]"
         ref="inputRef"
         label="Feet"
         :disable="locked"

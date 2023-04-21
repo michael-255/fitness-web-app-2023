@@ -10,28 +10,27 @@ defineProps<{
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionStore()
+const actionStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  actionRecordStore.record[DatabaseField.HEART_BPM] =
-    actionRecordStore.record[DatabaseField.HEART_BPM] ?? 0
+  actionStore.record[DatabaseField.HEART_BPM] = actionStore.record[DatabaseField.HEART_BPM] ?? 0
   // This input defaults itself, so it should always be valid
-  actionRecordStore.valid[DatabaseField.HEART_BPM] = true
+  actionStore.valid[DatabaseField.HEART_BPM] = true
 })
 
 /**
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionRecordStore.record[DatabaseField.HEART_BPM] ?? 0
+  const val = actionStore.record[DatabaseField.HEART_BPM] ?? 0
 
   if (!(typeof val === 'number') || val < 0) {
-    actionRecordStore.record[DatabaseField.HEART_BPM] = 0
+    actionStore.record[DatabaseField.HEART_BPM] = 0
   } else if (val > 400) {
-    actionRecordStore.record[DatabaseField.HEART_BPM] = 400
+    actionStore.record[DatabaseField.HEART_BPM] = 400
   }
 }
 </script>
@@ -48,7 +47,7 @@ function defaultNonValidInput() {
 
       <!-- Note: v-model.number for number types -->
       <QInput
-        v-model.number="actionRecordStore.record[DatabaseField.HEART_BPM]"
+        v-model.number="actionStore.record[DatabaseField.HEART_BPM]"
         ref="inputRef"
         label="Heart BPM"
         :disable="locked"
