@@ -2,7 +2,7 @@
 import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
-import useActionRecordStore from '@/stores/action-record'
+import useActionStore from '@/stores/action'
 
 // Props & Emits
 defineProps<{
@@ -10,14 +10,13 @@ defineProps<{
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionRecordStore()
+const actionRecordStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  actionRecordStore.actionRecord[DatabaseField.LBS] =
-    actionRecordStore.actionRecord[DatabaseField.LBS] ?? 0
+  actionRecordStore.record[DatabaseField.LBS] = actionRecordStore.record[DatabaseField.LBS] ?? 0
   // This input defaults itself, so it should always be valid
   actionRecordStore.valid[DatabaseField.LBS] = true
 })
@@ -26,12 +25,12 @@ onMounted(() => {
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionRecordStore.actionRecord[DatabaseField.LBS] ?? 0
+  const val = actionRecordStore.record[DatabaseField.LBS] ?? 0
 
   if (!(typeof val === 'number') || val < 0) {
-    actionRecordStore.actionRecord[DatabaseField.LBS] = 0
+    actionRecordStore.record[DatabaseField.LBS] = 0
   } else if (val > Number.MAX_SAFE_INTEGER) {
-    actionRecordStore.actionRecord[DatabaseField.LBS] = Number.MAX_SAFE_INTEGER
+    actionRecordStore.record[DatabaseField.LBS] = Number.MAX_SAFE_INTEGER
   }
 }
 </script>
@@ -48,7 +47,7 @@ function defaultNonValidInput() {
 
       <!-- Note: v-model.number for number types -->
       <QInput
-        v-model.number="actionRecordStore.actionRecord[DatabaseField.LBS]"
+        v-model.number="actionRecordStore.record[DatabaseField.LBS]"
         ref="inputRef"
         label="Lbs"
         :disable="locked"

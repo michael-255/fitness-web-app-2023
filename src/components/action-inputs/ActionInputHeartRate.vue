@@ -2,7 +2,7 @@
 import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
-import useActionRecordStore from '@/stores/action-record'
+import useActionStore from '@/stores/action'
 
 // Props & Emits
 defineProps<{
@@ -10,19 +10,19 @@ defineProps<{
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionRecordStore()
+const actionRecordStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  actionRecordStore.actionRecord[DatabaseField.HEART_RATE] = actionRecordStore.actionRecord[
+  actionRecordStore.record[DatabaseField.HEART_RATE] = actionRecordStore.record[
     DatabaseField.HEART_RATE
   ] ?? [0, 0]
-  actionRecordStore.actionRecord[DatabaseField.HEART_RATE][0] =
-    actionRecordStore.actionRecord[DatabaseField.HEART_RATE][0] ?? 0
-  actionRecordStore.actionRecord[DatabaseField.HEART_RATE][1] =
-    actionRecordStore.actionRecord[DatabaseField.HEART_RATE][1] ?? 0
+  actionRecordStore.record[DatabaseField.HEART_RATE][0] =
+    actionRecordStore.record[DatabaseField.HEART_RATE][0] ?? 0
+  actionRecordStore.record[DatabaseField.HEART_RATE][1] =
+    actionRecordStore.record[DatabaseField.HEART_RATE][1] ?? 0
   // This input defaults itself, so it should always be valid
   actionRecordStore.valid[DatabaseField.HEART_RATE] = true
 })
@@ -31,19 +31,19 @@ onMounted(() => {
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const systolic = actionRecordStore.actionRecord[DatabaseField.HEART_RATE][0] ?? 0
-  const diastolic = actionRecordStore.actionRecord[DatabaseField.HEART_RATE][1] ?? 0
+  const systolic = actionRecordStore.record[DatabaseField.HEART_RATE][0] ?? 0
+  const diastolic = actionRecordStore.record[DatabaseField.HEART_RATE][1] ?? 0
 
   if (!(typeof systolic === 'number') || systolic < 0) {
-    actionRecordStore.actionRecord[DatabaseField.HEART_RATE][0] = 0
+    actionRecordStore.record[DatabaseField.HEART_RATE][0] = 0
   } else if (systolic > 350) {
-    actionRecordStore.actionRecord[DatabaseField.HEART_RATE][0] = 350
+    actionRecordStore.record[DatabaseField.HEART_RATE][0] = 350
   }
 
   if (!(typeof diastolic === 'number') || diastolic < 0) {
-    actionRecordStore.actionRecord[DatabaseField.HEART_RATE][1] = 0
+    actionRecordStore.record[DatabaseField.HEART_RATE][1] = 0
   } else if (diastolic > 350) {
-    actionRecordStore.actionRecord[DatabaseField.HEART_RATE][1] = 350
+    actionRecordStore.record[DatabaseField.HEART_RATE][1] = 350
   }
 }
 </script>
@@ -60,7 +60,7 @@ function defaultNonValidInput() {
 
       <!-- Note: v-model.number for number types -->
       <QInput
-        v-model.number="actionRecordStore.actionRecord[DatabaseField.HEART_RATE][0]"
+        v-model.number="actionRecordStore.record[DatabaseField.HEART_RATE][0]"
         ref="inputRef"
         label="Systolic"
         :disable="locked"
@@ -72,7 +72,7 @@ function defaultNonValidInput() {
       />
       <!-- Note: v-model.number for number types -->
       <QInput
-        v-model.number="actionRecordStore.actionRecord[DatabaseField.HEART_RATE][1]"
+        v-model.number="actionRecordStore.record[DatabaseField.HEART_RATE][1]"
         ref="inputRef"
         label="Dystolic"
         :disable="locked"

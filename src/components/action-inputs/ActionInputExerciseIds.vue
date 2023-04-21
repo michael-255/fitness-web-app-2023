@@ -5,7 +5,7 @@ import { DatabaseField, DatabaseType } from '@/types/database'
 import { Icon } from '@/types/icons'
 import type { DatabaseRecord } from '@/types/models'
 import useLogger from '@/composables/useLogger'
-import useActionRecordStore from '@/stores/action-record'
+import useActionStore from '@/stores/action'
 import DB from '@/services/LocalDatabase'
 
 // Props & Emits
@@ -15,7 +15,7 @@ defineProps<{
 
 // Composables & Stores
 const { log } = useLogger()
-const actionRecordStore = useActionRecordStore()
+const actionRecordStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -33,8 +33,8 @@ onMounted(async () => {
 
     // Check for initial valid state
     if (
-      actionRecordStore.actionRecord[DatabaseField.EXERCISE_IDS] &&
-      actionRecordStore.actionRecord[DatabaseField.EXERCISE_IDS].length > 0
+      actionRecordStore.record[DatabaseField.EXERCISE_IDS] &&
+      actionRecordStore.record[DatabaseField.EXERCISE_IDS].length > 0
     ) {
       actionRecordStore.valid[DatabaseField.EXERCISE_IDS] = true
     } else {
@@ -75,7 +75,7 @@ function validateInput() {
       </div>
 
       <QSelect
-        v-model="actionRecordStore.actionRecord[DatabaseField.EXERCISE_IDS]"
+        v-model="actionRecordStore.record[DatabaseField.EXERCISE_IDS]"
         ref="inputRef"
         label="Exercises"
         :disable="locked"

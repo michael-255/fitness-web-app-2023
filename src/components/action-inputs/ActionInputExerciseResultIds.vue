@@ -4,7 +4,7 @@ import { DatabaseField, DatabaseType } from '@/types/database'
 import { Icon } from '@/types/icons'
 import type { DatabaseRecord } from '@/types/models'
 import useLogger from '@/composables/useLogger'
-import useActionRecordStore from '@/stores/action-record'
+import useActionStore from '@/stores/action'
 import DB from '@/services/LocalDatabase'
 
 // Props & Emits
@@ -14,7 +14,7 @@ defineProps<{
 
 // Composables & Stores
 const { log } = useLogger()
-const actionRecordStore = useActionRecordStore()
+const actionRecordStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -49,7 +49,7 @@ onMounted(async () => {
       <div class="q-mb-md">Exercise Result Ids associated with this Workout Result.</div>
 
       <QSelect
-        v-model="actionRecordStore.actionRecord[DatabaseField.EXERCISE_RESULT_IDS]"
+        v-model="actionRecordStore.record[DatabaseField.EXERCISE_RESULT_IDS]"
         ref="inputRef"
         label="Exercise Result Ids"
         :disable="locked"

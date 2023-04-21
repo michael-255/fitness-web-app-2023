@@ -3,7 +3,7 @@ import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField, MeasurementInput } from '@/types/database'
 import { Icon } from '@/types/icons'
 import useLogger from '@/composables/useLogger'
-import useActionRecordStore from '@/stores/action-record'
+import useActionStore from '@/stores/action'
 
 // Props & Emits
 defineProps<{
@@ -12,7 +12,7 @@ defineProps<{
 
 // Composables & Stores
 const { log } = useLogger()
-const actionRecordStore = useActionRecordStore()
+const actionRecordStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -30,8 +30,8 @@ onMounted(async () => {
 
     // Check for initial valid state
     if (
-      actionRecordStore.actionRecord[DatabaseField.MEASUREMENT_INPUTS] &&
-      actionRecordStore.actionRecord[DatabaseField.MEASUREMENT_INPUTS].length > 0
+      actionRecordStore.record[DatabaseField.MEASUREMENT_INPUTS] &&
+      actionRecordStore.record[DatabaseField.MEASUREMENT_INPUTS].length > 0
     ) {
       actionRecordStore.valid[DatabaseField.MEASUREMENT_INPUTS] = true
     } else {
@@ -71,7 +71,7 @@ function validateInput() {
       </div>
 
       <QSelect
-        v-model="actionRecordStore.actionRecord[DatabaseField.MEASUREMENT_INPUTS]"
+        v-model="actionRecordStore.record[DatabaseField.MEASUREMENT_INPUTS]"
         ref="inputRef"
         label="Measurement Inputs"
         :disable="locked"

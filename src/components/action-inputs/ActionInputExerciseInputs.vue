@@ -3,7 +3,7 @@ import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField, ExerciseInput } from '@/types/database'
 import { Icon } from '@/types/icons'
 import useLogger from '@/composables/useLogger'
-import useActionRecordStore from '@/stores/action-record'
+import useActionStore from '@/stores/action'
 
 // Props & Emits
 defineProps<{
@@ -12,7 +12,7 @@ defineProps<{
 
 // Composables & Stores
 const { log } = useLogger()
-const actionRecordStore = useActionRecordStore()
+const actionRecordStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -51,7 +51,7 @@ onMounted(async () => {
       </div>
 
       <QSelect
-        v-model="actionRecordStore.actionRecord[DatabaseField.EXERCISE_INPUTS]"
+        v-model="actionRecordStore.record[DatabaseField.EXERCISE_INPUTS]"
         ref="inputRef"
         label="Exercises"
         :disable="locked"

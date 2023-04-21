@@ -4,7 +4,7 @@ import { onMounted, type Ref, ref } from 'vue'
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
 import type { Optional } from '@/types/misc'
-import useActionRecordStore from '@/stores/action-record'
+import useActionStore from '@/stores/action'
 
 // Props & Emits
 defineProps<{
@@ -12,7 +12,7 @@ defineProps<{
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionRecordStore()
+const actionRecordStore = useActionStore()
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -20,8 +20,8 @@ const displayedDate: Ref<Optional<string>> = ref(null)
 const dateTimePicker: Ref<string> = ref('')
 
 onMounted(() => {
-  if (actionRecordStore.actionRecord[DatabaseField.FINISHED_TIMESTAMP]) {
-    updateDates(actionRecordStore.actionRecord[DatabaseField.FINISHED_TIMESTAMP])
+  if (actionRecordStore.record[DatabaseField.FINISHED_TIMESTAMP]) {
+    updateDates(actionRecordStore.record[DatabaseField.FINISHED_TIMESTAMP])
   } else {
     updateDates()
   }
@@ -35,7 +35,7 @@ onMounted(() => {
  * @param timestamp
  */
 function updateDates(timestamp: number = new Date().getTime()) {
-  actionRecordStore.actionRecord[DatabaseField.FINISHED_TIMESTAMP] = timestamp
+  actionRecordStore.record[DatabaseField.FINISHED_TIMESTAMP] = timestamp
   actionRecordStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
   displayedDate.value = date.formatDate(timestamp, 'ddd, YYYY MMM Do, h:mm A')
 }
@@ -53,7 +53,7 @@ function onPickerDateTime() {
  * Clears the displayed date and action record date for the finished timestamp.
  */
 function clearDates(): void {
-  actionRecordStore.actionRecord[DatabaseField.FINISHED_TIMESTAMP] = null
+  actionRecordStore.record[DatabaseField.FINISHED_TIMESTAMP] = null
   displayedDate.value = null
 }
 

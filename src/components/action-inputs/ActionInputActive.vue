@@ -2,7 +2,7 @@
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
 import { onMounted } from 'vue'
-import useActionRecordStore from '@/stores/action-record'
+import useActionStore from '@/stores/action'
 
 // Props & Emits
 defineProps<{
@@ -10,11 +10,11 @@ defineProps<{
 }>()
 
 // Composables & Stores
-const actionRecordStore = useActionRecordStore()
+const actionRecordStore = useActionStore()
 
 onMounted(() => {
-  actionRecordStore.actionRecord[DatabaseField.IS_ACTIVE] =
-    actionRecordStore.actionRecord[DatabaseField.IS_ACTIVE] ?? false
+  actionRecordStore.record[DatabaseField.IS_ACTIVE] =
+    actionRecordStore.record[DatabaseField.IS_ACTIVE] ?? false
   actionRecordStore.valid[DatabaseField.IS_ACTIVE] = true
 })
 </script>
@@ -32,10 +32,7 @@ onMounted(() => {
         value unless you know what you are doing.
       </div>
 
-      <QToggle
-        :disable="locked"
-        v-model="actionRecordStore.actionRecord[DatabaseField.IS_ACTIVE]"
-      />
+      <QToggle :disable="locked" v-model="actionRecordStore.record[DatabaseField.IS_ACTIVE]" />
     </QCardSection>
   </QCard>
 </template>
