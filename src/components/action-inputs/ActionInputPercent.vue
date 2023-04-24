@@ -2,6 +2,7 @@
 import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
+import { FieldDefault } from '@/services/Defaults'
 import useActionStore from '@/stores/action'
 
 // Props & Emits
@@ -16,21 +17,22 @@ const actionStore = useActionStore()
 const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  actionStore.record[DatabaseField.PERCENT] = actionStore.record[DatabaseField.PERCENT] ?? 0
+  actionStore.record[DatabaseField.PERCENTAGE] =
+    actionStore.record[DatabaseField.PERCENTAGE] ?? FieldDefault[DatabaseField.PERCENTAGE]() // function call
   // This input defaults itself, so it should always be valid
-  actionStore.valid[DatabaseField.PERCENT] = true
+  actionStore.valid[DatabaseField.PERCENTAGE] = true
 })
 
 /**
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionStore.record[DatabaseField.PERCENT] ?? 0
+  const val = actionStore.record[DatabaseField.PERCENTAGE] ?? 0
 
   if (!(typeof val === 'number') || val < 0) {
-    actionStore.record[DatabaseField.PERCENT] = 0
+    actionStore.record[DatabaseField.PERCENTAGE] = 0
   } else if (val > 100) {
-    actionStore.record[DatabaseField.PERCENT] = 100
+    actionStore.record[DatabaseField.PERCENTAGE] = 100
   }
 }
 </script>
@@ -47,7 +49,7 @@ function defaultNonValidInput() {
 
       <!-- Note: v-model.number for number types -->
       <QInput
-        v-model.number="actionStore.record[DatabaseField.PERCENT]"
+        v-model.number="actionStore.record[DatabaseField.PERCENTAGE]"
         ref="inputRef"
         label="Percent"
         :disable="locked"

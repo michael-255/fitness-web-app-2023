@@ -92,6 +92,9 @@ export enum DatabaseField {
   // Measurement Results
   LBS = 'lbs',
   INCHES = 'inches',
+  PERCENTAGE = 'percentage',
+  HEART_BPM = 'heartBpm',
+  HEART_RATE = 'heartRate',
 }
 
 /**

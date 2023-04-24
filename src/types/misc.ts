@@ -1,8 +1,8 @@
 import type {
+  DatabaseField,
   DatabaseAction,
   DatabaseCategory,
   DatabaseChildType,
-  DatabaseField,
   DatabaseParentType,
   DatabaseType,
   RecordIssue,
@@ -30,6 +30,17 @@ ${AppName} is a simple application for tracking workouts, exercises, and measure
 export const AppHeaderColor = 'deep-orange-14'
 
 /**
+ * Limits for various fields, inputs, and rules in the app.
+ */
+export enum Limit {
+  MAX_ID_LENGTH = 50,
+  MAX_NAME_LENGTH = 50,
+  MAX_DESCRIPTION_LENGTH = 500,
+  MAX_NOTE_LENGTH = 500,
+  MAX_FILE_SIZE = 1_000_000,
+}
+
+/**
  * Type that allows for a value to be null or undefined.
  */
 export type Optional<T> = T | null | undefined
@@ -38,13 +49,6 @@ export type Optional<T> = T | null | undefined
  * Generic type for an object with string based properties storing any value.
  */
 export type AppObject = { [x: string]: any }
-
-/**
- * Limits for various rules and inputs.
- */
-export enum Limit {
-  FILESIZE = 100_000_000, // ~100 megabytes
-}
 
 /**
  * Milliseconds per time value.
@@ -134,7 +138,6 @@ export type CoreBlueprint = {
 export type FieldBlueprint = {
   readonly field: DatabaseField
   readonly label: string
-  readonly getDefault: () => any
   readonly inspectFormat: (val: any) => string
   readonly component?: any // Vue component used when rendering (if any)
 }

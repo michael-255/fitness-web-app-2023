@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { exportFile } from 'quasar'
 import { Icon } from '@/types/icons'
-import { Limit, LogRetention, type ExportData, AppName } from '@/types/misc'
+import { LogRetention, type ExportData, AppName, Limit } from '@/types/misc'
 import { DatabaseType, SettingId } from '@/types/database'
 import { type Ref, ref, onUnmounted } from 'vue'
 import type { DatabaseRecord } from '@/types/models'
@@ -348,7 +348,7 @@ async function onDeleteDatabase() {
           counter
           bottom-slots
           label="File Select"
-          :max-file-size="Limit.FILESIZE"
+          :max-file-size="Limit.MAX_FILE_SIZE"
           accept="application/json"
           @rejected="onRejectedFile"
         >

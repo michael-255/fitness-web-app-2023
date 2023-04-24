@@ -2,12 +2,12 @@
 import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
+import { FieldDefault } from '@/services/Defaults'
 import useActionStore from '@/stores/action'
 
 // Props & Emits
-const props = defineProps<{
+defineProps<{
   locked?: boolean
-  default?: any
 }>()
 
 // Composables & Stores
@@ -18,7 +18,7 @@ const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
   actionStore.record[DatabaseField.INCHES] =
-    actionStore.record[DatabaseField.INCHES] ?? props.default
+    actionStore.record[DatabaseField.INCHES] ?? FieldDefault[DatabaseField.INCHES]() // function call
   // This input defaults itself, so it should always be valid
   actionStore.valid[DatabaseField.INCHES] = true
 })

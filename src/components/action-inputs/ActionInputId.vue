@@ -4,12 +4,13 @@ import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
 import { slugify } from '@/utils/common'
+import { Limit } from '@/types/misc'
+import { FieldDefault } from '@/services/Defaults'
 import useActionStore from '@/stores/action'
 
 // Props & Emits
-const props = defineProps<{
+defineProps<{
   locked?: boolean
-  default?: any
 }>()
 
 // Composables & Stores
@@ -19,7 +20,8 @@ const actionStore = useActionStore()
 const inputRef: Ref<any> = ref(null)
 
 onMounted(() => {
-  actionStore.record[DatabaseField.ID] = actionStore.record[DatabaseField.ID] ?? props.default
+  actionStore.record[DatabaseField.ID] =
+    actionStore.record[DatabaseField.ID] ?? FieldDefault[DatabaseField.ID]() // function call
   actionStore.valid[DatabaseField.ID] = true
 })
 
@@ -28,17 +30,9 @@ onMounted(() => {
  * @param val
  */
 function validationRule(val: string) {
-  const idRegex = /^.{1,50}$/ // 1-50 characters
-
-  const isIdValid = (val: string) => {
-    return val !== undefined && val !== null && val !== '' && idRegex.test(val)
-  }
-
-  if (val) {
-    return isIdValid(slugify(val))
-  } else {
-    return isIdValid(val)
-  }
+  return (
+    typeof val === 'string' && slugify(val).length <= Limit.MAX_ID_LENGTH && slugify(val).length > 0 // Must have at least 1 character
+  )
 }
 
 /**
@@ -74,9 +68,9 @@ function validateInput() {
         v-model="actionStore.record[DatabaseField.ID]"
         ref="inputRef"
         label="Id"
-        :rules="[(val: string) => validationRule(val) || 'Id must be between 1 and 50 characters']"
+        :rules="[(val: string) => validationRule(val) || `Id must be between 1 and ${Limit.MAX_ID_LENGTH} characters`]"
         :disable="locked"
-        :maxlength="50"
+        :maxlength="Limit.MAX_ID_LENGTH"
         type="text"
         counter
         dense
