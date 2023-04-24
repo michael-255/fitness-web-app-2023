@@ -10,6 +10,7 @@ import DB from '@/services/LocalDatabase'
 // Props & Emits
 defineProps<{
   locked?: boolean
+  label: string
 }>()
 
 // Composables & Stores
@@ -42,7 +43,7 @@ onMounted(async () => {
   <QCard v-show="!locked">
     <QCardSection>
       <div class="text-h6 q-mb-md">
-        Exercise Result Ids
+        {{ label }}
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
@@ -51,7 +52,7 @@ onMounted(async () => {
       <QSelect
         v-model="actionStore.record[DatabaseField.EXERCISE_RESULT_IDS]"
         ref="inputRef"
-        label="Exercise Result Ids"
+        :label="label"
         :disable="locked"
         :options="options"
         multiple

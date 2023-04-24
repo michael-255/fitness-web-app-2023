@@ -8,6 +8,7 @@ import useActionStore from '@/stores/action'
 // Props & Emits
 defineProps<{
   locked?: boolean
+  label: string
 }>()
 
 // Composables & Stores
@@ -27,10 +28,10 @@ onMounted(() => {
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionStore.record[DatabaseField.LBS] ?? 0
+  const val = actionStore.record[DatabaseField.LBS]
 
   if (!(typeof val === 'number') || val < 0) {
-    actionStore.record[DatabaseField.LBS] = 0
+    actionStore.record[DatabaseField.LBS] = FieldDefault[DatabaseField.LBS]() // function call
   } else if (val > Number.MAX_SAFE_INTEGER) {
     actionStore.record[DatabaseField.LBS] = Number.MAX_SAFE_INTEGER
   }
@@ -41,7 +42,7 @@ function defaultNonValidInput() {
   <QCard v-show="!locked">
     <QCardSection>
       <div class="text-h6 q-mb-md">
-        Lbs
+        {{ label }}
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
@@ -51,7 +52,7 @@ function defaultNonValidInput() {
       <QInput
         v-model.number="actionStore.record[DatabaseField.LBS]"
         ref="inputRef"
-        label="Lbs"
+        :label="label"
         :disable="locked"
         type="number"
         dense

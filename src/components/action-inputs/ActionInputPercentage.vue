@@ -2,12 +2,14 @@
 import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField } from '@/types/database'
 import { Icon } from '@/types/icons'
+import { Limit } from '@/types/misc'
 import { FieldDefault } from '@/services/Defaults'
 import useActionStore from '@/stores/action'
 
 // Props & Emits
 defineProps<{
   locked?: boolean
+  label: string
 }>()
 
 // Composables & Stores
@@ -27,12 +29,12 @@ onMounted(() => {
  * Defaults the input if the current value is not valid.
  */
 function defaultNonValidInput() {
-  const val = actionStore.record[DatabaseField.PERCENTAGE] ?? 0
+  const val = actionStore.record[DatabaseField.PERCENTAGE]
 
   if (!(typeof val === 'number') || val < 0) {
-    actionStore.record[DatabaseField.PERCENTAGE] = 0
+    actionStore.record[DatabaseField.PERCENTAGE] = FieldDefault[DatabaseField.PERCENTAGE]() // function call
   } else if (val > 100) {
-    actionStore.record[DatabaseField.PERCENTAGE] = 100
+    actionStore.record[DatabaseField.PERCENTAGE] = Limit.MAX_PERCENTAGE
   }
 }
 </script>
@@ -41,7 +43,7 @@ function defaultNonValidInput() {
   <QCard v-show="!locked">
     <QCardSection>
       <div class="text-h6 q-mb-md">
-        Percent
+        {{ label }}
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
@@ -51,7 +53,7 @@ function defaultNonValidInput() {
       <QInput
         v-model.number="actionStore.record[DatabaseField.PERCENTAGE]"
         ref="inputRef"
-        label="Percent"
+        :label="label"
         :disable="locked"
         type="number"
         dense

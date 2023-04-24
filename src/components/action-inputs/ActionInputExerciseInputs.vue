@@ -8,6 +8,7 @@ import useActionStore from '@/stores/action'
 // Props & Emits
 defineProps<{
   locked?: boolean
+  label: string
 }>()
 
 // Composables & Stores
@@ -40,7 +41,7 @@ onMounted(async () => {
   <QCard v-show="!locked">
     <QCardSection>
       <div class="text-h6 q-mb-md">
-        Exercise Inputs
+        {{ label }}
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
@@ -53,7 +54,7 @@ onMounted(async () => {
       <QSelect
         v-model="actionStore.record[DatabaseField.EXERCISE_INPUTS]"
         ref="inputRef"
-        label="Exercises"
+        :label="label"
         :disable="locked"
         :options="options"
         multiple

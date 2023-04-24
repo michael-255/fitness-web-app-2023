@@ -45,6 +45,7 @@ export const FieldDefault = Object.freeze({
   // Measurement Results
   [DatabaseField.LBS]: () => 0,
   [DatabaseField.INCHES]: () => 0,
+  [DatabaseField.FEET]: () => 0,
   [DatabaseField.PERCENTAGE]: () => 0,
   [DatabaseField.HEART_BPM]: () => 0,
   [DatabaseField.HEART_RATE]: () => [0, 0],

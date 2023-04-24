@@ -150,7 +150,7 @@ export const enabledField: FieldBlueprint = {
  */
 export const parentIdField: FieldBlueprint = {
   field: DatabaseField.PARENT_ID,
-  label: 'Parent Id',
+  label: 'Parent',
   inspectFormat: (val: string) => `${val}`,
   component: defineAsyncComponent(
     () => import('@/components/action-inputs/ActionInputParentId.vue')
@@ -183,7 +183,7 @@ export const activeField: FieldBlueprint = {
  */
 export const exerciseIdsField: FieldBlueprint = {
   field: DatabaseField.EXERCISE_IDS,
-  label: 'Exercise Ids',
+  label: 'Exercises',
   inspectFormat: (val: string[]) => `${val}`,
   component: defineAsyncComponent(
     () => import('@/components/action-inputs/ActionInputExerciseIds.vue')
@@ -231,7 +231,7 @@ export const finishedTimestampField: FieldBlueprint = {
  */
 export const exerciseResultIdsField: FieldBlueprint = {
   field: DatabaseField.EXERCISE_RESULT_IDS,
-  label: 'Exercise Result Ids',
+  label: 'Exercise Results',
   inspectFormat: (val: string[]) => `${val}`,
   component: defineAsyncComponent(
     () => import('@/components/action-inputs/ActionInputExerciseResultIds.vue')
@@ -266,4 +266,50 @@ export const inchesField: FieldBlueprint = {
   label: 'Inches',
   inspectFormat: (val: number) => `${val} in`,
   component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputInches.vue')),
+}
+
+/**
+ * Feet field used by measurement results.
+ */
+export const feetField: FieldBlueprint = {
+  field: DatabaseField.FEET,
+  label: 'Feet',
+  inspectFormat: (val: number) => `${val} ft`,
+  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputFeet.vue')),
+}
+
+/**
+ * Percentage field used by measurement results.
+ */
+export const percentageField: FieldBlueprint = {
+  field: DatabaseField.PERCENTAGE,
+  label: 'Percentage',
+  inspectFormat: (val: number) => `${val}%`,
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputPercentage.vue')
+  ),
+}
+
+/**
+ * Heart BPM field used by measurement results.
+ */
+export const heartBpmField: FieldBlueprint = {
+  field: DatabaseField.HEART_BPM,
+  label: 'Heart BPM',
+  inspectFormat: (val: number) => `${val} bpm`,
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputHeartBpm.vue')
+  ),
+}
+
+/**
+ * Heart Rate field used by measurement results.
+ */
+export const heartRateField: FieldBlueprint = {
+  field: DatabaseField.HEART_RATE,
+  label: 'Heart Rate',
+  inspectFormat: (val: [number, number]) => `${val[0]}/${val[1]}`,
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputHeartRate.vue')
+  ),
 }

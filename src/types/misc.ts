@@ -33,11 +33,13 @@ export const AppHeaderColor = 'deep-orange-14'
  * Limits for various fields, inputs, and rules in the app.
  */
 export enum Limit {
+  MAX_FILE_SIZE = 1_000_000,
   MAX_ID_LENGTH = 50,
   MAX_NAME_LENGTH = 50,
   MAX_DESCRIPTION_LENGTH = 500,
   MAX_NOTE_LENGTH = 500,
-  MAX_FILE_SIZE = 1_000_000,
+  MAX_PERCENTAGE = 100,
+  MAX_HEART_VALUE = 400,
 }
 
 /**

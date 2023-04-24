@@ -8,6 +8,7 @@ import useActionStore from '@/stores/action'
 // Props & Emits
 defineProps<{
   locked?: boolean
+  label: string
 }>()
 
 // Composables & Stores
@@ -62,7 +63,7 @@ function validateInput() {
   <QCard v-show="!locked">
     <QCardSection>
       <div class="text-h6 q-mb-md">
-        Measurement Inputs
+        {{ label }}
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
@@ -73,7 +74,7 @@ function validateInput() {
       <QSelect
         v-model="actionStore.record[DatabaseField.MEASUREMENT_INPUTS]"
         ref="inputRef"
-        label="Measurement Inputs"
+        :label="label"
         :disable="locked"
         :options="options"
         :rules="[(val: MeasurementInput[]) => validationRule(val) || '* Required']"
