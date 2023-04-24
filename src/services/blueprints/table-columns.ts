@@ -422,3 +422,55 @@ export const inchesColumn: QTableColumn = {
   field: (row: any) => row[DatabaseField.INCHES],
   format: (val: number) => `${val} in`,
 }
+
+/**
+ * Feet column used by Measurement Results.
+ */
+export const feetColumn: QTableColumn = {
+  name: DatabaseField.FEET,
+  label: 'Feet',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.FEET],
+  format: (val: number) => `${val} ft`,
+}
+
+/**
+ * Percentage column used by Measurement Results.
+ */
+export const percentageColumn: QTableColumn = {
+  name: DatabaseField.PERCENTAGE,
+  label: 'Percentage',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.PERCENTAGE],
+  format: (val: number) => `${val}%`,
+}
+
+/**
+ * Heart BPM column used by Measurement Results.
+ */
+export const heartBpmColumn: QTableColumn = {
+  name: DatabaseField.HEART_BPM,
+  label: 'Heart BPM',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.HEART_BPM],
+  format: (val: number) => `${val} bpm`,
+}
+
+/**
+ * Heart Rate (systolic/diastolic) column used by Measurement Results.
+ */
+export const heartRateColumn: QTableColumn = {
+  name: DatabaseField.HEART_RATE,
+  label: 'Heart Rate',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.HEART_RATE],
+  format: (val: [number, number]) => `${val[0]}/${val[1]}`,
+}

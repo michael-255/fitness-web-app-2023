@@ -95,7 +95,7 @@ export enum DatabaseField {
   FEET = 'feet',
   PERCENTAGE = 'percentage',
   HEART_BPM = 'heartBpm',
-  HEART_RATE = 'heartRate',
+  HEART_RATE = 'heartRate', // systolic/diastolic
 }
 
 /**

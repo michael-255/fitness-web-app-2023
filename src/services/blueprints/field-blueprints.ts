@@ -303,7 +303,7 @@ export const heartBpmField: FieldBlueprint = {
 }
 
 /**
- * Heart Rate field used by measurement results.
+ * Heart Rate (systolic/diastolic) field used by measurement results.
  */
 export const heartRateField: FieldBlueprint = {
   field: DatabaseField.HEART_RATE,

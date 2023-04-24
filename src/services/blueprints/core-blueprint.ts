@@ -27,6 +27,10 @@ import {
   setField,
   lbsField,
   inchesField,
+  feetField,
+  percentageField,
+  heartBpmField,
+  heartRateField,
 } from '@/services/blueprints/field-blueprints'
 import {
   requiredTypeColumn,
@@ -59,6 +63,10 @@ import {
   resistanceColumn,
   lbsColumn,
   inchesColumn,
+  feetColumn,
+  percentageColumn,
+  heartBpmColumn,
+  heartRateColumn,
 } from '@/services/blueprints/table-columns'
 
 /*
@@ -392,6 +400,10 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       activeField,
       lbsField,
       inchesField,
+      feetField,
+      percentageField,
+      heartBpmField,
+      heartRateField,
     ],
     visibleColumns: [
       DatabaseField.ID,
@@ -409,6 +421,10 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       activeColumn,
       lbsColumn,
       inchesColumn,
+      feetColumn,
+      percentageColumn,
+      heartBpmColumn,
+      heartRateColumn,
     ],
   },
 ]
