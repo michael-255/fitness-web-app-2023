@@ -95,7 +95,7 @@ export enum DatabaseField {
   FEET = 'feet',
   PERCENTAGE = 'percentage',
   HEART_BPM = 'heartBpm',
-  HEART_RATE = 'heartRate', // systolic/diastolic
+  BLOOD_PRESSURE = 'bloodPressure', // systolic/diastolic
 }
 
 /**
@@ -134,7 +134,7 @@ export enum MeasurementInput {
   FEET = 'Feet',
   PERCENTAGE = 'Percentage',
   HEART_BPM = 'Heart BPM',
-  HEART_RATE = 'Heart Rate', // systolic/diastolic
+  BLOOD_PRESSURE = 'Blood Pressure (S/D)', // systolic/diastolic
 }
 
 /**

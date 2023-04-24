@@ -56,7 +56,7 @@ export interface DatabaseRecord {
   [DatabaseField.FEET]?: number
   [DatabaseField.PERCENTAGE]?: number
   [DatabaseField.HEART_BPM]?: number
-  [DatabaseField.HEART_RATE]?: [number, number]
+  [DatabaseField.BLOOD_PRESSURE]?: [number, number]
 }
 
 /**
@@ -173,5 +173,5 @@ export type MeasurementResult = Pick<
   | DatabaseField.FEET
   | DatabaseField.PERCENTAGE
   | DatabaseField.HEART_BPM
-  | DatabaseField.HEART_RATE
+  | DatabaseField.BLOOD_PRESSURE
 >

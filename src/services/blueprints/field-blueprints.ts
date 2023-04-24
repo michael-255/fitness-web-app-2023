@@ -303,13 +303,13 @@ export const heartBpmField: FieldBlueprint = {
 }
 
 /**
- * Heart Rate (systolic/diastolic) field used by measurement results.
+ * Blood Pressure (systolic/diastolic) field used by measurement results.
  */
-export const heartRateField: FieldBlueprint = {
-  field: DatabaseField.HEART_RATE,
-  label: 'Heart Rate',
+export const bloodPressureField: FieldBlueprint = {
+  field: DatabaseField.BLOOD_PRESSURE,
+  label: 'Blood Pressure',
   inspectFormat: (val: [number, number]) => `${val[0]}/${val[1]}`,
   component: defineAsyncComponent(
-    () => import('@/components/action-inputs/ActionInputHeartRate.vue')
+    () => import('@/components/action-inputs/ActionInputBloodPressure.vue')
   ),
 }

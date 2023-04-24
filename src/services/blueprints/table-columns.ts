@@ -463,14 +463,14 @@ export const heartBpmColumn: QTableColumn = {
 }
 
 /**
- * Heart Rate (systolic/diastolic) column used by Measurement Results.
+ * Blood Pressure (systolic/diastolic) column used by Measurement Results.
  */
-export const heartRateColumn: QTableColumn = {
-  name: DatabaseField.HEART_RATE,
-  label: 'Heart Rate',
+export const bloodPressureColumn: QTableColumn = {
+  name: DatabaseField.BLOOD_PRESSURE,
+  label: 'Blood Pressure',
   align: 'left',
   sortable: true,
   required: false,
-  field: (row: any) => row[DatabaseField.HEART_RATE],
+  field: (row: any) => row[DatabaseField.BLOOD_PRESSURE],
   format: (val: [number, number]) => `${val[0]}/${val[1]}`,
 }

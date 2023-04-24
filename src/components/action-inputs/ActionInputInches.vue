@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref, type Ref } from 'vue'
-import { DatabaseField } from '@/types/database'
+import { onMounted, ref, type Ref, watch } from 'vue'
+import { DatabaseField, DatabaseType, MeasurementInput } from '@/types/database'
 import { Icon } from '@/types/icons'
 import { FieldDefault } from '@/services/Defaults'
 import useActionStore from '@/stores/action'
+import useLogger from '@/composables/useLogger'
+import DB from '@/services/LocalDatabase'
 
 // Props & Emits
 defineProps<{
@@ -13,9 +15,11 @@ defineProps<{
 
 // Composables & Stores
 const actionStore = useActionStore()
+const { log } = useLogger()
 
 // Data
 const inputRef: Ref<any> = ref(null)
+const isCardVisible = ref(true)
 
 onMounted(() => {
   actionStore.record[DatabaseField.INCHES] =
@@ -34,10 +38,43 @@ function defaultNonValidInput() {
     actionStore.record[DatabaseField.INCHES] = Number.MAX_SAFE_INTEGER
   }
 }
+
+/**
+ * Watching actionStore parent id for the property to change.
+ * Determines if the card should be visible or not.
+ */
+watch(
+  () => actionStore.record[DatabaseField.PARENT_ID] as string,
+  async (parentId) => {
+    try {
+      if (!parentId) {
+        return (isCardVisible.value = false)
+      }
+
+      const measurementRecord = await DB.getRecord(DatabaseType.MEASUREMENT, parentId)
+
+      if (!measurementRecord) {
+        return (isCardVisible.value = false)
+      }
+
+      const measurementInputs = measurementRecord[DatabaseField.MEASUREMENT_INPUTS]
+
+      // Checks for specific measurement input
+      if (measurementInputs?.includes(MeasurementInput.INCHES)) {
+        isCardVisible.value = true
+      } else {
+        isCardVisible.value = false
+      }
+    } catch (error) {
+      log.error('Error with blood pressure watcher', error)
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
-  <QCard v-show="!locked">
+  <QCard v-if="!locked && isCardVisible">
     <QCardSection>
       <div class="text-h6 q-mb-md">
         {{ label }}
