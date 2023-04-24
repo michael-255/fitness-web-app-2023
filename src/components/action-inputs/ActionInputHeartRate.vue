@@ -60,32 +60,41 @@ function defaultNonValidInput() {
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
-      <div class="q-mb-md">Measurement values for heart rate (systolic/diastolic).</div>
+      <div class="q-mb-md">Measurement values for heart rate.</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.HEART_RATE][0]"
-        ref="inputRef"
-        label="Systolic"
-        :disable="locked"
-        type="number"
-        dense
-        outlined
-        color="primary"
-        @blur="defaultNonValidInput()"
-      />
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.HEART_RATE][1]"
-        ref="inputRef"
-        label="Dystolic"
-        :disable="locked"
-        type="number"
-        dense
-        outlined
-        color="primary"
-        @blur="defaultNonValidInput()"
-      />
+      <div class="row q-gutter-sm">
+        <div class="col">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.HEART_RATE][0]"
+            ref="inputRef"
+            label="Systolic"
+            :disable="locked"
+            type="number"
+            dense
+            outlined
+            color="primary"
+            @blur="defaultNonValidInput()"
+          />
+        </div>
+
+        <div class="text-h4">/</div>
+
+        <div class="col">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.HEART_RATE][1]"
+            ref="inputRef"
+            label="Dystolic"
+            :disable="locked"
+            type="number"
+            dense
+            outlined
+            color="primary"
+            @blur="defaultNonValidInput()"
+          />
+        </div>
+      </div>
     </QCardSection>
   </QCard>
 </template>

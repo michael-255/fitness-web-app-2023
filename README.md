@@ -11,15 +11,6 @@ view charts of your progress and export your data at any time.
 
   - [ ] `Measurement Result` (do this one first)
 
-    - [ ] `ActionInputPercent`
-    - [x] `ActionInputLbs`
-    - [ ] `ActionInputFeet`
-    - [x] `ActionInputInches`
-    - [ ] `ActionInputHeartBpm`
-    - [ ] `ActionInputHeartRate` (Systolic,Diastolic)
-    - [ ] `table-columns` for new measurements
-    - [ ] `field-blueprints` for new measurements
-    - [ ] `core-bluprints` for new measurements
     - [ ] `onMounted` determine if input should be displayed based on `MeasurementInputs`
 
   - [ ] `ActionInputSet`

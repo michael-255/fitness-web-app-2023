@@ -131,6 +131,10 @@ export enum Severity {
 export enum MeasurementInput {
   LBS = 'Lbs',
   INCHES = 'Inches',
+  FEET = 'Feet',
+  PERCENTAGE = 'Percentage',
+  HEART_BPM = 'Heart BPM',
+  HEART_RATE = 'Heart Rate', // systolic/diastolic
 }
 
 /**
