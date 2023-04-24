@@ -239,13 +239,53 @@ export const exerciseResultIdsField: FieldBlueprint = {
 }
 
 /**
- * Exercise Result set contains all exercise input fields.
+ * Reps field used by exercise results.
  */
-export const setField: FieldBlueprint = {
-  field: 'set' as DatabaseField, // Special field to collect all exercise inputs
-  label: 'Set',
-  inspectFormat: (val: number) => `${val}`,
-  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputSet.vue')),
+export const repsField: FieldBlueprint = {
+  field: DatabaseField.REPS,
+  label: 'Reps',
+  inspectFormat: (val: number[]) => `${val}`,
+  component: null, // Handled by action set inputs
+}
+
+/**
+ * Weight (lbs) field used by exercise results.
+ */
+export const weightLbsField: FieldBlueprint = {
+  field: DatabaseField.WEIGHT_LBS,
+  label: 'Weight (lbs)',
+  inspectFormat: (val: number[]) => `${val}`,
+  component: null, // Handled by action set inputs
+}
+
+/**
+ * Distance (miles) field used by exercise results.
+ */
+export const distanceMilesField: FieldBlueprint = {
+  field: DatabaseField.DISTANCE_MILES,
+  label: 'Distance (miles)',
+  inspectFormat: (val: number[]) => `${val}`,
+  component: null, // Handled by action set inputs
+}
+
+/**
+ * Duration (minutes) field used by exercise results.
+ */
+export const durationMinutesField: FieldBlueprint = {
+  field: DatabaseField.DURATION_MINUTES,
+  label: 'Duration (minutes)',
+  inspectFormat: (val: number[]) => `${val}`,
+  component: null, // Handled by action set inputs
+}
+
+/**
+ * Resistance field used by exercise results.
+ */
+export const resistanceField: FieldBlueprint = {
+  field: DatabaseField.RESISTANCE,
+  label: 'Resistance',
+  inspectFormat: (val: number[]) => `${val}`,
+  component: null, // Handled by action set inputs
 }
 
 /**

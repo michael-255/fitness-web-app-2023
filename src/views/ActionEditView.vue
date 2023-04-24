@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Icon } from '@/types/icons'
-import { DatabaseField } from '@/types/database'
+import { DatabaseField, DatabaseType } from '@/types/database'
 import type { DatabaseRecord } from '@/types/models'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { getFieldBlueprints, getFields, getLabel } from '@/services/Blueprints'
 import { AppName } from '@/types/misc'
-import { useMeta } from 'quasar'
+import { extend, useMeta } from 'quasar'
+import ActionSetInputs from '@/components/ActionSetInputs.vue'
 import useRoutables from '@/composables/useRoutables'
 import useActionStore from '@/stores/action'
 import useDialogs from '@/composables/useDialogs'
@@ -66,7 +67,8 @@ async function onSubmit() {
     'positive',
     async () => {
       try {
-        await DB.updateRecord(routeDatabaseType, routeId, record)
+        const deepRecordCopy = extend(true, {}, record) as DatabaseRecord
+        await DB.updateRecord(routeDatabaseType, routeId, deepRecordCopy)
 
         log.info('Successfully updated record', {
           updatedRecordType: routeDatabaseType,
@@ -109,6 +111,10 @@ async function onSubmit() {
         <div v-for="(fieldBP, i) in fieldBlueprints" :key="i" class="q-mb-md">
           <!-- Dynamic Async Components -->
           <component :is="fieldBP.component" :label="fieldBP.label" />
+        </div>
+
+        <div v-if="routeDatabaseType === DatabaseType.EXERCISE_RESULT" class="q-mb-md">
+          <ActionSetInputs />
         </div>
 
         <div class="row justify-start">

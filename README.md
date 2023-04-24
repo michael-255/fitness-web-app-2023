@@ -5,21 +5,18 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
-- [ ] `Form` and other improvements to `Web App Template` implemented?
-
 - [ ] Build `ActionInput*` components for `field-blueprints`
 
-  - [ ] `Measurement Result` (do this one first)
-
-    - [ ] `onMounted` determine if input should be displayed based on `MeasurementInputs`
-
-  - [ ] `ActionInputSet`
-
-    - [ ] `Reps`
-    - [ ] `WeightLbs`
-    - [ ] `DistanceMiles`
-    - [ ] `DurationMinutes`
-    - [ ] `Resistance`
+  - [ ] `ActionSetInputs` - Need to have SETS and NO_SETS `v-if` blocks
+    - [ ] Build SETS and NO_SETS `v-if` blocks for `ActionSetInputs`
+    - [ ] Put on set components inside of `ActionSetInputs` (listed below)
+    - [ ] Build Column design for `ActionSetInputs` component
+    - [ ] Build `Add` and `Remove` set functionality
+    - [ ] `ActionInputReps`
+    - [ ] `ActionInputWeightLbs`
+    - [ ] `ActionInputDistanceMiles`
+    - [ ] `ActionInputDurationMinutes`
+    - [ ] `ActionInputResistance`
 
 - [ ] Build `Chart` components for `chart-blueprints`
 

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Icon } from '@/types/icons'
-import { DatabaseField } from '@/types/database'
+import { DatabaseField, DatabaseType } from '@/types/database'
 import type { DatabaseRecord } from '@/types/models'
 import { getFieldBlueprints, getFields, getLabel } from '@/services/Blueprints'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { AppName } from '@/types/misc'
-import { useMeta } from 'quasar'
+import { useMeta, extend } from 'quasar'
 import ResponsivePage from '@/components/ResponsivePage.vue'
+import ActionSetInputs from '@/components/ActionSetInputs.vue'
 import useRoutables from '@/composables/useRoutables'
 import useActionStore from '@/stores/action'
 import useLogger from '@/composables/useLogger'
@@ -56,7 +57,8 @@ async function onSubmit() {
     'positive',
     async () => {
       try {
-        await DB.addRecord(record)
+        const deepRecordCopy = extend(true, {}, record) as DatabaseRecord
+        await DB.addRecord(deepRecordCopy)
 
         log.info('Successfully created record', {
           createdRecordType: record[DatabaseField.TYPE],
@@ -121,6 +123,10 @@ function lockFields(field: DatabaseField) {
             :locked="lockFields(fieldBP.field)"
             :label="fieldBP.label"
           />
+        </div>
+
+        <div v-if="routeDatabaseType === DatabaseType.EXERCISE_RESULT" class="q-mb-md">
+          <ActionSetInputs />
         </div>
 
         <div class="row justify-start">
