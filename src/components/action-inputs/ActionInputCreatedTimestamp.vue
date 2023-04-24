@@ -25,7 +25,6 @@ onMounted(() => {
   } else {
     updateDates()
   }
-  actionStore.valid[DatabaseField.CREATED_TIMESTAMP] = true
 })
 
 /**
@@ -34,7 +33,6 @@ onMounted(() => {
  */
 function updateDates(timestamp: number = new Date().getTime()) {
   actionStore.record[DatabaseField.CREATED_TIMESTAMP] = timestamp
-  actionStore.valid[DatabaseField.CREATED_TIMESTAMP] = true
   displayedDate.value = date.formatDate(timestamp, 'ddd, YYYY MMM Do, h:mm A')
 }
 
@@ -45,13 +43,6 @@ function onPickerDateTime() {
   if (dateTimePicker.value) {
     updateDates(new Date(dateTimePicker.value).getTime())
   }
-}
-
-/**
- * Runs the input validation and sets the store valid property to the result.
- */
-function validateInput() {
-  actionStore.valid[DatabaseField.CREATED_TIMESTAMP] = !!inputRef?.value?.validate()
 }
 </script>
 
@@ -77,7 +68,6 @@ function validateInput() {
         disable
         color="primary"
         hint="Auto formatted"
-        @blur="validateInput()"
       >
         <template v-slot:after>
           <!-- Date Picker -->

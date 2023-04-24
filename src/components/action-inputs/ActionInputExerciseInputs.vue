@@ -28,9 +28,6 @@ onMounted(async () => {
       value: i,
       label: i,
     }))
-
-    // Valid state starts true because you can have no inputs if you want
-    actionStore.valid[DatabaseField.EXERCISE_INPUTS] = true
   } catch (error) {
     log.error('Error with exercise inputs', error)
   }

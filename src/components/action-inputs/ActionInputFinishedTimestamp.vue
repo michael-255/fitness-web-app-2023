@@ -26,9 +26,6 @@ onMounted(() => {
   } else {
     updateDates()
   }
-
-  // Valid state starts true because you can have no finished date if you want.
-  actionStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
 })
 
 /**
@@ -37,7 +34,6 @@ onMounted(() => {
  */
 function updateDates(timestamp: number = new Date().getTime()) {
   actionStore.record[DatabaseField.FINISHED_TIMESTAMP] = timestamp
-  actionStore.valid[DatabaseField.FINISHED_TIMESTAMP] = true
   displayedDate.value = date.formatDate(timestamp, 'ddd, YYYY MMM Do, h:mm A')
 }
 
@@ -56,13 +52,6 @@ function onPickerDateTime() {
 function clearDates(): void {
   actionStore.record[DatabaseField.FINISHED_TIMESTAMP] = null
   displayedDate.value = null
-}
-
-/**
- * Runs the input validation and sets the store valid property to the result.
- */
-function validateInput() {
-  actionStore.valid[DatabaseField.FINISHED_TIMESTAMP] = !!inputRef?.value?.validate()
 }
 </script>
 
@@ -88,7 +77,6 @@ function validateInput() {
         disable
         color="primary"
         hint="Auto formatted"
-        @blur="validateInput()"
       >
         <template v-slot:after>
           <!-- Date Picker -->

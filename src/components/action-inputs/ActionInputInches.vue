@@ -20,8 +20,6 @@ const inputRef: Ref<any> = ref(null)
 onMounted(() => {
   actionStore.record[DatabaseField.INCHES] =
     actionStore.record[DatabaseField.INCHES] ?? FieldDefault[DatabaseField.INCHES]() // function call
-  // This input defaults itself, so it should always be valid
-  actionStore.valid[DatabaseField.INCHES] = true
 })
 
 /**

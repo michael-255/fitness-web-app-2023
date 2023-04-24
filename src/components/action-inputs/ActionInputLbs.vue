@@ -20,8 +20,6 @@ const inputRef: Ref<any> = ref(null)
 onMounted(() => {
   actionStore.record[DatabaseField.LBS] =
     actionStore.record[DatabaseField.LBS] ?? FieldDefault[DatabaseField.LBS]() // function call
-  // This input defaults itself, so it should always be valid
-  actionStore.valid[DatabaseField.LBS] = true
 })
 
 /**

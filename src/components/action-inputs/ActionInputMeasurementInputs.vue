@@ -28,16 +28,6 @@ onMounted(async () => {
       value: m,
       label: m,
     }))
-
-    // Check for initial valid state
-    if (
-      actionStore.record[DatabaseField.MEASUREMENT_INPUTS] &&
-      actionStore.record[DatabaseField.MEASUREMENT_INPUTS].length > 0
-    ) {
-      actionStore.valid[DatabaseField.MEASUREMENT_INPUTS] = true
-    } else {
-      actionStore.valid[DatabaseField.MEASUREMENT_INPUTS] = false
-    }
   } catch (error) {
     log.error('Error with measurement inputs', error)
   }
@@ -49,13 +39,6 @@ onMounted(async () => {
  */
 function validationRule(val: MeasurementInput[]) {
   return Array.isArray(val) && val.length > 0
-}
-
-/**
- * Runs the input validation and sets the store valid property to the result.
- */
-function validateInput() {
-  actionStore.valid[DatabaseField.MEASUREMENT_INPUTS] = !!inputRef?.value?.validate()
 }
 </script>
 
@@ -85,7 +68,6 @@ function validateInput() {
         dense
         outlined
         color="primary"
-        @blur="validateInput()"
       />
     </QCardSection>
   </QCard>

@@ -21,8 +21,6 @@ const inputRef: Ref<any> = ref(null)
 onMounted(() => {
   actionStore.record[DatabaseField.PERCENTAGE] =
     actionStore.record[DatabaseField.PERCENTAGE] ?? FieldDefault[DatabaseField.PERCENTAGE]() // function call
-  // This input defaults itself, so it should always be valid
-  actionStore.valid[DatabaseField.PERCENTAGE] = true
 })
 
 /**

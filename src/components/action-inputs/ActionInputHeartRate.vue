@@ -27,9 +27,6 @@ onMounted(() => {
 
   actionStore.record[DatabaseField.HEART_RATE][1] =
     actionStore.record[DatabaseField.HEART_RATE][1] ?? FieldDefault[DatabaseField.HEART_RATE]()[1] // function call
-
-  // This input defaults itself, so it should always be valid
-  actionStore.valid[DatabaseField.HEART_RATE] = true
 })
 
 /**

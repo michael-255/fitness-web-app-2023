@@ -31,16 +31,6 @@ onMounted(async () => {
       value: r.id,
       label: `${r.name} (${truncateString(r.id, 4, '*')})`, // Truncate id for readability
     }))
-
-    // Check for initial valid state
-    if (
-      actionStore.record[DatabaseField.EXERCISE_IDS] &&
-      actionStore.record[DatabaseField.EXERCISE_IDS].length > 0
-    ) {
-      actionStore.valid[DatabaseField.EXERCISE_IDS] = true
-    } else {
-      actionStore.valid[DatabaseField.EXERCISE_IDS] = false
-    }
   } catch (error) {
     log.error('Error with exercise ids input', error)
   }
@@ -52,13 +42,6 @@ onMounted(async () => {
  */
 function validationRule(val: string[]) {
   return Array.isArray(val) && val.length > 0
-}
-
-/**
- * Runs the input validation and sets the store valid property to the result.
- */
-function validateInput() {
-  actionStore.valid[DatabaseField.EXERCISE_IDS] = !!inputRef?.value?.validate()
 }
 </script>
 
@@ -89,7 +72,6 @@ function validateInput() {
         dense
         outlined
         color="primary"
-        @blur="validateInput()"
       />
     </QCardSection>
   </QCard>

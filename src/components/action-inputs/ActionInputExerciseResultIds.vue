@@ -30,9 +30,6 @@ onMounted(async () => {
       value: r.id,
       label: r.id,
     }))
-
-    // Valid state starts true because you can have no result ids if you want
-    actionStore.valid[DatabaseField.EXERCISE_RESULT_IDS] = true
   } catch (error) {
     log.error('Error with exercise ids input', error)
   }

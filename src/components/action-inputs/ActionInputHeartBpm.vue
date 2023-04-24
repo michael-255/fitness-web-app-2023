@@ -21,8 +21,6 @@ const inputRef: Ref<any> = ref(null)
 onMounted(() => {
   actionStore.record[DatabaseField.HEART_BPM] =
     actionStore.record[DatabaseField.HEART_BPM] ?? FieldDefault[DatabaseField.HEART_BPM]() // function call
-  // This input defaults itself, so it should always be valid
-  actionStore.valid[DatabaseField.HEART_BPM] = true
 })
 
 /**
