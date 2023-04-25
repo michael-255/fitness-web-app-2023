@@ -79,7 +79,7 @@ export default function useDefaults() {
               [DatabaseField.ID]: '2158e1b2-27e0-4012-bb14-3846b3ee1d6a', // From Fitness Tracker v16
               [DatabaseField.NAME]: 'Barbell Strength - A',
               [DatabaseField.DESCRIPTION]:
-                'Workout A of a barbell strength building program where you alternate between two workouts 3-4 times per week.',
+                'Workout A of a barbell strength building program where you alternate between this and workout B. Do this workout 1-2 times per week.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.EXERCISE_IDS]: [
@@ -93,7 +93,7 @@ export default function useDefaults() {
               [DatabaseField.ID]: 'f3a1537c-4d63-43e1-99bd-df5ef59ac220', // From Fitness Tracker v16
               [DatabaseField.NAME]: 'Barbell Strength - B',
               [DatabaseField.DESCRIPTION]:
-                'Workout B of a barbell strength building program where you alternate between two workouts 3-4 times per week. You should only do 1 set of the Barbell Deaflift exercise.',
+                'Workout B of a barbell strength building program where you alternate between this and workout A. Do this workout 1-2 times per week. You should only do 1 set of the Barbell Deadlift exercise in this program.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.EXERCISE_IDS]: [
@@ -220,7 +220,7 @@ export default function useDefaults() {
               [DatabaseField.ID]: '80add653-aa96-4253-9d94-a30cb10cfa5f',
               [DatabaseField.NAME]: 'Stretch Routine',
               [DatabaseField.DESCRIPTION]:
-                'Simple routine with a variety of stretches focusing on larger muscle groups to help you relax and recover.',
+                'Simple routine with a variety of stretches focusing on larger muscle groups to help you relax and recover. Do this routine after a workout or every day if possible.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.EXERCISE_IDS]: [
@@ -322,7 +322,8 @@ export default function useDefaults() {
               [DatabaseField.TYPE]: DatabaseType.WORKOUT,
               [DatabaseField.ID]: 'cba94a35-d450-4d0f-955f-df6315522622',
               [DatabaseField.NAME]: 'Carpal Tunnel Routine',
-              [DatabaseField.DESCRIPTION]: 'Physical therapy routine for carpal tunnel syndrome.',
+              [DatabaseField.DESCRIPTION]:
+                'Physical therapy routine for carpal tunnel syndrome. Do this routine on days where you did any heavy activity with your wrists (including workouts).',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.EXERCISE_IDS]: [
