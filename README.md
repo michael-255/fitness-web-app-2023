@@ -7,8 +7,8 @@ view charts of your progress and export your data at any time.
 
 - [ ] Build `ActionInput*` components for `field-blueprints`
 
-  - [ ] `ActionSetInputs` - Need to have SETS and NO_SETS `v-if` blocks
-    - [ ] Build SETS and NO_SETS `v-if` blocks for `ActionSetInputs`
+  - [ ] `ActionSetInputs`
+    - [ ] Build SETS and NO_SETS `v-if` blocks for `ActionSetInputs` (check parent `ExerciseInputs`)
     - [ ] Put on set components inside of `ActionSetInputs` (listed below)
     - [ ] Build Column design for `ActionSetInputs` component
     - [ ] Build `Add` and `Remove` set functionality
