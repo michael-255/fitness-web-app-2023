@@ -7,6 +7,8 @@ view charts of your progress and export your data at any time.
 
 - [ ] Build `ActionInput*` components for `field-blueprints`
 
+  - [ ] `Measurement Input Components` need placeholder to show previous value (\*\*\*)
+
   - [ ] `ActionSetInputs`
     - [ ] Build SETS and NO_SETS `v-if` blocks for `ActionSetInputs` (check parent `ExerciseInputs`)
     - [ ] Put on set components inside of `ActionSetInputs` (listed below)

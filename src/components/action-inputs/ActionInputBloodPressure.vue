@@ -66,8 +66,6 @@ function defaultNonValidInput() {
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
-      <div class="q-mb-md">Measurement values for blood pressure.</div>
-
       <div class="row q-gutter-sm">
         <div class="col">
           <!-- Note: v-model.number for number types -->

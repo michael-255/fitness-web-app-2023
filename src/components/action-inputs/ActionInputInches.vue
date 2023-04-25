@@ -46,8 +46,6 @@ function defaultNonValidInput() {
         <QIcon v-if="locked" :name="Icon.LOCK" color="warning" class="q-pb-xs" />
       </div>
 
-      <div class="q-mb-md">Measurement value in inches.</div>
-
       <!-- Note: v-model.number for number types -->
       <QInput
         v-model.number="actionStore.record[DatabaseField.INCHES]"
