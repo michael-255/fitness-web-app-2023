@@ -91,7 +91,7 @@ function defaultNonValidInput() {
           <QInput
             v-model.number="actionStore.record[DatabaseField.BLOOD_PRESSURE][1]"
             ref="inputRef"
-            label="Dystolic"
+            label="Diastolic"
             :disable="locked"
             type="number"
             dense
