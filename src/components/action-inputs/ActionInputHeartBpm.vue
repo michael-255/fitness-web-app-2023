@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref, type Ref, watch } from 'vue'
+import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField, DatabaseType, MeasurementInput } from '@/types/database'
 import { Icon } from '@/types/icons'
 import { Limit } from '@/types/misc'
 import { FieldDefault } from '@/services/Defaults'
+import useParentIdWatcher from '@/composables/useParentIdWatcher'
 import useActionStore from '@/stores/action'
-import useLogger from '@/composables/useLogger'
-import DB from '@/services/LocalDatabase'
 
 // Props & Emits
 defineProps<{
@@ -16,11 +15,10 @@ defineProps<{
 
 // Composables & Stores
 const actionStore = useActionStore()
-const { log } = useLogger()
+const { isVisible } = useParentIdWatcher(DatabaseType.MEASUREMENT, MeasurementInput.HEART_BPM)
 
 // Data
 const inputRef: Ref<any> = ref(null)
-const isCardVisible = ref(true)
 
 onMounted(() => {
   actionStore.record[DatabaseField.HEART_BPM] =
@@ -39,43 +37,10 @@ function defaultNonValidInput() {
     actionStore.record[DatabaseField.HEART_BPM] = Limit.MAX_HEART_VALUE
   }
 }
-
-/**
- * Watching actionStore parent id for the property to change.
- * Determines if the card should be visible or not.
- */
-watch(
-  () => actionStore.record[DatabaseField.PARENT_ID] as string,
-  async (parentId) => {
-    try {
-      if (!parentId) {
-        return (isCardVisible.value = false)
-      }
-
-      const measurementRecord = await DB.getRecord(DatabaseType.MEASUREMENT, parentId)
-
-      if (!measurementRecord) {
-        return (isCardVisible.value = false)
-      }
-
-      const measurementInputs = measurementRecord[DatabaseField.MEASUREMENT_INPUTS]
-
-      // Checks for specific measurement input
-      if (measurementInputs?.includes(MeasurementInput.HEART_BPM)) {
-        isCardVisible.value = true
-      } else {
-        isCardVisible.value = false
-      }
-    } catch (error) {
-      log.error('Error with blood pressure watcher', error)
-    }
-  },
-  { immediate: true }
-)
 </script>
 
 <template>
-  <QCard v-if="!locked && isCardVisible">
+  <QCard v-if="!locked && isVisible">
     <QCardSection>
       <div class="text-h6 q-mb-md">
         {{ label }}
