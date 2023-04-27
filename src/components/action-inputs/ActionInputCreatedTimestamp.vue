@@ -62,7 +62,6 @@ function onPickerDateTime() {
       <QInput
         v-model="displayedDate"
         ref="inputRef"
-        :label="label"
         dense
         outlined
         disable

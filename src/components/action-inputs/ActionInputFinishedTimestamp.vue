@@ -71,7 +71,6 @@ function clearDates(): void {
       <QInput
         v-model="displayedDate"
         ref="inputRef"
-        :label="label"
         dense
         outlined
         disable

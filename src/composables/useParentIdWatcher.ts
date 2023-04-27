@@ -1,54 +1,74 @@
-import { ref, watch } from 'vue'
-import { DatabaseField, DatabaseType, ExerciseInput, MeasurementInput } from '@/types/database'
+import { ref, watch, type Ref } from 'vue'
+import {
+  DatabaseField,
+  DatabaseType,
+  ExerciseInput,
+  MeasurementInput,
+  type DatabaseParentType,
+} from '@/types/database'
+import type { Optional } from '@/types/misc'
+import type { DatabaseRecord } from '@/types/models'
+import {
+  getChildCategoryTypes,
+  getChildType,
+  getParentCategoryTypes,
+  getParentType,
+} from '@/services/Blueprints'
 import useActionStore from '@/stores/action'
-import useLogger from './useLogger'
+import useLogger from '@/composables/useLogger'
 import DB from '@/services/LocalDatabase'
 
 /**
- * Composable with the watcher for triggering input component visiblity.
- * @param type
+ * Composable with the watcher for parent id.
  * @param input
  */
-export default function useParentIdWatcher(
-  type: DatabaseType.MEASUREMENT | DatabaseType.EXERCISE,
-  input: MeasurementInput | ExerciseInput
-) {
+export default function useParentIdWatcher(input?: MeasurementInput | ExerciseInput) {
   const actionStore = useActionStore()
   const { log } = useLogger()
 
-  const isVisible = ref(true)
+  const isVisible = ref(false)
+  const previousRecord: Ref<Optional<DatabaseRecord>> = ref(null)
 
   /**
    * Watching actionStore parent id for the property to change.
-   * Determines if the card should be visible or not.
    */
   watch(
     () => actionStore.record[DatabaseField.PARENT_ID] as string,
     async (parentId) => {
       try {
-        if (!parentId) {
+        const type = actionStore.record[DatabaseField.TYPE]
+
+        // Do NOT continue without a parent id or type
+        if (!parentId || !type) {
           return (isVisible.value = false)
         }
 
-        const record = await DB.getRecord(type, parentId)
+        // Nothing to do on parent types
+        if (getParentCategoryTypes().includes(type)) {
+          return (isVisible.value = false)
+        }
 
-        if (!record) {
+        previousRecord.value = await DB.getPreviousChildRecord(type, parentId)
+
+        const parentRecord = await DB.getRecord(getParentType(type) as DatabaseParentType, parentId)
+
+        if (!parentRecord) {
           return (isVisible.value = false)
         }
 
         let inputs: (MeasurementInput | ExerciseInput)[] = []
 
         // Get inputs from the parent record
-        if (type === DatabaseType.MEASUREMENT) {
-          inputs = record[DatabaseField.MEASUREMENT_INPUTS] as MeasurementInput[]
-        } else if (type === DatabaseType.EXERCISE) {
-          inputs = record[DatabaseField.EXERCISE_INPUTS] as ExerciseInput[]
+        if (type === DatabaseType.MEASUREMENT_RESULT) {
+          inputs = parentRecord[DatabaseField.MEASUREMENT_INPUTS] as MeasurementInput[]
+        } else if (type === DatabaseType.EXERCISE_RESULT) {
+          inputs = parentRecord[DatabaseField.EXERCISE_INPUTS] as ExerciseInput[]
         } else {
           inputs = []
         }
 
-        // Checks for specific input
-        if (inputs?.includes(input)) {
+        // Checks for specific input (must be provided)
+        if (inputs?.includes(input as MeasurementInput | ExerciseInput)) {
           isVisible.value = true
         } else {
           isVisible.value = false
@@ -60,5 +80,5 @@ export default function useParentIdWatcher(
     { immediate: true }
   )
 
-  return { isVisible }
+  return { isVisible, previousRecord }
 }

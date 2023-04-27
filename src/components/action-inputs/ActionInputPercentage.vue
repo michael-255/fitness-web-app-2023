@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from 'vue'
-import { DatabaseField, DatabaseType, MeasurementInput } from '@/types/database'
+import { DatabaseField, MeasurementInput } from '@/types/database'
 import { Icon } from '@/types/icons'
 import { Limit } from '@/types/misc'
 import { FieldDefault } from '@/services/Defaults'
@@ -15,7 +15,7 @@ defineProps<{
 
 // Composables & Stores
 const actionStore = useActionStore()
-const { isVisible } = useParentIdWatcher(DatabaseType.MEASUREMENT, MeasurementInput.PERCENTAGE)
+const { isVisible, previousRecord } = useParentIdWatcher(MeasurementInput.PERCENTAGE)
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -51,7 +51,7 @@ function defaultNonValidInput() {
       <QInput
         v-model.number="actionStore.record[DatabaseField.PERCENTAGE]"
         ref="inputRef"
-        :label="label"
+        :label="`${previousRecord?.percentage ?? 'No previous record'}`"
         :disable="locked"
         type="number"
         dense

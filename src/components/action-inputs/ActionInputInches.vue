@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from 'vue'
-import { DatabaseField, DatabaseType, MeasurementInput } from '@/types/database'
+import { DatabaseField, MeasurementInput } from '@/types/database'
 import { Icon } from '@/types/icons'
 import { FieldDefault } from '@/services/Defaults'
 import useParentIdWatcher from '@/composables/useParentIdWatcher'
@@ -14,7 +14,7 @@ defineProps<{
 
 // Composables & Stores
 const actionStore = useActionStore()
-const { isVisible } = useParentIdWatcher(DatabaseType.MEASUREMENT, MeasurementInput.INCHES)
+const { isVisible, previousRecord } = useParentIdWatcher(MeasurementInput.INCHES)
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -50,7 +50,7 @@ function defaultNonValidInput() {
       <QInput
         v-model.number="actionStore.record[DatabaseField.INCHES]"
         ref="inputRef"
-        :label="label"
+        :label="`${previousRecord?.inches ?? 'No previous record'}`"
         :disable="locked"
         type="number"
         dense

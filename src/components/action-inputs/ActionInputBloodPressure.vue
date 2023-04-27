@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from 'vue'
-import { DatabaseField, DatabaseType, MeasurementInput } from '@/types/database'
+import { DatabaseField, MeasurementInput } from '@/types/database'
 import { Icon } from '@/types/icons'
 import { Limit } from '@/types/misc'
 import { FieldDefault } from '@/services/Defaults'
@@ -15,7 +15,7 @@ defineProps<{
 
 // Composables & Stores
 const actionStore = useActionStore()
-const { isVisible } = useParentIdWatcher(DatabaseType.MEASUREMENT, MeasurementInput.BLOOD_PRESSURE)
+const { isVisible, previousRecord } = useParentIdWatcher(MeasurementInput.BLOOD_PRESSURE)
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -72,7 +72,7 @@ function defaultNonValidInput() {
           <QInput
             v-model.number="actionStore.record[DatabaseField.BLOOD_PRESSURE][0]"
             ref="inputRef"
-            label="Systolic"
+            :label="`Systolic (${previousRecord?.bloodPressure?.[0] ?? '-'})`"
             :disable="locked"
             type="number"
             dense
@@ -89,7 +89,7 @@ function defaultNonValidInput() {
           <QInput
             v-model.number="actionStore.record[DatabaseField.BLOOD_PRESSURE][1]"
             ref="inputRef"
-            label="Diastolic"
+            :label="`Diastolic (${previousRecord?.bloodPressure?.[1] ?? '-'})`"
             :disable="locked"
             type="number"
             dense

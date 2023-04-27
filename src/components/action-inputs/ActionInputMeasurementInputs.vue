@@ -57,7 +57,6 @@ function validationRule(val: MeasurementInput[]) {
       <QSelect
         v-model="actionStore.record[DatabaseField.MEASUREMENT_INPUTS]"
         ref="inputRef"
-        :label="label"
         :disable="locked"
         :options="options"
         :rules="[(val: MeasurementInput[]) => validationRule(val) || '* Required']"

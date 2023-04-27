@@ -51,7 +51,6 @@ onMounted(async () => {
       <QSelect
         v-model="actionStore.record[DatabaseField.EXERCISE_INPUTS]"
         ref="inputRef"
-        :label="label"
         :disable="locked"
         :options="options"
         multiple

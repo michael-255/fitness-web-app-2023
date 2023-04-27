@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from 'vue'
-import { DatabaseField, DatabaseType, ExerciseInput } from '@/types/database'
+import { DatabaseField, ExerciseInput } from '@/types/database'
 import { FieldDefault } from '@/services/Defaults'
 import useParentIdWatcher from '@/composables/useParentIdWatcher'
 import useActionStore from '@/stores/action'
@@ -13,7 +13,7 @@ defineProps<{
 
 // Composables & Stores
 const actionStore = useActionStore()
-const { isVisible } = useParentIdWatcher(DatabaseType.EXERCISE, ExerciseInput.RESISTANCE)
+const { isVisible, previousRecord } = useParentIdWatcher(ExerciseInput.RESISTANCE)
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -46,7 +46,7 @@ function defaultNonValidInput() {
     v-if="isVisible"
     v-model.number="actionStore.record[DatabaseField.RESISTANCE]"
     ref="inputRef"
-    :label="label"
+    :label="`${previousRecord?.resistance ?? 'No previous record'}`"
     :disable="locked"
     type="number"
     dense
