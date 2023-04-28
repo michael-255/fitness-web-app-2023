@@ -5,18 +5,25 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
-- [ ] Build `ActionInput*` components for `field-blueprints`
+- [ ] Add `Blood Oxygen` to `MeasurementInputs` and create a component for it
 
-  - [ ] `ActionSetInputs`
-    - [ ] Build SETS and NO_SETS `v-if` blocks for `ActionSetInputs` (check parent `ExerciseInputs`)
-    - [ ] Put on set components inside of `ActionSetInputs` (listed below)
-    - [ ] Build Column design for `ActionSetInputs` component
-    - [ ] Build `Add` and `Remove` set functionality
-    - [ ] `ActionInputReps`
-    - [ ] `ActionInputWeightLbs`
-    - [ ] `ActionInputDistanceMiles`
-    - [ ] `ActionInputDurationMinutes`
-    - [ ] `ActionInputResistance`
+- [ ] Components to display previous values on the `Dashboard Parent Cards`
+
+  - [ ] `Workouts`
+  - [ ] `Exercises`
+  - [ ] `Measurements`
+
+- [ ] `ActionSetInputs`
+
+  - [ ] Build SETS and NO_SETS `v-if` blocks for `ActionSetInputs` (check parent `ExerciseInputs`)
+  - [ ] Put on set components inside of `ActionSetInputs` (listed below)
+  - [ ] Build Column design for `ActionSetInputs` component
+  - [ ] Build `Add` and `Remove` set functionality
+  - [ ] `ActionInputReps`
+  - [ ] `ActionInputWeightLbs`
+  - [ ] `ActionInputDistanceMiles`
+  - [ ] `ActionInputDurationMinutes`
+  - [ ] `ActionInputResistance`
 
 - [ ] Build `Chart` components for `chart-blueprints`
 
