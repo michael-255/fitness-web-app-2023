@@ -5,7 +5,7 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
-- [ ] `Refactor` validation rules to be cleaner
+- [ ] Add `Setting` to have descriptions displayed in the Dashboard view cards
 
 - [ ] `Vitals` and `BMI`
 

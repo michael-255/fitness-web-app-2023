@@ -296,7 +296,13 @@ export const resistanceField: FieldBlueprint = {
 export const lbsField: FieldBlueprint = {
   field: DatabaseField.LBS,
   label: 'Lbs',
-  inspectFormat: (val: number) => `${val} lbs`,
+  inspectFormat: (val: number) => {
+    if (val) {
+      return `${val} lbs`
+    } else {
+      return 'No Data'
+    }
+  },
   component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputLbs.vue')),
 }
 
@@ -306,7 +312,13 @@ export const lbsField: FieldBlueprint = {
 export const inchesField: FieldBlueprint = {
   field: DatabaseField.INCHES,
   label: 'Inches',
-  inspectFormat: (val: number) => `${val} in`,
+  inspectFormat: (val: number) => {
+    if (val) {
+      return `${val} in`
+    } else {
+      return 'No Data'
+    }
+  },
   component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputInches.vue')),
 }
 
@@ -316,7 +328,13 @@ export const inchesField: FieldBlueprint = {
 export const percentageField: FieldBlueprint = {
   field: DatabaseField.PERCENTAGE,
   label: 'Percentage',
-  inspectFormat: (val: number) => `${val}%`,
+  inspectFormat: (val: number) => {
+    if (val) {
+      return `${val}%`
+    } else {
+      return 'No Data'
+    }
+  },
   component: defineAsyncComponent(
     () => import('@/components/action-inputs/ActionInputPercentage.vue')
   ),
@@ -329,7 +347,37 @@ export const percentageField: FieldBlueprint = {
 export const bmiField: FieldBlueprint = {
   field: DatabaseField.BMI,
   label: 'Body Mass Index',
-  inspectFormat: (val: BMI) => `${val[0]} ft, ${val[1]} in, ${val[2]} lbs, ${val[3]} bmi`,
+  inspectFormat: (val: BMI) => {
+    let output = ''
+
+    if (val) {
+      if (val[0]) {
+        output += `${val[0]} ft, `
+      }
+
+      if (val[1]) {
+        output += `${val[1]} in, `
+      }
+
+      if (val[2]) {
+        output += `${val[2]} lbs, `
+      }
+
+      if (val[3]) {
+        output += `${val[3]} bmi`
+      }
+
+      if (output.endsWith(', ')) {
+        output = output.slice(0, -2)
+      }
+
+      if (output.length === 0) {
+        output = 'No data'
+      }
+    }
+
+    return output
+  },
   component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputBMI.vue')),
 }
 
@@ -340,6 +388,36 @@ export const bmiField: FieldBlueprint = {
 export const vitalsField: FieldBlueprint = {
   field: DatabaseField.VITALS,
   label: 'Vitals',
-  inspectFormat: (val: Vitals) => `${val[0]}°F, ${val[1]} bpm, ${val[2]}%, ${val[3]}/${val[4]}`,
+  inspectFormat: (val: Vitals) => {
+    let output = ''
+
+    if (val) {
+      if (val[0]) {
+        output += `${val[0]}°F, `
+      }
+
+      if (val[1]) {
+        output += `${val[1]} bpm, `
+      }
+
+      if (val[2]) {
+        output += `${val[2]}%, `
+      }
+
+      if (val[3] && val[4]) {
+        output += `${val[3]}/${val[4]}`
+      }
+
+      if (output.endsWith(', ')) {
+        output = output.slice(0, -2)
+      }
+
+      if (output.length === 0) {
+        output = 'No data'
+      }
+    }
+
+    return output
+  },
   component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputVitals.vue')),
 }

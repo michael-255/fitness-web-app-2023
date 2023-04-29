@@ -2,7 +2,7 @@
 import { onMounted, ref, type Ref } from 'vue'
 import { DatabaseField, MeasurementInput } from '@/types/database'
 import { FieldDefault } from '@/services/Defaults'
-import type { Optional } from '@/types/misc'
+import { Limit, type Optional } from '@/types/misc'
 import useParentIdWatcher from '@/composables/useParentIdWatcher'
 import useActionStore from '@/stores/action'
 
@@ -24,63 +24,58 @@ onMounted(() => {
 })
 
 /**
- * Temperature validation rule test for the template component.
- * @param val
+ * Temperature validation rule for the template component.
  */
 function temperatureRule() {
   return (val: Optional<number>) =>
     val === null ||
     val === undefined ||
-    (val >= 0 && val <= 150) ||
-    'If provided, temperature must be between 0 and 150'
+    (val >= Limit.MIN_BODY_TEMP && val <= Limit.MAX_BODY_TEMP) ||
+    `If provided, temperature must be between ${Limit.MIN_BODY_TEMP} and ${Limit.MAX_BODY_TEMP}`
 }
 
 /**
- * Heart rate validation rule test for the template component.
- * @param val
+ * Heart rate validation rule for the template component.
  */
 function heartRateRule() {
   return (val: Optional<number>) =>
     val === null ||
     val === undefined ||
-    (val >= 0 && val <= 250) ||
-    'If provided, heart rate must be between 0 and 250'
+    (val >= Limit.MIN_HEART_RATE && val <= Limit.MAX_HEART_RATE) ||
+    `If provided, heart rate must be between ${Limit.MIN_HEART_RATE} and ${Limit.MAX_HEART_RATE}`
 }
 
 /**
- * Heart rate validation rule test for the template component.
- * @param val
+ * Heart rate validation rule for the template component.
  */
 function bloodOxygenRule() {
   return (val: Optional<number>) =>
     val === null ||
     val === undefined ||
-    (val >= 0 && val <= 100) ||
-    'If provided, blood oxygen must be between 0 and 100'
+    (val >= Limit.MIN_PERCENTAGE && val <= Limit.MAX_PERCENTAGE) ||
+    `If provided, blood oxygen must be between ${Limit.MIN_PERCENTAGE} and ${Limit.MAX_PERCENTAGE}`
 }
 
 /**
- * Systolic blood pressure validation rule test for the template component.
- * @param val
+ * Systolic blood pressure validation rule for the template component.
  */
 function systolicRule() {
   return (val: Optional<number>) =>
     val === null ||
     val === undefined ||
-    (val >= 0 && val <= 100) ||
-    'If provided, Systolic blood pressure must be between 0 and 300'
+    (val >= Limit.MIN_BLOOD_PRESSURE && val <= Limit.MAX_BLOOD_PRESSURE) ||
+    `If provided, Systolic blood pressure must be between ${Limit.MIN_BLOOD_PRESSURE} and ${Limit.MAX_BLOOD_PRESSURE}}`
 }
 
 /**
- * Diastolic blood pressure validation rule test for the template component.
- * @param val
+ * Diastolic blood pressure validation rule for the template component.
  */
 function diastolicRule() {
   return (val: Optional<number>) =>
     val === null ||
     val === undefined ||
-    (val >= 0 && val <= 100) ||
-    'If provided, Diastolic blood pressure must be between 0 and 300'
+    (val >= Limit.MIN_BLOOD_PRESSURE && val <= Limit.MAX_BLOOD_PRESSURE) ||
+    `If provided, Diastolic blood pressure must be between ${Limit.MIN_BLOOD_PRESSURE} and ${Limit.MAX_BLOOD_PRESSURE}}`
 }
 </script>
 

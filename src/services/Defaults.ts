@@ -20,9 +20,9 @@ export const FieldDefault = Object.freeze({
   [DatabaseField.DISTANCE_MILES]: (): Optional<number>[] => [],
   [DatabaseField.DURATION_MINUTES]: (): Optional<number>[] => [],
   [DatabaseField.RESISTANCE]: (): Optional<number>[] => [],
-  [DatabaseField.LBS]: (): Optional<number>[] => [],
-  [DatabaseField.INCHES]: (): Optional<number>[] => [],
-  [DatabaseField.PERCENTAGE]: (): Optional<number>[] => [],
+  [DatabaseField.LBS]: (): Optional<number> => null,
+  [DatabaseField.INCHES]: (): Optional<number> => null,
+  [DatabaseField.PERCENTAGE]: (): Optional<number> => null,
   [DatabaseField.BMI]: (): BMI => [null, null, null, null],
   [DatabaseField.VITALS]: (): Vitals => [null, null, null, null, null],
 })

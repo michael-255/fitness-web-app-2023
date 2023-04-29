@@ -95,6 +95,7 @@ export enum DatabaseField {
   PERCENTAGE = 'percentage',
   BMI = 'bmi',
   VITALS = 'vitals',
+  BODY_TAPE_MEASUREMENTS = 'bodyTapeMeasurements',
 }
 
 /**
@@ -121,6 +122,24 @@ export type Vitals = [
   Optional<number>, // blood oxygen (%)
   Optional<number>, // blood pressure (systolic)
   Optional<number> // blood pressure (diastolic)
+]
+
+/**
+ * Measurement result Body Tape Measurements inputs.
+ */
+export type BodyTapeMeasurements = [
+  Optional<number>, // neck
+  Optional<number>, // chest
+  Optional<number>, // shoulders
+  Optional<number>, // right bicep
+  Optional<number>, // left bicep
+  Optional<number>, // right forearm
+  Optional<number>, // left forearm
+  Optional<number>, // waist
+  Optional<number>, // right thigh
+  Optional<number>, // left thigh
+  Optional<number>, // right calf
+  Optional<number> // left calf
 ]
 
 /**
@@ -155,6 +174,7 @@ export enum MeasurementInput {
   PERCENTAGE = 'Percentage',
   BMI = 'BMI', // Body mass index
   VITALS = 'Vitals',
+  BODY_TAPE_MEASUREMENTS = 'Body Tape Measurements',
 }
 
 /**

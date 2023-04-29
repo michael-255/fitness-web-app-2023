@@ -409,7 +409,13 @@ export const lbsColumn: QTableColumn = {
   sortable: true,
   required: false,
   field: (row: any) => row[DatabaseField.LBS],
-  format: (val: number) => `${val} lbs`,
+  format: (val: number) => {
+    if (val) {
+      return `${val} lbs`
+    } else {
+      return ''
+    }
+  },
 }
 
 /**
@@ -422,7 +428,13 @@ export const inchesColumn: QTableColumn = {
   sortable: true,
   required: false,
   field: (row: any) => row[DatabaseField.INCHES],
-  format: (val: number) => `${val} in`,
+  format: (val: number) => {
+    if (val) {
+      return `${val} in`
+    } else {
+      return ''
+    }
+  },
 }
 
 /**
@@ -435,7 +447,13 @@ export const percentageColumn: QTableColumn = {
   sortable: true,
   required: false,
   field: (row: any) => row[DatabaseField.PERCENTAGE],
-  format: (val: number) => `${val}%`,
+  format: (val: number) => {
+    if (val) {
+      return `${val}%`
+    } else {
+      return ''
+    }
+  },
 }
 
 /**
@@ -449,7 +467,33 @@ export const bmiColumn: QTableColumn = {
   sortable: true,
   required: false,
   field: (row: any) => row[DatabaseField.BMI],
-  format: (val: BMI) => `${val[0]} ft, ${val[1]} in, ${val[2]} lbs, ${val[3]} bmi`,
+  format: (val: BMI) => {
+    let output = ''
+
+    if (val) {
+      if (val[0]) {
+        output += `${val[0]} ft, `
+      }
+
+      if (val[1]) {
+        output += `${val[1]} in, `
+      }
+
+      if (val[2]) {
+        output += `${val[2]} lbs, `
+      }
+
+      if (val[3]) {
+        output += `${val[3]} bmi`
+      }
+
+      if (output.endsWith(', ')) {
+        output = output.slice(0, -2)
+      }
+    }
+
+    return output
+  },
 }
 
 /**
@@ -463,5 +507,31 @@ export const vitalsColumn: QTableColumn = {
   sortable: true,
   required: false,
   field: (row: any) => row[DatabaseField.VITALS],
-  format: (val: Vitals) => `${val[0]}°F, ${val[1]} bpm, ${val[2]}%, ${val[3]}/${val[4]}`,
+  format: (val: Vitals) => {
+    let output = ''
+
+    if (val) {
+      if (val[0]) {
+        output += `${val[0]}°F, `
+      }
+
+      if (val[1]) {
+        output += `${val[1]} bpm, `
+      }
+
+      if (val[2]) {
+        output += `${val[2]}%, `
+      }
+
+      if (val[3] && val[4]) {
+        output += `${val[3]}/${val[4]}`
+      }
+
+      if (output.endsWith(', ')) {
+        output = output.slice(0, -2)
+      }
+    }
+
+    return output
+  },
 }
