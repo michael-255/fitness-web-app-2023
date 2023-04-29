@@ -4,6 +4,8 @@ import {
   type SettingValue,
   ExerciseInput,
   MeasurementInput,
+  type BMI,
+  type Vitals,
 } from '@/types/database'
 import type { FieldBlueprint } from '@/types/misc'
 import { getDisplayDate } from '@/utils/common'
@@ -289,7 +291,7 @@ export const resistanceField: FieldBlueprint = {
 }
 
 /**
- * Lbs field used by measurement results.
+ * Generic lbs field used by measurement results. Should be used alone so it isn't ambiguous.
  */
 export const lbsField: FieldBlueprint = {
   field: DatabaseField.LBS,
@@ -299,7 +301,7 @@ export const lbsField: FieldBlueprint = {
 }
 
 /**
- * Inches field used by measurement results.
+ * Generic inches field used by measurement results. Should be used alone so it isn't ambiguous.
  */
 export const inchesField: FieldBlueprint = {
   field: DatabaseField.INCHES,
@@ -309,17 +311,7 @@ export const inchesField: FieldBlueprint = {
 }
 
 /**
- * Feet field used by measurement results.
- */
-export const feetField: FieldBlueprint = {
-  field: DatabaseField.FEET,
-  label: 'Feet',
-  inspectFormat: (val: number) => `${val} ft`,
-  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputFeet.vue')),
-}
-
-/**
- * Percentage field used by measurement results.
+ * Generic percentage field used by measurement results. Should be used alone so it isn't ambiguous.
  */
 export const percentageField: FieldBlueprint = {
   field: DatabaseField.PERCENTAGE,
@@ -331,25 +323,23 @@ export const percentageField: FieldBlueprint = {
 }
 
 /**
- * Heart BPM field used by measurement results.
+ * Body Mass Index field used by measurement results.
+ * Example output formatting: 5 ft, 10 in, 180 lbs, 25.8 bmi
  */
-export const heartBpmField: FieldBlueprint = {
-  field: DatabaseField.HEART_BPM,
-  label: 'Heart BPM',
-  inspectFormat: (val: number) => `${val} bpm`,
-  component: defineAsyncComponent(
-    () => import('@/components/action-inputs/ActionInputHeartBpm.vue')
-  ),
+export const bmiField: FieldBlueprint = {
+  field: DatabaseField.BMI,
+  label: 'Body Mass Index',
+  inspectFormat: (val: BMI) => `${val[0]} ft, ${val[1]} in, ${val[2]} lbs, ${val[3]} bmi`,
+  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputBMI.vue')),
 }
 
 /**
- * Blood Pressure (systolic/diastolic) field used by measurement results.
+ * Vitals field used by measurement results.
+ * Example output formatting: 98.6°F, 60 bpm, 100%, 120/80
  */
-export const bloodPressureField: FieldBlueprint = {
-  field: DatabaseField.BLOOD_PRESSURE,
-  label: 'Blood Pressure',
-  inspectFormat: (val: [number, number]) => `${val[0]}/${val[1]}`,
-  component: defineAsyncComponent(
-    () => import('@/components/action-inputs/ActionInputBloodPressure.vue')
-  ),
+export const vitalsField: FieldBlueprint = {
+  field: DatabaseField.VITALS,
+  label: 'Vitals',
+  inspectFormat: (val: Vitals) => `${val[0]}°F, ${val[1]} bpm, ${val[2]}%, ${val[3]}/${val[4]}`,
+  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputVitals.vue')),
 }

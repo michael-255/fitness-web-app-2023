@@ -486,21 +486,23 @@ export default function useDefaults() {
             } as Measurement,
             {
               [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '417b47fd-bb32-4f28-a887-e5f0d50f37b5', // New!
-              [DatabaseField.NAME]: 'Heart Rate',
-              [DatabaseField.DESCRIPTION]: 'Heart rate in beats per minute.',
+              [DatabaseField.ID]: '704b252e-c1da-44e2-a5e6-9aeeaee47fc7', // New!
+              [DatabaseField.NAME]: 'Body Mass Index',
+              [DatabaseField.DESCRIPTION]:
+                'Track your height and weight to automatically calculate your body mass index. Inputs can be left blank if desired. The formula used is generally only useful for adults (18+).',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.HEART_BPM],
+              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BMI],
             } as Measurement,
             {
               [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '40968b77-cc2a-4f07-b812-a48bb459c2bc', // New!
-              [DatabaseField.NAME]: 'Blood Pressure',
-              [DatabaseField.DESCRIPTION]: 'Blood pressure systolic and diastolic reading.',
+              [DatabaseField.ID]: '33d260cd-d6af-45ff-bf86-9733e4ea4850', // New!
+              [DatabaseField.NAME]: 'Vitals',
+              [DatabaseField.DESCRIPTION]:
+                'Track your temperature, heart rate, blood oxygen, and blood pressure. Inputs can be left blank if desired.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BLOOD_PRESSURE],
+              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.VITALS],
             } as Measurement,
           ]
 

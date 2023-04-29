@@ -4,6 +4,8 @@ import {
   ExerciseInput,
   MeasurementInput,
   Severity,
+  type BMI,
+  type Vitals,
 } from '@/types/database'
 import { truncateString } from '@/utils/common'
 import { getDisplayDate } from '@/utils/common'
@@ -424,19 +426,6 @@ export const inchesColumn: QTableColumn = {
 }
 
 /**
- * Feet column used by Measurement Results.
- */
-export const feetColumn: QTableColumn = {
-  name: DatabaseField.FEET,
-  label: 'Feet',
-  align: 'left',
-  sortable: true,
-  required: false,
-  field: (row: any) => row[DatabaseField.FEET],
-  format: (val: number) => `${val} ft`,
-}
-
-/**
  * Percentage column used by Measurement Results.
  */
 export const percentageColumn: QTableColumn = {
@@ -450,27 +439,29 @@ export const percentageColumn: QTableColumn = {
 }
 
 /**
- * Heart BPM column used by Measurement Results.
+ * Body Mass Index column used by Measurement Results.
+ * Example output formatting: 5 ft, 10 in, 180 lbs, 25.8 bmi
  */
-export const heartBpmColumn: QTableColumn = {
-  name: DatabaseField.HEART_BPM,
-  label: 'Heart BPM',
+export const bmiColumn: QTableColumn = {
+  name: DatabaseField.BMI,
+  label: 'Body Mass Index',
   align: 'left',
   sortable: true,
   required: false,
-  field: (row: any) => row[DatabaseField.HEART_BPM],
-  format: (val: number) => `${val} bpm`,
+  field: (row: any) => row[DatabaseField.BMI],
+  format: (val: BMI) => `${val[0]} ft, ${val[1]} in, ${val[2]} lbs, ${val[3]} bmi`,
 }
 
 /**
- * Blood Pressure (systolic/diastolic) column used by Measurement Results.
+ * Vitals column used by Measurement Results.
+ * Example output formatting: 98.6°F, 60 bpm, 100%, 120/80
  */
-export const bloodPressureColumn: QTableColumn = {
-  name: DatabaseField.BLOOD_PRESSURE,
-  label: 'Blood Pressure',
+export const vitalsColumn: QTableColumn = {
+  name: DatabaseField.VITALS,
+  label: 'Vitals',
   align: 'left',
   sortable: true,
   required: false,
-  field: (row: any) => row[DatabaseField.BLOOD_PRESSURE],
-  format: (val: [number, number]) => `${val[0]}/${val[1]}`,
+  field: (row: any) => row[DatabaseField.VITALS],
+  format: (val: Vitals) => `${val[0]}°F, ${val[1]} bpm, ${val[2]}%, ${val[3]}/${val[4]}`,
 }

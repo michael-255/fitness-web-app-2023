@@ -1,4 +1,4 @@
-import type { LogRetention } from '@/types/misc'
+import type { LogRetention, Optional } from '@/types/misc'
 
 /**
  * Current database version. Change this to force a new database to be created for users.
@@ -92,16 +92,36 @@ export enum DatabaseField {
   // Measurement Results
   LBS = 'lbs',
   INCHES = 'inches',
-  FEET = 'feet',
   PERCENTAGE = 'percentage',
-  HEART_BPM = 'heartBpm',
-  BLOOD_PRESSURE = 'bloodPressure', // systolic/diastolic
+  BMI = 'bmi',
+  VITALS = 'vitals',
 }
 
 /**
  * Setting values are restricted to a few primitive types.
  */
 export type SettingValue = string | number | boolean | DatabaseType | LogRetention
+
+/**
+ * Measurement result Body Mass Index inputs.
+ */
+export type BMI = [
+  Optional<number>, // height (ft)
+  Optional<number>, // height (in)
+  Optional<number>, // weight (lbs)
+  Optional<number> // bmi (calculated)
+]
+
+/**
+ * Measurement result Vitals inputs.
+ */
+export type Vitals = [
+  Optional<number>, // temperature (°F)
+  Optional<number>, // heart rate (bpm)
+  Optional<number>, // blood oxygen (%)
+  Optional<number>, // blood pressure (systolic)
+  Optional<number> // blood pressure (diastolic)
+]
 
 /**
  * The only valid setting ids.
@@ -133,8 +153,8 @@ export enum MeasurementInput {
   INCHES = 'Inches',
   FEET = 'Feet',
   PERCENTAGE = 'Percentage',
-  HEART_BPM = 'Heart BPM',
-  BLOOD_PRESSURE = 'Blood Pressure (S/D)', // systolic/diastolic
+  BMI = 'BMI', // Body mass index
+  VITALS = 'Vitals',
 }
 
 /**

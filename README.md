@@ -5,7 +5,13 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
-- [ ] Add `Blood Oxygen` to `MeasurementInputs` and create a component for it
+- [ ] `Refactor` validation rules to be cleaner
+
+- [ ] `Vitals` and `BMI`
+
+  - [ ] Add a good description with typical healthy ranges for each value
+  - [ ] Ability to save `null` values without triggering validation (should I do this for
+        everything?)
 
 - [ ] Components to display previous values on the `Dashboard Parent Cards`
 
@@ -33,6 +39,7 @@ view charts of your progress and export your data at any time.
   - [ ] `ChartExerciseDistance`
   - [ ] `ChartExerciseDuration`
   - [ ] `ChartExerciseResistance`
+  - [ ] `ChartVitals` (color gradients, threshold dashes on chart?)
 
 - [ ] Chart Options Example:
 

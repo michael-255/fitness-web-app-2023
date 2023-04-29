@@ -1,4 +1,5 @@
 import type {
+  BMI,
   DatabaseField,
   DatabaseType,
   ExerciseInput,
@@ -6,6 +7,7 @@ import type {
   SettingId,
   SettingValue,
   Severity,
+  Vitals,
 } from '@/types/database'
 import type { Optional } from '@/types/misc'
 
@@ -44,19 +46,18 @@ export interface DatabaseRecord {
   // Workout Results & Active Workouts
   [DatabaseField.FINISHED_TIMESTAMP]?: Optional<number>
   [DatabaseField.EXERCISE_RESULT_IDS]?: string[]
-  // Exercise Results & Active Exercises (all arrays due to sets)
-  [DatabaseField.REPS]?: number[]
-  [DatabaseField.WEIGHT_LBS]?: number[]
-  [DatabaseField.DISTANCE_MILES]?: number[]
-  [DatabaseField.DURATION_MINUTES]?: number[]
-  [DatabaseField.RESISTANCE]?: number[]
+  // Exercise Results & Active Exercises (each array index is an Exercise Set)
+  [DatabaseField.REPS]?: Optional<number>[]
+  [DatabaseField.WEIGHT_LBS]?: Optional<number>[]
+  [DatabaseField.DISTANCE_MILES]?: Optional<number>[]
+  [DatabaseField.DURATION_MINUTES]?: Optional<number>[]
+  [DatabaseField.RESISTANCE]?: Optional<number>[]
   // Measurement Results
-  [DatabaseField.LBS]?: number
-  [DatabaseField.INCHES]?: number
-  [DatabaseField.FEET]?: number
-  [DatabaseField.PERCENTAGE]?: number
-  [DatabaseField.HEART_BPM]?: number
-  [DatabaseField.BLOOD_PRESSURE]?: [number, number]
+  [DatabaseField.LBS]?: Optional<number>
+  [DatabaseField.INCHES]?: Optional<number>
+  [DatabaseField.PERCENTAGE]?: Optional<number>
+  [DatabaseField.BMI]?: BMI
+  [DatabaseField.VITALS]?: Vitals
 }
 
 /**
@@ -170,8 +171,7 @@ export type MeasurementResult = Pick<
   | DatabaseField.IS_ACTIVE
   | DatabaseField.LBS
   | DatabaseField.INCHES
-  | DatabaseField.FEET
   | DatabaseField.PERCENTAGE
-  | DatabaseField.HEART_BPM
-  | DatabaseField.BLOOD_PRESSURE
+  | DatabaseField.BMI
+  | DatabaseField.VITALS
 >

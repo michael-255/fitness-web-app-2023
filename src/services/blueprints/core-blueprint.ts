@@ -26,15 +26,14 @@ import {
   exerciseResultIdsField,
   lbsField,
   inchesField,
-  feetField,
   percentageField,
-  heartBpmField,
-  bloodPressureField,
   repsField,
   weightLbsField,
   distanceMilesField,
   durationMinutesField,
   resistanceField,
+  bmiField,
+  vitalsField,
 } from '@/services/blueprints/field-blueprints'
 import {
   requiredTypeColumn,
@@ -67,10 +66,9 @@ import {
   resistanceColumn,
   lbsColumn,
   inchesColumn,
-  feetColumn,
   percentageColumn,
-  heartBpmColumn,
-  bloodPressureColumn,
+  bmiColumn,
+  vitalsColumn,
 } from '@/services/blueprints/table-columns'
 
 /*
@@ -408,10 +406,9 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       activeField,
       lbsField,
       inchesField,
-      feetField,
       percentageField,
-      heartBpmField,
-      bloodPressureField,
+      bmiField,
+      vitalsField,
     ],
     visibleColumns: [
       DatabaseField.ID,
@@ -429,10 +426,9 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       activeColumn,
       lbsColumn,
       inchesColumn,
-      feetColumn,
       percentageColumn,
-      heartBpmColumn,
-      bloodPressureColumn,
+      bmiColumn,
+      vitalsColumn,
     ],
   },
 ]
