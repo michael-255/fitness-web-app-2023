@@ -34,11 +34,10 @@ onMounted(async () => {
 })
 
 /**
- * Input validation rule test for the template component.
- * @param val
+ * Input validation rule for the template component.
  */
-function validationRule(val: MeasurementInput[]) {
-  return Array.isArray(val) && val.length > 0
+function validationRule() {
+  return (val: MeasurementInput[]) => (Array.isArray(val) && val.length > 0) || '* Required'
 }
 </script>
 
@@ -59,7 +58,7 @@ function validationRule(val: MeasurementInput[]) {
         ref="inputRef"
         :disable="locked"
         :options="options"
-        :rules="[(val: MeasurementInput[]) => validationRule(val) || '* Required']"
+        :rules="[validationRule()]"
         multiple
         emit-value
         map-options
