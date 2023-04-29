@@ -25,6 +25,7 @@ const {
   onAddBarbellStrengthWorkouts,
   onAddStretchRoutine,
   onAddCarpalTunnelRoutine,
+  onAddDeepBreathingRoutine,
   onAddStandardMeasurements,
 } = useDefaults()
 
@@ -318,6 +319,14 @@ async function onDeleteDatabase() {
 
         <div class="q-mb-md">
           <QBtn label="Carpal Tunnel Routine" color="primary" @click="onAddCarpalTunnelRoutine()" />
+        </div>
+
+        <div class="q-mb-md">
+          <QBtn
+            label="Deep Breathing Routine"
+            color="primary"
+            @click="onAddDeepBreathingRoutine()"
+          />
         </div>
 
         <div>

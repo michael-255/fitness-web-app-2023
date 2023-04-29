@@ -180,7 +180,7 @@ export default function useDefaults() {
               [DatabaseField.ID]: 'a291154a-bd22-4738-8559-0e4ee48e570d',
               [DatabaseField.NAME]: 'Standing Calf Stretch',
               [DatabaseField.DESCRIPTION]:
-                'Lean against a wall with one leg in front of the other. Hold for 30 seconds and then repeat on the other side. Alternatively, you can do both legs at the same time.',
+                'Lean against a wall with one leg in front of the other. Hold for 30 seconds and then repeat on the other side.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
@@ -347,6 +347,73 @@ export default function useDefaults() {
   }
 
   /**
+   * On confirmation, adds the deep breathing routine into the database.
+   */
+  async function onAddDeepBreathingRoutine() {
+    confirmDialog(
+      'Add Deep Breathing Routine',
+      `Would you like to add the Deep Breathing Routine into the database?`,
+      Icon.INFO,
+      'info',
+      async () => {
+        try {
+          const records: DatabaseRecord[] = [
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '729bcb7e-6b40-4497-ba0e-8cce6b57341a',
+              [DatabaseField.NAME]: 'Pursed Lip Breathing',
+              [DatabaseField.DESCRIPTION]:
+                'Inhale through your nose for 2 seconds, then exhale slowly through pursed lips for 4 seconds. Repeat 10 times.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: '15092ca3-e7c8-4214-a935-8c90126cf408',
+              [DatabaseField.NAME]: 'Diaphragmatic Breathing',
+              [DatabaseField.DESCRIPTION]:
+                'Place one hand on your chest. Inhale through your nose for 2 seconds, then contract your abdominal muscles and exhale slowly through pursed lips for 4 seconds. The hand on your chest should have minimal movement during this process. Repeat 10 times.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.EXERCISE,
+              [DatabaseField.ID]: 'cd75a9c7-fed8-4c98-83db-9dc3a64725a0',
+              [DatabaseField.NAME]: 'Box Breathing',
+              [DatabaseField.DESCRIPTION]:
+                'Inhale through your nose for 4 seconds, hold your breath for 4 seconds, exhale through your mouth for 4 seconds, then hold your breath for 4 seconds. Repeat 10 times.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_INPUTS]: [], // No inputs (records nothing)
+            } as Exercise,
+            {
+              [DatabaseField.TYPE]: DatabaseType.WORKOUT,
+              [DatabaseField.ID]: 'b0752f64-e6ba-4d98-a981-67860d7ab665',
+              [DatabaseField.NAME]: 'Deep Breathing Routine',
+              [DatabaseField.DESCRIPTION]:
+                'Deep breathing routine for improving lung compacity, oxygen intake, and relieving stress. Do this routine in a comfortable position (sitting or lying down) and in a quiet environment.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.EXERCISE_IDS]: [
+                '729bcb7e-6b40-4497-ba0e-8cce6b57341a',
+                '15092ca3-e7c8-4214-a935-8c90126cf408',
+                'cd75a9c7-fed8-4c98-83db-9dc3a64725a0',
+              ],
+            } as Workout,
+          ]
+
+          await DB.bulkAddRecords(records)
+          log.info('Deep Breathing Routine added', { newRecords: records?.length ?? 0 })
+        } catch (error) {
+          log.error('Error adding Deep Breathing Routine', error)
+        }
+      }
+    )
+  }
+
+  /**
    * On confirmation, add standard measurements into the database.
    */
   async function onAddStandardMeasurements() {
@@ -367,15 +434,16 @@ export default function useDefaults() {
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.PERCENTAGE],
             } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: 'b4450018-1506-450f-a429-9903aded5c9b', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Body Weight',
-              [DatabaseField.DESCRIPTION]: 'Body weight in pounds.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.LBS],
-            } as Measurement,
+            // TODO - Your private import will need to convert this to the BMI measurement
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: 'b4450018-1506-450f-a429-9903aded5c9b', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Body Weight',
+            //   [DatabaseField.DESCRIPTION]: 'Body weight in pounds.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.LBS],
+            // } as Measurement,
             {
               [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
               [DatabaseField.ID]: '880cb344-e537-4f0f-bad4-e212a6df51cd', // From Fitness Tracker v16
@@ -486,6 +554,16 @@ export default function useDefaults() {
             } as Measurement,
             {
               [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+              [DatabaseField.ID]: 'xxxxx', // New!
+              [DatabaseField.NAME]: 'Body Tape Measurements',
+              [DatabaseField.DESCRIPTION]:
+                'Track body measurements from head to toes with a tape measure. Inputs can be left blank if desired.',
+              [DatabaseField.IS_FAVORITED]: false,
+              [DatabaseField.IS_ENABLED]: true,
+              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BMI],
+            } as Measurement,
+            {
+              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
               [DatabaseField.ID]: '704b252e-c1da-44e2-a5e6-9aeeaee47fc7', // New!
               [DatabaseField.NAME]: 'Body Mass Index',
               [DatabaseField.DESCRIPTION]:
@@ -519,6 +597,7 @@ export default function useDefaults() {
     onAddBarbellStrengthWorkouts,
     onAddStretchRoutine,
     onAddCarpalTunnelRoutine,
+    onAddDeepBreathingRoutine,
     onAddStandardMeasurements,
   }
 }

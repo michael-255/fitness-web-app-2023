@@ -14,6 +14,7 @@ const {
   onAddBarbellStrengthWorkouts,
   onAddStretchRoutine,
   onAddCarpalTunnelRoutine,
+  onAddDeepBreathingRoutine,
   onAddStandardMeasurements,
 } = useDefaults()
 
@@ -101,6 +102,15 @@ async function onCloseIntroduction() {
           label="Carple Tunnel Routine"
           :icon="Icon.ADD_NOTE"
           @click="onAddCarpalTunnelRoutine()"
+        />
+      </div>
+
+      <div class="q-mb-md">
+        <QBtn
+          color="primary"
+          label="Deep Breathing Routine"
+          :icon="Icon.ADD_NOTE"
+          @click="onAddDeepBreathingRoutine()"
         />
       </div>
 
