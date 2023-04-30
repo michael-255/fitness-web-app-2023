@@ -46,7 +46,7 @@ function defaultNonValidInput() {
     v-if="isVisible"
     v-model.number="actionStore.record[DatabaseField.WEIGHT_LBS]"
     ref="inputRef"
-    :label="`${previousRecord?.weightLbs ?? 'No previous record'}`"
+    :label="`${previousRecord?.weightLbs ?? 'No previous data'}`"
     :disable="locked"
     type="number"
     dense

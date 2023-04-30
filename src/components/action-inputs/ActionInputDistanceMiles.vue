@@ -46,7 +46,7 @@ function defaultNonValidInput() {
     v-if="isVisible"
     v-model.number="actionStore.record[DatabaseField.DISTANCE_MILES]"
     ref="inputRef"
-    :label="`${previousRecord?.distanceMiles ?? 'No previous record'}`"
+    :label="`${previousRecord?.distanceMiles ?? 'No previous data'}`"
     :disable="locked"
     type="number"
     dense

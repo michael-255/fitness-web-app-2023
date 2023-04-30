@@ -54,7 +54,7 @@ function previousLabel(actionRecordValue: Optional<number>) {
   if (actionRecordValue !== null && actionRecordValue !== undefined) {
     return `Previously ${actionRecordValue} lbs`
   } else {
-    return 'No previous record'
+    return 'No previous data'
   }
 }
 

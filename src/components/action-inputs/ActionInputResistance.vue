@@ -46,7 +46,7 @@ function defaultNonValidInput() {
     v-if="isVisible"
     v-model.number="actionStore.record[DatabaseField.RESISTANCE]"
     ref="inputRef"
-    :label="`${previousRecord?.resistance ?? 'No previous record'}`"
+    :label="`${previousRecord?.resistance ?? 'No previous data'}`"
     :disable="locked"
     type="number"
     dense

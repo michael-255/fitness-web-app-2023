@@ -50,7 +50,7 @@ function defaultNonValidInput() {
       <QInput
         v-model.number="actionStore.record[DatabaseField.INCHES]"
         ref="inputRef"
-        :label="`${previousRecord?.inches ?? 'No previous record'}`"
+        :label="`${previousRecord?.inches ?? 'No previous data'}`"
         :disable="locked"
         type="number"
         dense

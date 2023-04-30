@@ -48,7 +48,7 @@ function defaultNonValidInput() {
     v-if="isVisible"
     v-model.number="actionStore.record[DatabaseField.DURATION_MINUTES]"
     ref="inputRef"
-    :label="`${previousRecord?.durationMinutes ?? 'No previous record'}`"
+    :label="`${previousRecord?.durationMinutes ?? 'No previous data'}`"
     :disable="locked"
     type="number"
     dense
