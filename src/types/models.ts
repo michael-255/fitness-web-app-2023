@@ -58,10 +58,9 @@ export interface DatabaseRecord {
   [DatabaseField.LBS]?: Optional<number>
   [DatabaseField.INCHES]?: Optional<number>
   [DatabaseField.PERCENTAGE]?: Optional<number>
-  [DatabaseField.BMI]?: BMI
-  [DatabaseField.VITALS]?: Vitals
   [DatabaseField.BODY_WEIGHT]?: BodyWeight
   [DatabaseField.BODY_TAPE_MEASUREMENTS]?: BodyTapeMeasurements
+  [DatabaseField.VITALS]?: Vitals
 }
 
 /**
@@ -176,8 +175,7 @@ export type MeasurementResult = Pick<
   | DatabaseField.LBS
   | DatabaseField.INCHES
   | DatabaseField.PERCENTAGE
-  | DatabaseField.BMI
-  | DatabaseField.VITALS
   | DatabaseField.BODY_WEIGHT
   | DatabaseField.BODY_TAPE_MEASUREMENTS
+  | DatabaseField.VITALS
 >

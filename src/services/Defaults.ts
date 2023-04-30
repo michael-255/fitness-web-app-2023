@@ -1,4 +1,10 @@
-import { DatabaseField, SettingId, type BMI, type Vitals } from '@/types/database'
+import {
+  DatabaseField,
+  SettingId,
+  type Vitals,
+  type BodyWeight,
+  type BodyTapeMeasurements,
+} from '@/types/database'
 import { LogRetention, type Optional } from '@/types/misc'
 import { uid } from 'quasar'
 
@@ -23,7 +29,21 @@ export const FieldDefault = Object.freeze({
   [DatabaseField.LBS]: (): Optional<number> => null,
   [DatabaseField.INCHES]: (): Optional<number> => null,
   [DatabaseField.PERCENTAGE]: (): Optional<number> => null,
-  [DatabaseField.BMI]: (): BMI => [null, null, null, null],
+  [DatabaseField.BODY_WEIGHT]: (): BodyWeight => [null, null],
+  [DatabaseField.BODY_TAPE_MEASUREMENTS]: (): BodyTapeMeasurements => [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ],
   [DatabaseField.VITALS]: (): Vitals => [null, null, null, null, null],
 })
 

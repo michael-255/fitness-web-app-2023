@@ -4,8 +4,9 @@ import {
   ExerciseInput,
   MeasurementInput,
   Severity,
-  type BMI,
   type Vitals,
+  type BodyWeight,
+  type BodyTapeMeasurements,
 } from '@/types/database'
 import { truncateString } from '@/utils/common'
 import { getDisplayDate } from '@/utils/common'
@@ -457,34 +458,26 @@ export const percentageColumn: QTableColumn = {
 }
 
 /**
- * Body Mass Index column used by Measurement Results.
- * Example output formatting: 5 ft, 10 in, 180 lbs, 25.8 bmi
+ * Body Weight (+BMI) column used by Measurement Results.
+ * Example output formatting: 180 lbs, 25.8 bmi
  */
-export const bmiColumn: QTableColumn = {
-  name: DatabaseField.BMI,
-  label: 'Body Mass Index',
+export const bodyWeightColumn: QTableColumn = {
+  name: DatabaseField.BODY_WEIGHT,
+  label: 'Body Weight (+BMI)',
   align: 'left',
   sortable: true,
   required: false,
-  field: (row: any) => row[DatabaseField.BMI],
-  format: (val: BMI) => {
+  field: (row: any) => row[DatabaseField.BODY_WEIGHT],
+  format: (val: BodyWeight) => {
     let output = ''
 
     if (val) {
       if (val[0]) {
-        output += `${val[0]} ft, `
+        output += `${val[0]} lbs, `
       }
 
       if (val[1]) {
-        output += `${val[1]} in, `
-      }
-
-      if (val[2]) {
-        output += `${val[2]} lbs, `
-      }
-
-      if (val[3]) {
-        output += `${val[3]} bmi`
+        output += `${val[1]} bmi`
       }
 
       if (output.endsWith(', ')) {
@@ -494,6 +487,19 @@ export const bmiColumn: QTableColumn = {
 
     return output
   },
+}
+
+/**
+ * Body Tape Measurements column used by Measurement Results.
+ */
+export const bodyTapeMeasurementsColumn: QTableColumn = {
+  name: DatabaseField.BODY_TAPE_MEASUREMENTS,
+  label: 'Body Tape Measurements',
+  align: 'left',
+  sortable: true,
+  required: false,
+  field: (row: any) => row[DatabaseField.BODY_TAPE_MEASUREMENTS],
+  format: (val: BodyTapeMeasurements) => `${val}`,
 }
 
 /**

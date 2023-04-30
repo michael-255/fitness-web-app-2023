@@ -8,11 +8,11 @@ import {
 } from '@/types/database'
 import { Icon } from '@/types/icons'
 import { getDisplayDate } from '@/utils/common'
+import type { Optional } from '@/types/misc'
 import useLogger from '@/composables/useLogger'
 import useDialogs from '@/composables/useDialogs'
 import useRoutables from '@/composables/useRoutables'
 import DB from '@/services/LocalDatabase'
-import type { Optional } from '@/types/misc'
 
 // Props & Emits
 defineProps<{

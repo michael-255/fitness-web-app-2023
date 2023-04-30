@@ -93,24 +93,17 @@ export enum DatabaseField {
   LBS = 'lbs',
   INCHES = 'inches',
   PERCENTAGE = 'percentage',
-  BMI = 'bmi',
-  VITALS = 'vitals',
   BODY_WEIGHT = 'bodyWeight',
   BODY_TAPE_MEASUREMENTS = 'bodyTapeMeasurements',
+  VITALS = 'vitals',
 }
 
 /**
- * Setting values are restricted to a few primitive types.
+ * Setting values are restricted to the types needed.
  */
-export type SettingValue =
-  | string
-  | number
-  | boolean
-  | DatabaseType
-  | LogRetention
-  | YourHeight
-  | null
-  | null[]
+export type SettingValue = Optional<
+  string | number | boolean | DatabaseType | LogRetention | YourHeight | null | null[]
+>
 
 /**
  * Tuple for user height values.
@@ -120,49 +113,56 @@ export type SettingValue =
 export type YourHeight = [Optional<number>, Optional<number>]
 
 /**
- * Measurement result Body Mass Index inputs.
- */
-export type BMI = [
-  Optional<number>, // height (ft)
-  Optional<number>, // height (in)
-  Optional<number>, // weight (lbs)
-  Optional<number> // bmi (calculated)
-]
-
-/**
- * Measurement result Body Weight inputs.
+ * Tuple for body weight values.
  * @param 0 - weight (lbs)
  * @param 1 - bmi (auto calculated based on height and weight)
  */
 export type BodyWeight = [Optional<number>, Optional<number>]
 
 /**
- * Measurement result Vitals inputs.
+ * Tuple for health vitals.
+ * @param 0 - temperature (°F)
+ * @param 1 - heart rate (bpm)
+ * @param 2 - blood oxygen (%)
+ * @param 3 - blood pressure (systolic)
+ * @param 4 - blood pressure (diastolic)
  */
 export type Vitals = [
-  Optional<number>, // temperature (°F)
-  Optional<number>, // heart rate (bpm)
-  Optional<number>, // blood oxygen (%)
-  Optional<number>, // blood pressure (systolic)
-  Optional<number> // blood pressure (diastolic)
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>
 ]
 
 /**
- * Measurement result Body Tape Measurements inputs.
+ * Tuple for body tape measurement values.
+ * @param 0 - neck (in)
+ * @param 1 - chest (in)
+ * @param 2 - shoulders (in)
+ * @param 3 - right bicep (in)
+ * @param 4 - left bicep (in)
+ * @param 5 - right forearm (in)
+ * @param 6 - left forearm (in)
+ * @param 7 - waist (in)
+ * @param 8 - right thigh (in)
+ * @param 9 - left thigh (in)
+ * @param 10 - right calf (in)
+ * @param 11 - left calf (in)
  */
 export type BodyTapeMeasurements = [
-  Optional<number>, // neck
-  Optional<number>, // chest
-  Optional<number>, // shoulders
-  Optional<number>, // right bicep
-  Optional<number>, // left bicep
-  Optional<number>, // right forearm
-  Optional<number>, // left forearm
-  Optional<number>, // waist
-  Optional<number>, // right thigh
-  Optional<number>, // left thigh
-  Optional<number>, // right calf
-  Optional<number> // left calf
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>,
+  Optional<number>
 ]
 
 /**
@@ -197,9 +197,9 @@ export enum MeasurementInput {
   INCHES = 'Inches',
   FEET = 'Feet',
   PERCENTAGE = 'Percentage',
-  BMI = 'BMI', // Body mass index
-  VITALS = 'Vitals',
+  BODY_WEIGHT = 'Body Weight',
   BODY_TAPE_MEASUREMENTS = 'Body Tape Measurements',
+  VITALS = 'Vitals',
 }
 
 /**

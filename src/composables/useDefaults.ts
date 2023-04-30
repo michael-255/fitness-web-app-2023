@@ -434,7 +434,7 @@ export default function useDefaults() {
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.PERCENTAGE],
             } as Measurement,
-            // TODO - Your private import will need to convert this to the BMI measurement
+            // TODO - Import will have to handle where thesse are moved to from v16
             // {
             //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
             //   [DatabaseField.ID]: 'b4450018-1506-450f-a429-9903aded5c9b', // From Fitness Tracker v16
@@ -444,133 +444,133 @@ export default function useDefaults() {
             //   [DatabaseField.IS_ENABLED]: true,
             //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.LBS],
             // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '880cb344-e537-4f0f-bad4-e212a6df51cd', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Chest',
+            //   [DatabaseField.DESCRIPTION]: 'Chest circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: 'e126e959-1675-4b3b-866c-261e453d8dae', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Left Bicep',
+            //   [DatabaseField.DESCRIPTION]: 'Left bicep circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '09108d87-8337-4424-83a1-1ee5be5e8585', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Left Calf',
+            //   [DatabaseField.DESCRIPTION]: 'Left calf circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '96c7229d-91e8-4470-b0a9-ebb1234fe6e7', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Left Forearm',
+            //   [DatabaseField.DESCRIPTION]: 'Left forearm circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '3e3d0d91-3280-491d-967e-d56dcfc51520', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Left Thigh',
+            //   [DatabaseField.DESCRIPTION]: 'Left thigh circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '0090f468-5917-4124-98bd-1e7711ab360e', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Neck',
+            //   [DatabaseField.DESCRIPTION]: 'Neck circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '9fddbad2-ba89-4476-95e4-10d9969e782c', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Right Bicep',
+            //   [DatabaseField.DESCRIPTION]: 'Right bicep circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '0ee16da1-3c8d-48fc-9af1-41ec09cf6317', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Right Calf',
+            //   [DatabaseField.DESCRIPTION]: 'Right calf circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: 'fa4c25c7-e1d5-48bf-975a-4fdfd2305646', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Right Forearm',
+            //   [DatabaseField.DESCRIPTION]: 'Right forearm circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '843c6b0f-ce23-4468-9d67-dd1af076b10a', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Right Thigh',
+            //   [DatabaseField.DESCRIPTION]: 'Right thigh circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: '222452a2-aa29-460e-85a8-4617092d1ba5', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Shoulders',
+            //   [DatabaseField.DESCRIPTION]: 'Shoulder circumference in inches.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
+            // {
+            //   [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
+            //   [DatabaseField.ID]: 'ed12d669-cffd-45f7-802c-9025426341fa', // From Fitness Tracker v16
+            //   [DatabaseField.NAME]: 'Waist',
+            //   [DatabaseField.DESCRIPTION]: 'Waist circumference in inches at the belly button.',
+            //   [DatabaseField.IS_FAVORITED]: false,
+            //   [DatabaseField.IS_ENABLED]: true,
+            //   [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+            // } as Measurement,
             {
               [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '880cb344-e537-4f0f-bad4-e212a6df51cd', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Chest',
-              [DatabaseField.DESCRIPTION]: 'Chest circumference in inches.',
+              [DatabaseField.ID]: '704b252e-c1da-44e2-a5e6-9aeeaee47fc7', // New!
+              [DatabaseField.NAME]: 'Body Weight (+BMI)',
+              [DatabaseField.DESCRIPTION]:
+                'Track your body weight and have your BMI calculated automatically if your height is entered in the Settings.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
+              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BODY_WEIGHT],
             } as Measurement,
             {
               [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: 'e126e959-1675-4b3b-866c-261e453d8dae', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Left Bicep',
-              [DatabaseField.DESCRIPTION]: 'Left bicep circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '09108d87-8337-4424-83a1-1ee5be5e8585', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Left Calf',
-              [DatabaseField.DESCRIPTION]: 'Left calf circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '96c7229d-91e8-4470-b0a9-ebb1234fe6e7', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Left Forearm',
-              [DatabaseField.DESCRIPTION]: 'Left forearm circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '3e3d0d91-3280-491d-967e-d56dcfc51520', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Left Thigh',
-              [DatabaseField.DESCRIPTION]: 'Left thigh circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '0090f468-5917-4124-98bd-1e7711ab360e', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Neck',
-              [DatabaseField.DESCRIPTION]: 'Neck circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '9fddbad2-ba89-4476-95e4-10d9969e782c', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Right Bicep',
-              [DatabaseField.DESCRIPTION]: 'Right bicep circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '0ee16da1-3c8d-48fc-9af1-41ec09cf6317', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Right Calf',
-              [DatabaseField.DESCRIPTION]: 'Right calf circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: 'fa4c25c7-e1d5-48bf-975a-4fdfd2305646', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Right Forearm',
-              [DatabaseField.DESCRIPTION]: 'Right forearm circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '843c6b0f-ce23-4468-9d67-dd1af076b10a', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Right Thigh',
-              [DatabaseField.DESCRIPTION]: 'Right thigh circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '222452a2-aa29-460e-85a8-4617092d1ba5', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Shoulders',
-              [DatabaseField.DESCRIPTION]: 'Shoulder circumference in inches.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: 'ed12d669-cffd-45f7-802c-9025426341fa', // From Fitness Tracker v16
-              [DatabaseField.NAME]: 'Waist',
-              [DatabaseField.DESCRIPTION]: 'Waist circumference in inches at the belly button.',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.INCHES],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: 'xxxxx', // New!
+              [DatabaseField.ID]: '54e887a2-c701-40a4-bb1e-c60b9dc30df6', // New!
               [DatabaseField.NAME]: 'Body Tape Measurements',
               [DatabaseField.DESCRIPTION]:
                 'Track body measurements from head to toes with a tape measure. Inputs can be left blank if desired.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BMI],
-            } as Measurement,
-            {
-              [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,
-              [DatabaseField.ID]: '704b252e-c1da-44e2-a5e6-9aeeaee47fc7', // New!
-              [DatabaseField.NAME]: 'Body Mass Index',
-              [DatabaseField.DESCRIPTION]:
-                'Track your height and weight to automatically calculate your body mass index. Inputs can be left blank if desired. The formula used is generally only useful for adults (18+).',
-              [DatabaseField.IS_FAVORITED]: false,
-              [DatabaseField.IS_ENABLED]: true,
-              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BMI],
+              [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BODY_TAPE_MEASUREMENTS],
             } as Measurement,
             {
               [DatabaseField.TYPE]: DatabaseType.MEASUREMENT,

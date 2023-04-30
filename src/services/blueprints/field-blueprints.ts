@@ -4,8 +4,9 @@ import {
   type SettingValue,
   ExerciseInput,
   MeasurementInput,
-  type BMI,
   type Vitals,
+  type BodyWeight,
+  type BodyTapeMeasurements,
 } from '@/types/database'
 import type { FieldBlueprint } from '@/types/misc'
 import { getDisplayDate } from '@/utils/common'
@@ -341,30 +342,22 @@ export const percentageField: FieldBlueprint = {
 }
 
 /**
- * Body Mass Index field used by measurement results.
- * Example output formatting: 5 ft, 10 in, 180 lbs, 25.8 bmi
+ * Body Weight (+BMI) field used by measurement results.
+ * Example output formatting: 150 lbs, 20 bmi
  */
-export const bmiField: FieldBlueprint = {
-  field: DatabaseField.BMI,
-  label: 'Body Mass Index',
-  inspectFormat: (val: BMI) => {
+export const bodyWeightField: FieldBlueprint = {
+  field: DatabaseField.BODY_WEIGHT,
+  label: 'Body Weight (+BMI)',
+  inspectFormat: (val: BodyWeight) => {
     let output = ''
 
     if (val) {
       if (val[0]) {
-        output += `${val[0]} ft, `
+        output += `${val[0]} lbs, `
       }
 
       if (val[1]) {
-        output += `${val[1]} in, `
-      }
-
-      if (val[2]) {
-        output += `${val[2]} lbs, `
-      }
-
-      if (val[3]) {
-        output += `${val[3]} bmi`
+        output += `${val[1]} bmi`
       }
 
       if (output.endsWith(', ')) {
@@ -378,7 +371,21 @@ export const bmiField: FieldBlueprint = {
 
     return output
   },
-  component: defineAsyncComponent(() => import('@/components/action-inputs/ActionInputBMI.vue')),
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputBodyWeight.vue')
+  ),
+}
+
+/**
+ * Body Tape Measurements field used by measurement results.
+ */
+export const bodyTapeMeasurementsField: FieldBlueprint = {
+  field: DatabaseField.BODY_TAPE_MEASUREMENTS,
+  label: 'Body Tape Measurements',
+  inspectFormat: (val: BodyTapeMeasurements) => `${val}`,
+  // component: defineAsyncComponent(
+  //   () => import('@/components/action-inputs/ActionInputBodyTapeMeasurements.vue')
+  // ),
 }
 
 /**

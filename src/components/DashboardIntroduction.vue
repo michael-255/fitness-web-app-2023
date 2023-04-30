@@ -123,6 +123,20 @@ async function onCloseIntroduction() {
         />
       </div>
 
+      <!-- Settings for User Information -->
+      <div class="q-mb-md">
+        Go to the Settings page and enter your height if you plan to track your body weight. This
+        will allow the app to automatically calculate your BMI and record it.
+      </div>
+
+      <QBtn
+        class="q-mb-md"
+        color="primary"
+        label="Settings"
+        :to="{ name: RouteName.SETTINGS }"
+        :icon="Icon.SETTINGS"
+      />
+
       <!-- Donation Information -->
       <div class="q-mb-md">
         Hope you find {{ AppName }} useful. Please consider donating to help me continue to create

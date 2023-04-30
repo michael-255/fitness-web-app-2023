@@ -32,7 +32,8 @@ import {
   distanceMilesField,
   durationMinutesField,
   resistanceField,
-  bmiField,
+  bodyWeightField,
+  bodyTapeMeasurementsField,
   vitalsField,
 } from '@/services/blueprints/field-blueprints'
 import {
@@ -67,7 +68,8 @@ import {
   lbsColumn,
   inchesColumn,
   percentageColumn,
-  bmiColumn,
+  bodyWeightColumn,
+  bodyTapeMeasurementsColumn,
   vitalsColumn,
 } from '@/services/blueprints/table-columns'
 
@@ -407,7 +409,8 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       lbsField,
       inchesField,
       percentageField,
-      bmiField,
+      bodyWeightField,
+      bodyTapeMeasurementsField,
       vitalsField,
     ],
     visibleColumns: [
@@ -427,7 +430,8 @@ export const coreBlueprint: readonly CoreBlueprint[] = [
       lbsColumn,
       inchesColumn,
       percentageColumn,
-      bmiColumn,
+      bodyWeightColumn,
+      bodyTapeMeasurementsColumn,
       vitalsColumn,
     ],
   },

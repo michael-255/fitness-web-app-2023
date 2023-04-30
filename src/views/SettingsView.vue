@@ -259,7 +259,7 @@ async function onDeleteDatabase() {
  * Height feet validation rule for the template component.
  */
 function feetRule() {
-  return (val: number) =>
+  return (val: Optional<number>) =>
     (val !== null && val !== undefined && val >= Limit.MIN_BMI_FEET && val <= Limit.MAX_BMI_FEET) ||
     `Height feet must be between ${Limit.MIN_BMI_FEET} and ${Limit.MAX_BMI_FEET}`
 }
@@ -268,7 +268,7 @@ function feetRule() {
  * Height inches validation rule for the template component.
  */
 function inchesRule() {
-  return (val: number) =>
+  return (val: Optional<number>) =>
     (val !== null &&
       val !== undefined &&
       val >= Limit.MIN_BMI_INCHES &&
@@ -280,13 +280,12 @@ function inchesRule() {
  * On confirmation, update the height setting. All inputs must be valid.
  */
 async function onSubmit() {
-  const feet = heightFeet.value ?? 0
-  const inches = heightInches.value ?? 0
-  const totalInches = feet * 12 + inches
+  const feet = heightFeet.value
+  const inches = heightInches.value
 
   confirmDialog(
     'Update Height',
-    `Update your height to ${feet} ft, ${inches} in (${totalInches} total inches)?`,
+    `Update your height to ${feet ?? '-'} ft, ${inches ?? '-'} in?`,
     Icon.EDIT,
     'positive',
     async () => {
