@@ -54,6 +54,8 @@ export enum Limit {
   MIN_BMI_INCHES = 0,
   MAX_BMI_LBS = 1500,
   MIN_BMI_LBS = 0,
+  MAX_BODY_INCHES = 250,
+  MIN_BODY_INCHES = 0,
 }
 
 /**

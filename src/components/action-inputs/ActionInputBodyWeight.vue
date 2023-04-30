@@ -20,7 +20,7 @@ defineProps<{
 
 // Composables & Stores
 const actionStore = useActionStore()
-const { isVisible, previousRecord } = useParentIdWatcher(MeasurementInput.BODY_WEIGHT)
+const { isVisible, previousRecord } = useParentIdWatcher(MeasurementInput.BODY_WEIGHT_BMI)
 
 // Data
 const inputRef: Ref<any> = ref(null)
@@ -28,8 +28,9 @@ const heightInches: Ref<SettingValue> = ref(null)
 const bmi: Ref<Optional<number>> = ref(null)
 
 onMounted(async () => {
-  actionStore.record[DatabaseField.BODY_WEIGHT] =
-    actionStore.record[DatabaseField.BODY_WEIGHT] ?? FieldDefault[DatabaseField.BODY_WEIGHT]() // function call
+  actionStore.record[DatabaseField.BODY_WEIGHT_BMI] =
+    actionStore.record[DatabaseField.BODY_WEIGHT_BMI] ??
+    FieldDefault[DatabaseField.BODY_WEIGHT_BMI]() // function call
 
   // Update total height inches in component if settings height exists
   const heightSetting = (await DB.getRecord(DatabaseType.SETTING, SettingId.YOUR_HEIGHT))?.[
@@ -46,6 +47,18 @@ onMounted(async () => {
 })
 
 /**
+ * Formats the label for the input field based on the previous record value.
+ * @param actionRecordValue
+ */
+function previousLabel(actionRecordValue: Optional<number>) {
+  if (actionRecordValue !== null && actionRecordValue !== undefined) {
+    return `Previously ${actionRecordValue} lbs`
+  } else {
+    return 'No previous record'
+  }
+}
+
+/**
  * Weight lbs validation rule for the template component.
  */
 function lbsRule() {
@@ -58,17 +71,17 @@ function lbsRule() {
  * Updates the BMI based on the height setting and weight input.
  */
 function updateBmi() {
-  const weight = actionStore.record[DatabaseField.BODY_WEIGHT][0]
+  const weight = actionStore.record[DatabaseField.BODY_WEIGHT_BMI][0]
   const totalHeightInches = Number(heightInches.value)
 
   if (totalHeightInches && weight) {
     const calculatedBmi = Number(
       ((weight / (totalHeightInches * totalHeightInches)) * 703).toFixed(2)
     )
-    actionStore.record[DatabaseField.BODY_WEIGHT][1] = calculatedBmi
+    actionStore.record[DatabaseField.BODY_WEIGHT_BMI][1] = calculatedBmi
     bmi.value = calculatedBmi
   } else {
-    actionStore.record[DatabaseField.BODY_WEIGHT][1] = null
+    actionStore.record[DatabaseField.BODY_WEIGHT_BMI][1] = null
     bmi.value = null
   }
 }
@@ -79,20 +92,15 @@ function updateBmi() {
     <QCardSection>
       <div class="text-h6 q-mb-md">{{ label }}</div>
 
-      <div class="q-mb-md">
-        Enter your height in feet and inches at least once. The values will automatically be carried
-        over each time you add a new record.
-      </div>
-
       <div class="q-mb-md">Enter your body weight in pounds.</div>
 
       <div class="row q-gutter-sm">
-        <div class="col-6">
+        <div class="col-7">
           <!-- Note: v-model.number for number types -->
           <QInput
-            v-model.number="actionStore.record[DatabaseField.BODY_WEIGHT][0]"
+            v-model.number="actionStore.record[DatabaseField.BODY_WEIGHT_BMI][0]"
             ref="inputRef"
-            :label="`Previous (${previousRecord?.[DatabaseField.BODY_WEIGHT]?.[0] ?? '-'})`"
+            :label="previousLabel(previousRecord?.[DatabaseField.BODY_WEIGHT_BMI]?.[0])"
             :rules="[lbsRule()]"
             type="number"
             dense
@@ -105,12 +113,12 @@ function updateBmi() {
       </div>
 
       <div class="q-mb-md">
-        The Body Mass Index value will be automatically calculated as long as your height is
-        recorded in the Settings and you have entered a weight.
+        The Body Mass Index will is automatically calculated as long as your height is recorded in
+        the Settings and you have entered a weight.
       </div>
 
-      <div v-if="bmi" class="text-h6">{{ bmi }} bmi</div>
-      <div v-else class="text-h6">- bmi</div>
+      <div v-if="bmi" class="text-h5">{{ bmi }} bmi</div>
+      <div v-else class="text-h5">- bmi</div>
     </QCardSection>
   </QCard>
 </template>

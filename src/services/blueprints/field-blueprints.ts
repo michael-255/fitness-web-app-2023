@@ -5,7 +5,7 @@ import {
   ExerciseInput,
   MeasurementInput,
   type Vitals,
-  type BodyWeight,
+  type BodyWeightBmi,
   type BodyTapeMeasurements,
 } from '@/types/database'
 import type { FieldBlueprint } from '@/types/misc'
@@ -345,10 +345,10 @@ export const percentageField: FieldBlueprint = {
  * Body Weight (+BMI) field used by measurement results.
  * Example output formatting: 150 lbs, 20 bmi
  */
-export const bodyWeightField: FieldBlueprint = {
-  field: DatabaseField.BODY_WEIGHT,
+export const bodyWeightBmiField: FieldBlueprint = {
+  field: DatabaseField.BODY_WEIGHT_BMI,
   label: 'Body Weight (+BMI)',
-  inspectFormat: (val: BodyWeight) => {
+  inspectFormat: (val: BodyWeightBmi) => {
     let output = ''
 
     if (val) {
@@ -383,9 +383,9 @@ export const bodyTapeMeasurementsField: FieldBlueprint = {
   field: DatabaseField.BODY_TAPE_MEASUREMENTS,
   label: 'Body Tape Measurements',
   inspectFormat: (val: BodyTapeMeasurements) => `${val}`,
-  // component: defineAsyncComponent(
-  //   () => import('@/components/action-inputs/ActionInputBodyTapeMeasurements.vue')
-  // ),
+  component: defineAsyncComponent(
+    () => import('@/components/action-inputs/ActionInputBodyTapeMeasurements.vue')
+  ),
 }
 
 /**

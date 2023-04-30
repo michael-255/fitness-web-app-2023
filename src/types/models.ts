@@ -1,7 +1,6 @@
 import type {
-  BMI,
   BodyTapeMeasurements,
-  BodyWeight,
+  BodyWeightBmi,
   DatabaseField,
   DatabaseType,
   ExerciseInput,
@@ -58,7 +57,7 @@ export interface DatabaseRecord {
   [DatabaseField.LBS]?: Optional<number>
   [DatabaseField.INCHES]?: Optional<number>
   [DatabaseField.PERCENTAGE]?: Optional<number>
-  [DatabaseField.BODY_WEIGHT]?: BodyWeight
+  [DatabaseField.BODY_WEIGHT_BMI]?: BodyWeightBmi
   [DatabaseField.BODY_TAPE_MEASUREMENTS]?: BodyTapeMeasurements
   [DatabaseField.VITALS]?: Vitals
 }
@@ -175,7 +174,7 @@ export type MeasurementResult = Pick<
   | DatabaseField.LBS
   | DatabaseField.INCHES
   | DatabaseField.PERCENTAGE
-  | DatabaseField.BODY_WEIGHT
+  | DatabaseField.BODY_WEIGHT_BMI
   | DatabaseField.BODY_TAPE_MEASUREMENTS
   | DatabaseField.VITALS
 >

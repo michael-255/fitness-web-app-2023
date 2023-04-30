@@ -260,7 +260,9 @@ async function onDeleteDatabase() {
  */
 function feetRule() {
   return (val: Optional<number>) =>
-    (val !== null && val !== undefined && val >= Limit.MIN_BMI_FEET && val <= Limit.MAX_BMI_FEET) ||
+    val === null ||
+    val === undefined ||
+    (val >= Limit.MIN_BMI_FEET && val <= Limit.MAX_BMI_FEET) ||
     `Height feet must be between ${Limit.MIN_BMI_FEET} and ${Limit.MAX_BMI_FEET}`
 }
 
@@ -269,36 +271,28 @@ function feetRule() {
  */
 function inchesRule() {
   return (val: Optional<number>) =>
-    (val !== null &&
-      val !== undefined &&
-      val >= Limit.MIN_BMI_INCHES &&
-      val <= Limit.MAX_BMI_INCHES) ||
+    val === null ||
+    val === undefined ||
+    (val >= Limit.MIN_BMI_INCHES && val <= Limit.MAX_BMI_INCHES) ||
     `Height inches must be between ${Limit.MIN_BMI_INCHES} and ${Limit.MAX_BMI_INCHES}`
 }
 
 /**
- * On confirmation, update the height setting. All inputs must be valid.
+ * Updates the height setting in the database.
  */
-async function onSubmit() {
+async function updateHeight() {
   const feet = heightFeet.value
   const inches = heightInches.value
 
-  confirmDialog(
-    'Update Height',
-    `Update your height to ${feet ?? '-'} ft, ${inches ?? '-'} in?`,
-    Icon.EDIT,
-    'positive',
-    async () => {
-      try {
-        await DB.setSetting(SettingId.YOUR_HEIGHT, [
-          heightFeet.value ?? null,
-          heightInches.value ?? null,
-        ])
-      } catch (error) {
-        log.error('Height update failed', error)
-      }
-    }
-  )
+  if (feet && inches) {
+    await DB.setSetting(SettingId.YOUR_HEIGHT, [feet, inches])
+  } else if (feet && !inches) {
+    await DB.setSetting(SettingId.YOUR_HEIGHT, [feet, 0])
+  } else if (!feet && inches) {
+    await DB.setSetting(SettingId.YOUR_HEIGHT, [0, inches])
+  } else {
+    await DB.setSetting(SettingId.YOUR_HEIGHT, [null, null])
+  }
 }
 </script>
 
@@ -314,49 +308,43 @@ async function onSubmit() {
           weight.
         </div>
 
-        <!-- User Information Form -->
-        <QForm
-          greedy
-          @submit="onSubmit"
-          @validation-error="isFormValid = false"
-          @validation-success="isFormValid = true"
-        >
-          <div class="row q-gutter-sm q-mb-md">
-            <div class="col">
-              <!-- Note: v-model.number for number types -->
-              <QInput
-                v-model.number="heightFeet"
-                ref="inputRef"
-                label="Height, ft"
-                :rules="[feetRule()]"
-                type="number"
-                dense
-                outlined
-                color="primary"
-              />
-            </div>
-
-            <div class="text-h4 q-mr-md">ft</div>
-
-            <div class="col">
-              <!-- Note: v-model.number for number types -->
-              <QInput
-                v-model.number="heightInches"
-                ref="inputRef"
-                label="Height, in"
-                :rules="[inchesRule()]"
-                type="number"
-                dense
-                outlined
-                color="primary"
-              />
-            </div>
-
-            <div class="text-h4 q-mr-md">in</div>
+        <div class="row q-gutter-sm q-mb-md">
+          <div class="col">
+            <!-- Note: v-model.number for number types -->
+            <QInput
+              v-model.number="heightFeet"
+              ref="inputRef"
+              label="Height, ft"
+              :rules="[feetRule()]"
+              hint="Auto Saves"
+              type="number"
+              dense
+              outlined
+              color="primary"
+              @update:model-value="updateHeight()"
+            />
           </div>
 
-          <QBtn label="Update Height" type="submit" color="positive" :icon="Icon.SAVE" />
-        </QForm>
+          <div class="text-h4 q-mr-md">ft</div>
+
+          <div class="col">
+            <!-- Note: v-model.number for number types -->
+            <QInput
+              v-model.number="heightInches"
+              ref="inputRef"
+              label="Height, in"
+              :rules="[inchesRule()]"
+              hint="Auto Saves"
+              type="number"
+              dense
+              outlined
+              color="primary"
+              @update:model-value="updateHeight()"
+            />
+          </div>
+
+          <div class="text-h4 q-mr-md">in</div>
+        </div>
       </QCardSection>
     </QCard>
 

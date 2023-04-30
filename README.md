@@ -5,12 +5,6 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
-- [ ] `Vitals` and `BMI`
-
-  - [ ] Add a good description with typical healthy ranges for each value
-  - [ ] Ability to save `null` values without triggering validation (should I do this for
-        everything?)
-
 - [ ] Components to display previous values on the `Dashboard Parent Cards`
 
   - [ ] `Workouts`

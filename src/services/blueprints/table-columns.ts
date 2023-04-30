@@ -5,8 +5,8 @@ import {
   MeasurementInput,
   Severity,
   type Vitals,
-  type BodyWeight,
   type BodyTapeMeasurements,
+  type BodyWeightBmi,
 } from '@/types/database'
 import { truncateString } from '@/utils/common'
 import { getDisplayDate } from '@/utils/common'
@@ -461,14 +461,14 @@ export const percentageColumn: QTableColumn = {
  * Body Weight (+BMI) column used by Measurement Results.
  * Example output formatting: 180 lbs, 25.8 bmi
  */
-export const bodyWeightColumn: QTableColumn = {
-  name: DatabaseField.BODY_WEIGHT,
+export const bodyWeightBmiColumn: QTableColumn = {
+  name: DatabaseField.BODY_WEIGHT_BMI,
   label: 'Body Weight (+BMI)',
   align: 'left',
   sortable: true,
   required: false,
-  field: (row: any) => row[DatabaseField.BODY_WEIGHT],
-  format: (val: BodyWeight) => {
+  field: (row: any) => row[DatabaseField.BODY_WEIGHT_BMI],
+  format: (val: BodyWeightBmi) => {
     let output = ''
 
     if (val) {

@@ -2,7 +2,7 @@ import {
   DatabaseField,
   SettingId,
   type Vitals,
-  type BodyWeight,
+  type BodyWeightBmi,
   type BodyTapeMeasurements,
 } from '@/types/database'
 import { LogRetention, type Optional } from '@/types/misc'
@@ -29,7 +29,7 @@ export const FieldDefault = Object.freeze({
   [DatabaseField.LBS]: (): Optional<number> => null,
   [DatabaseField.INCHES]: (): Optional<number> => null,
   [DatabaseField.PERCENTAGE]: (): Optional<number> => null,
-  [DatabaseField.BODY_WEIGHT]: (): BodyWeight => [null, null],
+  [DatabaseField.BODY_WEIGHT_BMI]: (): BodyWeightBmi => [null, null],
   [DatabaseField.BODY_TAPE_MEASUREMENTS]: (): BodyTapeMeasurements => [
     null,
     null,

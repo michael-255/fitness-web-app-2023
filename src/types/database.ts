@@ -93,7 +93,7 @@ export enum DatabaseField {
   LBS = 'lbs',
   INCHES = 'inches',
   PERCENTAGE = 'percentage',
-  BODY_WEIGHT = 'bodyWeight',
+  BODY_WEIGHT_BMI = 'bodyWeightBmi',
   BODY_TAPE_MEASUREMENTS = 'bodyTapeMeasurements',
   VITALS = 'vitals',
 }
@@ -102,7 +102,7 @@ export enum DatabaseField {
  * Setting values are restricted to the types needed.
  */
 export type SettingValue = Optional<
-  string | number | boolean | DatabaseType | LogRetention | YourHeight | null | null[]
+  string | number | boolean | DatabaseType | LogRetention | YourHeight | null[]
 >
 
 /**
@@ -117,7 +117,7 @@ export type YourHeight = [Optional<number>, Optional<number>]
  * @param 0 - weight (lbs)
  * @param 1 - bmi (auto calculated based on height and weight)
  */
-export type BodyWeight = [Optional<number>, Optional<number>]
+export type BodyWeightBmi = [Optional<number>, Optional<number>]
 
 /**
  * Tuple for health vitals.
@@ -197,7 +197,7 @@ export enum MeasurementInput {
   INCHES = 'Inches',
   FEET = 'Feet',
   PERCENTAGE = 'Percentage',
-  BODY_WEIGHT = 'Body Weight',
+  BODY_WEIGHT_BMI = 'Body Weight (+BMI)',
   BODY_TAPE_MEASUREMENTS = 'Body Tape Measurements',
   VITALS = 'Vitals',
 }

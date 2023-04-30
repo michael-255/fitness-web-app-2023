@@ -24,6 +24,19 @@ onMounted(() => {
 })
 
 /**
+ * Formats the label for the input field based on the previous record value.
+ * @param label
+ * @param actionRecordValue
+ */
+function previousLabel(label: string, actionRecordValue: Optional<number>) {
+  if (actionRecordValue) {
+    return `${label} (${actionRecordValue})`
+  } else {
+    return label
+  }
+}
+
+/**
  * Temperature validation rule for the template component.
  */
 function temperatureRule() {
@@ -77,6 +90,17 @@ function diastolicRule() {
     (val >= Limit.MIN_BLOOD_PRESSURE && val <= Limit.MAX_BLOOD_PRESSURE) ||
     `If provided, Diastolic blood pressure must be between ${Limit.MIN_BLOOD_PRESSURE} and ${Limit.MAX_BLOOD_PRESSURE}}`
 }
+
+/**
+ * Ensures the values are set to null if the input is empty.
+ * @param val
+ * @param index
+ */
+function blurValueUpdate(val: Optional<number> | '', index: number) {
+  if (val === null || val === undefined || val === '') {
+    actionStore.record[DatabaseField.VITALS][index] = null
+  }
+}
 </script>
 
 <template>
@@ -84,7 +108,9 @@ function diastolicRule() {
     <QCardSection>
       <div class="text-h6 q-mb-md">{{ label }}</div>
 
-      <div class="q-mb-md">TODO</div>
+      <div class="q-mb-md">
+        Your body temperature. Typical healthy adults should expect a body temperature near 98.6°F.
+      </div>
 
       <div class="row q-gutter-sm q-mb-md">
         <div class="col-6">
@@ -92,18 +118,22 @@ function diastolicRule() {
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][0]"
             ref="inputRef"
-            :label="`Temperature (${previousRecord?.[DatabaseField.VITALS]?.[0] ?? '-'})`"
+            :label="previousLabel('Temperature', previousRecord?.[DatabaseField.VITALS]?.[0])"
             :rules="[temperatureRule()]"
             type="number"
             dense
             outlined
             color="primary"
+            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][0], 0)"
           />
         </div>
         <div class="text-h4">°F</div>
       </div>
 
-      <div class="q-mb-md">TODO</div>
+      <div class="q-mb-md">
+        Your heart rate in beats per minute. Typical healthy adults should expect a resting heart
+        rate near 60 bpm.
+      </div>
 
       <div class="row q-gutter-sm q-mb-md">
         <div class="col-6">
@@ -111,18 +141,22 @@ function diastolicRule() {
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][1]"
             ref="inputRef"
-            :label="`Heart Rate (${previousRecord?.[DatabaseField.VITALS]?.[1] ?? '-'})`"
+            :label="previousLabel('Heart Rate', previousRecord?.[DatabaseField.VITALS]?.[1])"
             :rules="[heartRateRule()]"
             type="number"
             dense
             outlined
             color="primary"
+            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][1], 1)"
           />
         </div>
         <div class="text-h4">bpm</div>
       </div>
 
-      <div class="q-mb-md">TODO</div>
+      <div class="q-mb-md">
+        Your blood oxygen percentage, which can be determined using a pulse oximeter. Typical
+        healthy adults should expect a blood oxygen between 90-100%.
+      </div>
 
       <div class="row q-gutter-sm q-mb-md">
         <div class="col-6">
@@ -130,18 +164,22 @@ function diastolicRule() {
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][2]"
             ref="inputRef"
-            :label="`Blood Oxygen (${previousRecord?.[DatabaseField.VITALS]?.[2] ?? '-'})`"
+            :label="previousLabel('Blood Oxygen', previousRecord?.[DatabaseField.VITALS]?.[2])"
             :rules="[bloodOxygenRule()]"
             type="number"
             dense
             outlined
             color="primary"
+            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][2], 2)"
           />
         </div>
         <div class="text-h4">%</div>
       </div>
 
-      <div class="q-mb-md">TODO</div>
+      <div class="q-mb-md">
+        Your blood pressure. Typical healthy adults should expect a blood pressure near 120/80 while
+        inactive.
+      </div>
 
       <div class="row q-gutter-sm">
         <div class="col">
@@ -149,12 +187,13 @@ function diastolicRule() {
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][3]"
             ref="inputRef"
-            :label="`Systolic (${previousRecord?.[DatabaseField.VITALS]?.[3] ?? '-'})`"
+            :label="previousLabel('Systolic', previousRecord?.[DatabaseField.VITALS]?.[3])"
             :rules="[systolicRule()]"
             type="number"
             dense
             outlined
             color="primary"
+            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][3], 3)"
           />
         </div>
 
@@ -165,12 +204,13 @@ function diastolicRule() {
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][4]"
             ref="inputRef"
-            :label="`Diastolic (${previousRecord?.[DatabaseField.VITALS]?.[4] ?? '-'})`"
+            :label="previousLabel('Diastolic', previousRecord?.[DatabaseField.VITALS]?.[4])"
             :rules="[diastolicRule()]"
             type="number"
             dense
             outlined
             color="primary"
+            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][4], 4)"
           />
         </div>
       </div>
