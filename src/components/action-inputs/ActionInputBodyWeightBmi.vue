@@ -47,14 +47,14 @@ onMounted(async () => {
 })
 
 /**
- * Formats the label for the input field based on the previous record value.
+ * Formats the previous value for the input field based on the previous record value.
  * @param actionRecordValue
  */
-function previousLabel(actionRecordValue: Optional<number>) {
+function previousValue(actionRecordValue: Optional<number>) {
   if (actionRecordValue !== null && actionRecordValue !== undefined) {
-    return `Previously ${actionRecordValue} lbs`
+    return `← ${actionRecordValue} lbs`
   } else {
-    return 'No previous data'
+    return ''
   }
 }
 
@@ -64,7 +64,7 @@ function previousLabel(actionRecordValue: Optional<number>) {
 function lbsRule() {
   return (val: number) =>
     (val !== null && val !== undefined && val >= Limit.MIN_BMI_LBS && val <= Limit.MAX_BMI_LBS) ||
-    `Weight must be between ${Limit.MIN_BMI_LBS} and ${Limit.MAX_BMI_LBS}`
+    `Must be between ${Limit.MIN_BMI_LBS} and ${Limit.MAX_BMI_LBS}`
 }
 
 /**
@@ -107,29 +107,34 @@ function updateBmi() {
 
       <div class="q-mb-md">Enter your body weight in pounds.</div>
 
-      <div class="row q-gutter-sm">
-        <div class="col-7">
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">Weight</div>
+
+        <div class="col-4">
           <!-- Note: v-model.number for number types -->
           <QInput
             v-model.number="actionStore.record[DatabaseField.BODY_WEIGHT_BMI][0]"
             ref="inputRef"
-            :label="previousLabel(previousRecord?.[DatabaseField.BODY_WEIGHT_BMI]?.[0])"
+            label="lbs"
             :rules="[lbsRule()]"
             type="number"
             step="0.01"
             dense
+            rounded
             outlined
             color="primary"
             @blur="cleanBodyWeightBmiInput()"
             @update:model-value="updateBmi()"
           />
         </div>
-        <div class="text-h4">lbs</div>
+        <div class="text-h6 q-pt-xs">
+          {{ previousValue(previousRecord?.[DatabaseField.BODY_WEIGHT_BMI]?.[0]) }}
+        </div>
       </div>
 
       <div class="q-mb-md">
         The Body Mass Index will is automatically calculated as long as your height is recorded on
-        the Settings page and you have entered a new weight above.
+        the Settings page and you have entered a weight above.
       </div>
 
       <div v-if="bmi" class="text-h5">{{ bmi }} bmi</div>

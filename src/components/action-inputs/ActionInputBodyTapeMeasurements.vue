@@ -31,7 +31,7 @@ onMounted(async () => {
 function lastRecordedValue(actionRecordValue: Optional<number>) {
   // TODO - Need to find the last recorded value from the database
   if (actionRecordValue !== null && actionRecordValue !== undefined) {
-    return `→ ${actionRecordValue} in`
+    return `← ${actionRecordValue} in`
   } else {
     return ''
   }

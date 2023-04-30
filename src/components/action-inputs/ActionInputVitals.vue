@@ -148,7 +148,7 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             @blur="cleanDecimalInputValue(actionStore.record[DatabaseField.VITALS][0], 0)"
           />
         </div>
-        <div class="text-h6 q-pt-xs">→ 98.6°F</div>
+        <div class="text-h6 q-pt-xs">← 98.6°F</div>
       </div>
 
       <div class="row q-gutter-sm q-mb-md">
@@ -170,7 +170,7 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][1], 1)"
           />
         </div>
-        <div class="text-h6 q-pt-xs">→ 220 bpm</div>
+        <div class="text-h6 q-pt-xs">← 220 bpm</div>
       </div>
 
       <div class="row q-gutter-sm q-mb-md">
@@ -192,7 +192,7 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][2], 2)"
           />
         </div>
-        <div class="text-h6 q-pt-xs">→ 100%</div>
+        <div class="text-h6 q-pt-xs">← 100%</div>
       </div>
 
       <div class="text-h6 q-mb-sm">Blood Pressure</div>
@@ -233,7 +233,7 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][4], 4)"
           />
         </div>
-        <div class="text-h6 q-pt-xs">→ 360/360</div>
+        <div class="text-h6 q-pt-xs">← 360/360</div>
       </div>
     </QCardSection>
   </QCard>

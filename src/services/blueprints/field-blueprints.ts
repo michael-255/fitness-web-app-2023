@@ -372,7 +372,7 @@ export const bodyWeightBmiField: FieldBlueprint = {
     return output
   },
   component: defineAsyncComponent(
-    () => import('@/components/action-inputs/ActionInputBodyWeight.vue')
+    () => import('@/components/action-inputs/ActionInputBodyWeightBmi.vue')
   ),
 }
 
