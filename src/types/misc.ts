@@ -121,12 +121,8 @@ export type ExportData = {
  * Used to display data from parent types on the dashboard.
  */
 export type DashboardParent = {
-  [DatabaseField.TYPE]: DatabaseParentType
-  [DatabaseField.ID]: string
-  [DatabaseField.NAME]: string
-  [DatabaseField.DESCRIPTION]: Optional<string>
-  [DatabaseField.IS_FAVORITED]: boolean
-  previousRecord?: DatabaseRecord
+  parentRecord: DatabaseRecord
+  previousChildRecord?: DatabaseRecord
 }
 
 /**

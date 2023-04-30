@@ -9,22 +9,17 @@ import {
 import { Icon } from '@/types/icons'
 import { getDisplayDate } from '@/utils/common'
 import type { Optional } from '@/types/misc'
+import type { DatabaseRecord } from '@/types/models'
 import useLogger from '@/composables/useLogger'
 import useDialogs from '@/composables/useDialogs'
 import useRoutables from '@/composables/useRoutables'
 import DB from '@/services/LocalDatabase'
-import type { DatabaseRecord } from '@/types/models'
 
 // Props & Emits
 defineProps<{
-  type: DatabaseParentType
-  id: string
-  name: string
   showDescription: Optional<SettingValue>
-  description: Optional<string>
-  isFavorited: boolean
-  // Will be undefined if no record is found
-  previousRecord?: DatabaseRecord
+  parentRecord: DatabaseRecord
+  previousChildRecord?: DatabaseRecord
 }>()
 
 // Composables & Stores
@@ -115,39 +110,51 @@ async function onDeleteRecord(type: DatabaseType, id: string) {
 <template>
   <QCard>
     <QCardSection>
-      <div class="text-h6 q-mb-md">{{ name }}</div>
+      <div class="text-h6 q-mb-md">{{ parentRecord?.name }}</div>
 
       <!-- Description (if show setting is true) -->
-      <div v-if="showDescription" class="q-mb-md">{{ description }}</div>
+      <div v-if="showDescription" class="q-mb-md">{{ parentRecord?.description }}</div>
 
       <!-- Top right corner buttons on card -->
       <div class="absolute-top-right q-ma-xs">
         <!-- Note Icon -->
         <QIcon
-          v-show="previousRecord?.[DatabaseField.NOTE]"
+          v-show="previousChildRecord?.[DatabaseField.NOTE]"
           :name="Icon.NOTE"
           color="primary"
           size="md"
           class="cursor-pointer q-mr-xs"
-          @click="viewPreviousNote(previousRecord?.[DatabaseField.NOTE] || '')"
+          @click="viewPreviousNote(previousChildRecord?.[DatabaseField.NOTE] || '')"
         />
 
         <!-- Favorite Star Icon -->
         <QIcon
-          v-show="isFavorited"
+          v-show="parentRecord?.isFavorited"
           :name="Icon.FAVORITE_ON"
           color="warning"
           size="md"
           class="cursor-pointer"
-          @click="onUnfavorite(type, id, name)"
+          @click="
+            onUnfavorite(
+              parentRecord?.type as DatabaseParentType,
+              parentRecord?.id,
+              parentRecord?.name as string
+            )
+          "
         />
         <QIcon
-          v-show="!isFavorited"
+          v-show="!parentRecord?.isFavorited"
           :name="Icon.FAVORITE_OFF"
           color="grey"
           size="md"
           class="cursor-pointer"
-          @click="onFavorite(type, id, name)"
+          @click="
+            onFavorite(
+              parentRecord?.type as DatabaseParentType,
+              parentRecord?.id,
+              parentRecord?.name as string
+            )
+          "
         />
 
         <!-- Vertical Actions Menu -->
@@ -159,21 +166,21 @@ async function onDeleteRecord(type: DatabaseType, id: string) {
             transition-hide="flip-left"
           >
             <QList>
-              <QItem clickable @click="goToInspect(type, id)">
+              <QItem clickable @click="goToInspect(parentRecord?.type, parentRecord?.id)">
                 <QItemSection avatar>
                   <QIcon color="primary" :name="Icon.INSPECT" />
                 </QItemSection>
                 <QItemSection>Inspect</QItemSection>
               </QItem>
 
-              <QItem clickable @click="goToEdit(type, id)">
+              <QItem clickable @click="goToEdit(parentRecord?.type, parentRecord?.id)">
                 <QItemSection avatar>
                   <QIcon color="primary" :name="Icon.EDIT" />
                 </QItemSection>
                 <QItemSection>Edit</QItemSection>
               </QItem>
 
-              <QItem clickable @click="goToCharts(type, id)">
+              <QItem clickable @click="goToCharts(parentRecord?.type, parentRecord?.id)">
                 <QItemSection avatar>
                   <QIcon color="primary" :name="Icon.CHARTS" />
                 </QItemSection>
@@ -182,7 +189,7 @@ async function onDeleteRecord(type: DatabaseType, id: string) {
 
               <QSeparator />
 
-              <QItem clickable @click="onDeleteRecord(type, id)">
+              <QItem clickable @click="onDeleteRecord(parentRecord?.type, parentRecord?.id)">
                 <QItemSection avatar>
                   <QIcon color="negative" :name="Icon.DELETE" />
                 </QItemSection>
@@ -199,17 +206,17 @@ async function onDeleteRecord(type: DatabaseType, id: string) {
           <QIcon :name="Icon.PREVIOUS" />
           <span class="text-caption q-ml-xs">
             {{
-              useTimeAgo(previousRecord?.[DatabaseField.CREATED_TIMESTAMP] || '').value ||
+              useTimeAgo(previousChildRecord?.[DatabaseField.CREATED_TIMESTAMP] || '').value ||
               'No previous records'
             }}
           </span>
         </QBadge>
 
         <!-- Previous Record Created Date -->
-        <div v-if="previousRecord?.[DatabaseField.CREATED_TIMESTAMP]">
+        <div v-if="previousChildRecord?.[DatabaseField.CREATED_TIMESTAMP]">
           <QIcon :name="Icon.CALENDAR_CHECK" />
           <span class="text-caption q-ml-xs">{{
-            getDisplayDate(previousRecord?.[DatabaseField.CREATED_TIMESTAMP])
+            getDisplayDate(previousChildRecord?.[DatabaseField.CREATED_TIMESTAMP])
           }}</span>
         </div>
       </div>

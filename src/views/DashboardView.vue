@@ -55,19 +55,19 @@ const subscription = DB.liveDashboard().subscribe({
           )
 
           return {
-            [DatabaseField.TYPE]: r[DatabaseField.TYPE],
-            [DatabaseField.ID]: r[DatabaseField.ID],
-            [DatabaseField.NAME]: r[DatabaseField.NAME],
-            [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
-            [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
-            previousRecord: previousChild,
+            parentRecord: r,
+            previousChildRecord: previousChild,
           } as DashboardParent
         })
     )
 
     // Group favorites at the top
-    let favorites = dashboardWorkouts.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
-    let nonFavorites = dashboardWorkouts.filter((r) => r[DatabaseField.IS_FAVORITED] === false)
+    let favorites = dashboardWorkouts.filter(
+      (r) => r.parentRecord[DatabaseField.IS_FAVORITED] === true
+    )
+    let nonFavorites = dashboardWorkouts.filter(
+      (r) => r.parentRecord[DatabaseField.IS_FAVORITED] === false
+    )
     dashboardParentRefs[0].value = [...favorites, ...nonFavorites]
 
     // Empty out the arrays
@@ -85,19 +85,19 @@ const subscription = DB.liveDashboard().subscribe({
           )
 
           return {
-            [DatabaseField.TYPE]: r[DatabaseField.TYPE],
-            [DatabaseField.ID]: r[DatabaseField.ID],
-            [DatabaseField.NAME]: r[DatabaseField.NAME],
-            [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
-            [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
-            previousRecord: previousChild,
+            parentRecord: r,
+            previousChildRecord: previousChild,
           } as DashboardParent
         })
     )
 
     // Group favorites at the top
-    favorites = dashboardExercises.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
-    nonFavorites = dashboardExercises.filter((r) => r[DatabaseField.IS_FAVORITED] === false)
+    favorites = dashboardExercises.filter(
+      (r) => r.parentRecord[DatabaseField.IS_FAVORITED] === true
+    )
+    nonFavorites = dashboardExercises.filter(
+      (r) => r.parentRecord[DatabaseField.IS_FAVORITED] === false
+    )
     dashboardParentRefs[1].value = [...favorites, ...nonFavorites]
 
     // Empty out the arrays
@@ -115,19 +115,19 @@ const subscription = DB.liveDashboard().subscribe({
           )
 
           return {
-            [DatabaseField.TYPE]: r[DatabaseField.TYPE],
-            [DatabaseField.ID]: r[DatabaseField.ID],
-            [DatabaseField.NAME]: r[DatabaseField.NAME],
-            [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
-            [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
-            previousRecord: previousChild,
+            parentRecord: r,
+            previousChildRecord: previousChild,
           } as DashboardParent
         })
     )
 
     // Group favorites at the top
-    favorites = dashboardMeasurements.filter((r) => r[DatabaseField.IS_FAVORITED] === true)
-    nonFavorites = dashboardMeasurements.filter((r) => r[DatabaseField.IS_FAVORITED] === false)
+    favorites = dashboardMeasurements.filter(
+      (r) => r.parentRecord[DatabaseField.IS_FAVORITED] === true
+    )
+    nonFavorites = dashboardMeasurements.filter(
+      (r) => r.parentRecord[DatabaseField.IS_FAVORITED] === false
+    )
     dashboardParentRefs[2].value = [...favorites, ...nonFavorites]
   },
   error: (error) => {
@@ -162,13 +162,9 @@ onUnmounted(() => {
     <div v-show="uiStore.dashboardListIndex === 0">
       <div v-for="(record, i) in dashboardParentRefs[0].value" :key="i">
         <DashboardParentCard
-          :[DatabaseField.TYPE]="record[DatabaseField.TYPE]"
-          :[DatabaseField.ID]="record[DatabaseField.ID]"
-          :[DatabaseField.NAME]="record[DatabaseField.NAME]"
           :showDescription="showDescription"
-          :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
-          :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
-          :previousRecord="record.previousRecord"
+          :parentRecord="record.parentRecord"
+          :previousChildRecord="record.previousChildRecord"
           class="q-mb-md"
         >
           <!-- TODO -->
@@ -176,7 +172,7 @@ onUnmounted(() => {
             round
             color="positive"
             :icon="Icon.ADD_NOTE"
-            @click="goToCreate(DatabaseType.WORKOUT_RESULT, record[DatabaseField.ID])"
+            @click="goToCreate(DatabaseType.WORKOUT_RESULT, record.parentRecord[DatabaseField.ID])"
           />
         </DashboardParentCard>
       </div>
@@ -186,13 +182,9 @@ onUnmounted(() => {
     <div v-show="uiStore.dashboardListIndex === 1">
       <div v-for="(record, j) in dashboardParentRefs[1].value" :key="j">
         <DashboardParentCard
-          :[DatabaseField.TYPE]="record[DatabaseField.TYPE]"
-          :[DatabaseField.ID]="record[DatabaseField.ID]"
-          :[DatabaseField.NAME]="record[DatabaseField.NAME]"
           :showDescription="showDescription"
-          :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
-          :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
-          :previousRecord="record.previousRecord"
+          :parentRecord="record.parentRecord"
+          :previousChildRecord="record.previousChildRecord"
           class="q-mb-md"
         >
           <!-- TODO -->
@@ -200,7 +192,7 @@ onUnmounted(() => {
             round
             color="positive"
             :icon="Icon.ADD_NOTE"
-            @click="goToCreate(DatabaseType.EXERCISE_RESULT, record[DatabaseField.ID])"
+            @click="goToCreate(DatabaseType.EXERCISE_RESULT, record.parentRecord[DatabaseField.ID])"
           />
         </DashboardParentCard>
       </div>
@@ -210,13 +202,9 @@ onUnmounted(() => {
     <div v-show="uiStore.dashboardListIndex === 2">
       <div v-for="(record, j) in dashboardParentRefs[2].value" :key="j">
         <DashboardParentCard
-          :[DatabaseField.TYPE]="record[DatabaseField.TYPE]"
-          :[DatabaseField.ID]="record[DatabaseField.ID]"
-          :[DatabaseField.NAME]="record[DatabaseField.NAME]"
           :showDescription="showDescription"
-          :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
-          :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
-          :previousRecord="record.previousRecord"
+          :parentRecord="record.parentRecord"
+          :previousChildRecord="record.previousChildRecord"
           class="q-mb-md"
         >
           <!-- TODO -->
@@ -224,7 +212,9 @@ onUnmounted(() => {
             round
             color="positive"
             :icon="Icon.ADD_NOTE"
-            @click="goToCreate(DatabaseType.MEASUREMENT_RESULT, record[DatabaseField.ID])"
+            @click="
+              goToCreate(DatabaseType.MEASUREMENT_RESULT, record.parentRecord[DatabaseField.ID])
+            "
           />
         </DashboardParentCard>
       </div>
