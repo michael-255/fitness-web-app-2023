@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { exportFile } from 'quasar'
 import { Icon } from '@/types/icons'
-import { LogRetention, type ExportData, AppName, Limit } from '@/types/misc'
+import { LogRetention, type ExportData, AppName, Limit, type Optional } from '@/types/misc'
 import { DatabaseType, SettingId } from '@/types/database'
 import { type Ref, ref, onUnmounted } from 'vue'
 import type { DatabaseRecord } from '@/types/models'
@@ -31,7 +31,10 @@ const {
 
 // Data
 const settings: Ref<any[]> = ref([])
-const logRetentionIndex: Ref<number> = ref(0)
+const heightFeet: Ref<Optional<number>> = ref(null)
+const heightInches: Ref<Optional<number>> = ref(null)
+const isFormValid = ref(true)
+const logRetentionIndex = ref(0)
 const importFile: Ref<any> = ref(null)
 const exportModel: Ref<DatabaseType[]> = ref([])
 const exportOptions = Object.values(DatabaseType).map((type) => ({
@@ -50,6 +53,8 @@ const subscription = DB.liveSettings().subscribe({
     const logRetentionTime = records.find((s) => s.id === SettingId.LOG_RETENTION_TIME)?.value
 
     logRetentionIndex.value = Object.values(LogRetention).findIndex((i) => i === logRetentionTime)
+    heightFeet.value = settings.value.find((s) => s.id === SettingId.YOUR_HEIGHT)?.value?.[0]
+    heightInches.value = settings.value.find((s) => s.id === SettingId.YOUR_HEIGHT)?.value?.[1]
   },
   error: (error) => {
     log.error('Error loading live settings', error)
@@ -249,10 +254,113 @@ async function onDeleteDatabase() {
     }
   )
 }
+
+/**
+ * Height feet validation rule for the template component.
+ */
+function feetRule() {
+  return (val: number) =>
+    (val !== null && val !== undefined && val >= Limit.MIN_BMI_FEET && val <= Limit.MAX_BMI_FEET) ||
+    `Height feet must be between ${Limit.MIN_BMI_FEET} and ${Limit.MAX_BMI_FEET}`
+}
+
+/**
+ * Height inches validation rule for the template component.
+ */
+function inchesRule() {
+  return (val: number) =>
+    (val !== null &&
+      val !== undefined &&
+      val >= Limit.MIN_BMI_INCHES &&
+      val <= Limit.MAX_BMI_INCHES) ||
+    `Height inches must be between ${Limit.MIN_BMI_INCHES} and ${Limit.MAX_BMI_INCHES}`
+}
+
+/**
+ * On confirmation, update the height setting. All inputs must be valid.
+ */
+async function onSubmit() {
+  const feet = heightFeet.value ?? 0
+  const inches = heightInches.value ?? 0
+  const totalInches = feet * 12 + inches
+
+  confirmDialog(
+    'Update Height',
+    `Update your height to ${feet} ft, ${inches} in (${totalInches} total inches)?`,
+    Icon.EDIT,
+    'positive',
+    async () => {
+      try {
+        await DB.setSetting(SettingId.YOUR_HEIGHT, [
+          heightFeet.value ?? null,
+          heightInches.value ?? null,
+        ])
+      } catch (error) {
+        log.error('Height update failed', error)
+      }
+    }
+  )
+}
 </script>
 
 <template>
   <ResponsivePage :bannerIcon="Icon.SETTINGS" bannerTitle="Settings">
+    <!-- User Information -->
+    <QCard class="q-mb-md">
+      <QCardSection>
+        <div class="text-h6 q-mb-md">User Information</div>
+
+        <div class="q-mb-md">
+          Your height is recorded below. It is used for the BMI calculation when updating your body
+          weight.
+        </div>
+
+        <!-- User Information Form -->
+        <QForm
+          greedy
+          @submit="onSubmit"
+          @validation-error="isFormValid = false"
+          @validation-success="isFormValid = true"
+        >
+          <div class="row q-gutter-sm q-mb-md">
+            <div class="col">
+              <!-- Note: v-model.number for number types -->
+              <QInput
+                v-model.number="heightFeet"
+                ref="inputRef"
+                label="Height, ft"
+                :rules="[feetRule()]"
+                type="number"
+                dense
+                outlined
+                color="primary"
+              />
+            </div>
+
+            <div class="text-h4 q-mr-md">ft</div>
+
+            <div class="col">
+              <!-- Note: v-model.number for number types -->
+              <QInput
+                v-model.number="heightInches"
+                ref="inputRef"
+                label="Height, in"
+                :rules="[inchesRule()]"
+                type="number"
+                dense
+                outlined
+                color="primary"
+              />
+            </div>
+
+            <div class="text-h4 q-mr-md">in</div>
+          </div>
+
+          <QBtn label="Update Height" type="submit" color="positive" :icon="Icon.SAVE" />
+        </QForm>
+      </QCardSection>
+    </QCard>
+
     <!-- Options -->
     <QCard class="q-mb-md">
       <QCardSection>
@@ -270,6 +378,15 @@ async function onDeleteDatabase() {
           @update:model-value="DB.setSetting(SettingId.SHOW_INTRODUCTION, $event)"
         />
 
+        <div class="q-mb-md">Show descriptions for records displayed on the Dashboard page.</div>
+
+        <QToggle
+          class="q-mb-md"
+          label="Show Dashboard Descriptions"
+          :model-value="settings.find((s) => s.id === SettingId.SHOW_DASHBOARD_DESCRIPTIONS)?.value"
+          @update:model-value="DB.setSetting(SettingId.SHOW_DASHBOARD_DESCRIPTIONS, $event)"
+        />
+
         <div class="q-mb-md">
           Dark Mode allows you to switch between a light or dark theme for the app.
         </div>
@@ -282,8 +399,8 @@ async function onDeleteDatabase() {
         />
 
         <div class="q-mb-md">
-          Show all columns while viewing on the data page or only show the default columns. You can
-          change the individual columns while on the page.
+          Show all columns while viewing on the Data page or only show the default columns. You can
+          temporarily change the individual columns while on the Data page.
         </div>
 
         <QToggle

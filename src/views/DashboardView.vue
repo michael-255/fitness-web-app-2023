@@ -33,12 +33,16 @@ const dashboardListOptions = getParentCategoryTypes().map((type, i) => ({
   value: i,
 }))
 const showIntroduction: Ref<Optional<SettingValue>> = ref(null)
+const showDescription: Ref<Optional<SettingValue>> = ref(null)
 const dashboardParentRefs: Ref<DashboardParent[]>[] = getParentCategoryTypes().map(() => ref([]))
 
 const subscription = DB.liveDashboard().subscribe({
   next: async (records) => {
     // Settings
     showIntroduction.value = records.find((s) => s.id === SettingId.SHOW_INTRODUCTION)?.value
+    showDescription.value = records.find(
+      (s) => s.id === SettingId.SHOW_DASHBOARD_DESCRIPTIONS
+    )?.value
 
     // Workouts - Enabled only, sorted by name
     const dashboardWorkouts = await Promise.all(
@@ -54,6 +58,7 @@ const subscription = DB.liveDashboard().subscribe({
             [DatabaseField.TYPE]: r[DatabaseField.TYPE],
             [DatabaseField.ID]: r[DatabaseField.ID],
             [DatabaseField.NAME]: r[DatabaseField.NAME],
+            [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
             [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
             previousNote: previousChild?.[DatabaseField.NOTE],
             previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
@@ -84,6 +89,7 @@ const subscription = DB.liveDashboard().subscribe({
             [DatabaseField.TYPE]: r[DatabaseField.TYPE],
             [DatabaseField.ID]: r[DatabaseField.ID],
             [DatabaseField.NAME]: r[DatabaseField.NAME],
+            [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
             [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
             previousNote: previousChild?.[DatabaseField.NOTE],
             previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
@@ -114,6 +120,7 @@ const subscription = DB.liveDashboard().subscribe({
             [DatabaseField.TYPE]: r[DatabaseField.TYPE],
             [DatabaseField.ID]: r[DatabaseField.ID],
             [DatabaseField.NAME]: r[DatabaseField.NAME],
+            [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
             [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
             previousNote: previousChild?.[DatabaseField.NOTE],
             previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
@@ -158,10 +165,12 @@ onUnmounted(() => {
     <div v-show="uiStore.dashboardListIndex === 0">
       <div v-for="(record, i) in dashboardParentRefs[0].value" :key="i">
         <DashboardParentCard
-          :type="record[DatabaseField.TYPE]"
-          :id="record[DatabaseField.ID]"
-          :name="record[DatabaseField.NAME]"
-          :isFavorite="record[DatabaseField.IS_FAVORITED]"
+          :[DatabaseField.TYPE]="record[DatabaseField.TYPE]"
+          :[DatabaseField.ID]="record[DatabaseField.ID]"
+          :[DatabaseField.NAME]="record[DatabaseField.NAME]"
+          :showDescription="showDescription"
+          :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
+          :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
           :previousNote="record.previousNote"
           :previousCreatedTimestamp="record.previousCreatedTimestamp"
           class="q-mb-md"
@@ -180,10 +189,12 @@ onUnmounted(() => {
     <div v-show="uiStore.dashboardListIndex === 1">
       <div v-for="(record, j) in dashboardParentRefs[1].value" :key="j">
         <DashboardParentCard
-          :type="record[DatabaseField.TYPE]"
-          :id="record[DatabaseField.ID]"
-          :name="record[DatabaseField.NAME]"
-          :isFavorite="record[DatabaseField.IS_FAVORITED]"
+          :[DatabaseField.TYPE]="record[DatabaseField.TYPE]"
+          :[DatabaseField.ID]="record[DatabaseField.ID]"
+          :[DatabaseField.NAME]="record[DatabaseField.NAME]"
+          :showDescription="showDescription"
+          :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
+          :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
           :previousNote="record.previousNote"
           :previousCreatedTimestamp="record.previousCreatedTimestamp"
           class="q-mb-md"
@@ -202,10 +213,12 @@ onUnmounted(() => {
     <div v-show="uiStore.dashboardListIndex === 2">
       <div v-for="(record, j) in dashboardParentRefs[2].value" :key="j">
         <DashboardParentCard
-          :type="record[DatabaseField.TYPE]"
-          :id="record[DatabaseField.ID]"
-          :name="record[DatabaseField.NAME]"
-          :isFavorite="record[DatabaseField.IS_FAVORITED]"
+          :[DatabaseField.TYPE]="record[DatabaseField.TYPE]"
+          :[DatabaseField.ID]="record[DatabaseField.ID]"
+          :[DatabaseField.NAME]="record[DatabaseField.NAME]"
+          :showDescription="showDescription"
+          :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
+          :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
           :previousNote="record.previousNote"
           :previousCreatedTimestamp="record.previousCreatedTimestamp"
           class="q-mb-md"

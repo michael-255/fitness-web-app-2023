@@ -95,13 +95,29 @@ export enum DatabaseField {
   PERCENTAGE = 'percentage',
   BMI = 'bmi',
   VITALS = 'vitals',
+  BODY_WEIGHT = 'bodyWeight',
   BODY_TAPE_MEASUREMENTS = 'bodyTapeMeasurements',
 }
 
 /**
  * Setting values are restricted to a few primitive types.
  */
-export type SettingValue = string | number | boolean | DatabaseType | LogRetention
+export type SettingValue =
+  | string
+  | number
+  | boolean
+  | DatabaseType
+  | LogRetention
+  | YourHeight
+  | null
+  | null[]
+
+/**
+ * Tuple for user height values.
+ * @param 0 - height (ft)
+ * @param 1 - height (in)
+ */
+export type YourHeight = [Optional<number>, Optional<number>]
 
 /**
  * Measurement result Body Mass Index inputs.
@@ -112,6 +128,13 @@ export type BMI = [
   Optional<number>, // weight (lbs)
   Optional<number> // bmi (calculated)
 ]
+
+/**
+ * Measurement result Body Weight inputs.
+ * @param 0 - weight (lbs)
+ * @param 1 - bmi (auto calculated based on height and weight)
+ */
+export type BodyWeight = [Optional<number>, Optional<number>]
 
 /**
  * Measurement result Vitals inputs.
@@ -146,7 +169,9 @@ export type BodyTapeMeasurements = [
  * The only valid setting ids.
  */
 export enum SettingId {
+  YOUR_HEIGHT = 'your-height',
   SHOW_INTRODUCTION = 'show-introduction',
+  SHOW_DASHBOARD_DESCRIPTIONS = 'show-dashboard-descriptions',
   DARK_MODE = 'dark-mode',
   SHOW_ALL_DATA_COLUMNS = 'show-all-data-columns',
   SHOW_CONSOLE_LOGS = 'show-console-logs',
