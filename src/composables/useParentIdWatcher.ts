@@ -8,12 +8,7 @@ import {
 } from '@/types/database'
 import type { Optional } from '@/types/misc'
 import type { DatabaseRecord } from '@/types/models'
-import {
-  getChildCategoryTypes,
-  getChildType,
-  getParentCategoryTypes,
-  getParentType,
-} from '@/services/Blueprints'
+import { getParentCategoryTypes, getParentType } from '@/services/Blueprints'
 import useActionStore from '@/stores/action'
 import useLogger from '@/composables/useLogger'
 import DB from '@/services/LocalDatabase'

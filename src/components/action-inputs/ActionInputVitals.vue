@@ -24,16 +24,55 @@ onMounted(() => {
 })
 
 /**
- * Formats text for the last recorded value.
- * @param label
- * @param actionRecordValue
+ * Formats the previous temperature value for the input field based on the previous record value.
  */
-function lastRecordedValue(label: string, actionRecordValue: Optional<number>) {
-  // TODO - Need to find the last recorded value from the database
-  if (actionRecordValue) {
-    return `${label} (${actionRecordValue})`
+function previousTemperature() {
+  const previous = previousRecord.value?.[DatabaseField.VITALS]?.[0]
+
+  if (previous) {
+    return `← ${previous}°F`
   } else {
-    return label
+    return ''
+  }
+}
+
+/**
+ * Formats the previous heart rate value for the input field based on the previous record value.
+ */
+function previousHeartRate() {
+  const previous = previousRecord.value?.[DatabaseField.VITALS]?.[1]
+
+  if (previous) {
+    return `← ${previous} bpm`
+  } else {
+    return ''
+  }
+}
+
+/**
+ * Formats the previous blood oxygen value for the input field based on the previous record value.
+ */
+function previousBloodOxygen() {
+  const previous = previousRecord.value?.[DatabaseField.VITALS]?.[2]
+
+  if (previous) {
+    return `← ${previous}%`
+  } else {
+    return ''
+  }
+}
+
+/**
+ * Formats the previous blood pressure value for the input field based on the previous record value.
+ */
+function previousBloodPressure() {
+  const previousSystolic = previousRecord.value?.[DatabaseField.VITALS]?.[3]
+  const previousDiastolic = previousRecord.value?.[DatabaseField.VITALS]?.[4]
+
+  if (previousSystolic && previousDiastolic) {
+    return `← ${previousSystolic}/${previousDiastolic}`
+  } else {
+    return ''
   }
 }
 
@@ -77,8 +116,10 @@ function systolicRule() {
   return (val: Optional<number>) =>
     val === null ||
     val === undefined ||
-    (val >= Limit.MIN_BLOOD_PRESSURE && val <= Limit.MAX_BLOOD_PRESSURE) ||
-    `${Limit.MIN_BLOOD_PRESSURE}-${Limit.MAX_BLOOD_PRESSURE} or blank`
+    (val >= Limit.MIN_BLOOD_PRESSURE &&
+      val <= Limit.MAX_BLOOD_PRESSURE &&
+      actionStore.record[DatabaseField.VITALS][4]) ||
+    `${Limit.MIN_BLOOD_PRESSURE}-${Limit.MAX_BLOOD_PRESSURE} with diastolic, or blank`
 }
 
 /**
@@ -88,8 +129,10 @@ function diastolicRule() {
   return (val: Optional<number>) =>
     val === null ||
     val === undefined ||
-    (val >= Limit.MIN_BLOOD_PRESSURE && val <= Limit.MAX_BLOOD_PRESSURE) ||
-    `${Limit.MIN_BLOOD_PRESSURE}-${Limit.MAX_BLOOD_PRESSURE} or blank`
+    (val >= Limit.MIN_BLOOD_PRESSURE &&
+      val <= Limit.MAX_BLOOD_PRESSURE &&
+      actionStore.record[DatabaseField.VITALS][3]) ||
+    `${Limit.MIN_BLOOD_PRESSURE}-${Limit.MAX_BLOOD_PRESSURE} with systolic, or blank`
 }
 
 /**
@@ -115,6 +158,23 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
     actionStore.record[DatabaseField.VITALS][index] = null
   } else {
     actionStore.record[DatabaseField.VITALS][index] = parseFloat(actionStoreValue.toFixed(2))
+  }
+}
+
+function cleanBloodPressureInputs() {
+  const systolic = actionStore.record[DatabaseField.VITALS][3]
+  const diastolic = actionStore.record[DatabaseField.VITALS][4]
+
+  if (systolic === null || systolic === undefined || systolic === '') {
+    actionStore.record[DatabaseField.VITALS][3] = null
+  } else {
+    actionStore.record[DatabaseField.VITALS][3] = parseInt(systolic.toFixed(0))
+  }
+
+  if (diastolic === null || diastolic === undefined || diastolic === '') {
+    actionStore.record[DatabaseField.VITALS][4] = null
+  } else {
+    actionStore.record[DatabaseField.VITALS][4] = parseInt(diastolic.toFixed(0))
   }
 }
 </script>
@@ -148,7 +208,7 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             @blur="cleanDecimalInputValue(actionStore.record[DatabaseField.VITALS][0], 0)"
           />
         </div>
-        <div class="text-h6 q-pt-xs">← 98.6°F</div>
+        <div class="text-h6 q-pt-xs">{{ previousTemperature() }}</div>
       </div>
 
       <div class="row q-gutter-sm q-mb-md">
@@ -170,7 +230,7 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][1], 1)"
           />
         </div>
-        <div class="text-h6 q-pt-xs">← 220 bpm</div>
+        <div class="text-h6 q-pt-xs">{{ previousHeartRate() }}</div>
       </div>
 
       <div class="row q-gutter-sm q-mb-md">
@@ -192,7 +252,7 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][2], 2)"
           />
         </div>
-        <div class="text-h6 q-pt-xs">← 100%</div>
+        <div class="text-h6 q-pt-xs">{{ previousBloodOxygen() }}</div>
       </div>
 
       <div class="text-h6 q-mb-sm">Blood Pressure</div>
@@ -211,7 +271,7 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             rounded
             outlined
             color="primary"
-            @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][3], 3)"
+            @blur="cleanBloodPressureInputs()"
           />
         </div>
 
@@ -230,10 +290,10 @@ function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: 
             rounded
             outlined
             color="primary"
-            @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][4], 4)"
+            @blur="cleanBloodPressureInputs()"
           />
         </div>
-        <div class="text-h6 q-pt-xs">← 360/360</div>
+        <div class="text-h6 q-pt-xs">{{ previousBloodPressure() }}</div>
       </div>
     </QCardSection>
   </QCard>

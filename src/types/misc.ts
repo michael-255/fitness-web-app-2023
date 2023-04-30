@@ -126,9 +126,7 @@ export type DashboardParent = {
   [DatabaseField.NAME]: string
   [DatabaseField.DESCRIPTION]: Optional<string>
   [DatabaseField.IS_FAVORITED]: boolean
-  previousNote?: string
-  previousCreatedTimestamp?: number
-  // TODO - Add more fields
+  previousRecord?: DatabaseRecord
 }
 
 /**

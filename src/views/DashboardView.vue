@@ -60,8 +60,7 @@ const subscription = DB.liveDashboard().subscribe({
             [DatabaseField.NAME]: r[DatabaseField.NAME],
             [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
             [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
-            previousNote: previousChild?.[DatabaseField.NOTE],
-            previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
+            previousRecord: previousChild,
           } as DashboardParent
         })
     )
@@ -91,8 +90,7 @@ const subscription = DB.liveDashboard().subscribe({
             [DatabaseField.NAME]: r[DatabaseField.NAME],
             [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
             [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
-            previousNote: previousChild?.[DatabaseField.NOTE],
-            previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
+            previousRecord: previousChild,
           } as DashboardParent
         })
     )
@@ -122,8 +120,7 @@ const subscription = DB.liveDashboard().subscribe({
             [DatabaseField.NAME]: r[DatabaseField.NAME],
             [DatabaseField.DESCRIPTION]: r[DatabaseField.DESCRIPTION],
             [DatabaseField.IS_FAVORITED]: r[DatabaseField.IS_FAVORITED],
-            previousNote: previousChild?.[DatabaseField.NOTE],
-            previousCreatedTimestamp: previousChild?.[DatabaseField.CREATED_TIMESTAMP],
+            previousRecord: previousChild,
           } as DashboardParent
         })
     )
@@ -171,10 +168,10 @@ onUnmounted(() => {
           :showDescription="showDescription"
           :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
           :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
-          :previousNote="record.previousNote"
-          :previousCreatedTimestamp="record.previousCreatedTimestamp"
+          :previousRecord="record.previousRecord"
           class="q-mb-md"
         >
+          <!-- TODO -->
           <QBtn
             round
             color="positive"
@@ -195,10 +192,10 @@ onUnmounted(() => {
           :showDescription="showDescription"
           :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
           :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
-          :previousNote="record.previousNote"
-          :previousCreatedTimestamp="record.previousCreatedTimestamp"
+          :previousRecord="record.previousRecord"
           class="q-mb-md"
         >
+          <!-- TODO -->
           <QBtn
             round
             color="positive"
@@ -219,10 +216,10 @@ onUnmounted(() => {
           :showDescription="showDescription"
           :[DatabaseField.DESCRIPTION]="record[DatabaseField.DESCRIPTION]"
           :[DatabaseField.IS_FAVORITED]="record[DatabaseField.IS_FAVORITED]"
-          :previousNote="record.previousNote"
-          :previousCreatedTimestamp="record.previousCreatedTimestamp"
+          :previousRecord="record.previousRecord"
           class="q-mb-md"
         >
+          <!-- TODO -->
           <QBtn
             round
             color="positive"

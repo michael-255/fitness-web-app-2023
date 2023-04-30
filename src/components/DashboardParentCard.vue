@@ -13,6 +13,7 @@ import useLogger from '@/composables/useLogger'
 import useDialogs from '@/composables/useDialogs'
 import useRoutables from '@/composables/useRoutables'
 import DB from '@/services/LocalDatabase'
+import type { DatabaseRecord } from '@/types/models'
 
 // Props & Emits
 defineProps<{
@@ -22,9 +23,8 @@ defineProps<{
   showDescription: Optional<SettingValue>
   description: Optional<string>
   isFavorited: boolean
-  // Will be undefined if no records have been recorded yet
-  previousNote?: string
-  previousCreatedTimestamp?: number
+  // Will be undefined if no record is found
+  previousRecord?: DatabaseRecord
 }>()
 
 // Composables & Stores
@@ -124,12 +124,12 @@ async function onDeleteRecord(type: DatabaseType, id: string) {
       <div class="absolute-top-right q-ma-xs">
         <!-- Note Icon -->
         <QIcon
-          v-show="previousNote"
+          v-show="previousRecord?.[DatabaseField.NOTE]"
           :name="Icon.NOTE"
           color="primary"
           size="md"
           class="cursor-pointer q-mr-xs"
-          @click="viewPreviousNote(previousNote || '')"
+          @click="viewPreviousNote(previousRecord?.[DatabaseField.NOTE] || '')"
         />
 
         <!-- Favorite Star Icon -->
@@ -198,14 +198,19 @@ async function onDeleteRecord(type: DatabaseType, id: string) {
         <QBadge rounded color="secondary" class="q-py-none">
           <QIcon :name="Icon.PREVIOUS" />
           <span class="text-caption q-ml-xs">
-            {{ useTimeAgo(previousCreatedTimestamp || '').value || 'No previous records' }}
+            {{
+              useTimeAgo(previousRecord?.[DatabaseField.CREATED_TIMESTAMP] || '').value ||
+              'No previous records'
+            }}
           </span>
         </QBadge>
 
         <!-- Previous Record Created Date -->
-        <div v-if="previousCreatedTimestamp">
+        <div v-if="previousRecord?.[DatabaseField.CREATED_TIMESTAMP]">
           <QIcon :name="Icon.CALENDAR_CHECK" />
-          <span class="text-caption q-ml-xs">{{ getDisplayDate(previousCreatedTimestamp) }}</span>
+          <span class="text-caption q-ml-xs">{{
+            getDisplayDate(previousRecord?.[DatabaseField.CREATED_TIMESTAMP])
+          }}</span>
         </div>
       </div>
 

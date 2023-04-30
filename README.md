@@ -5,9 +5,6 @@ view charts of your progress and export your data at any time.
 
 ## TODO
 
-- [ ] Implement `last recorded value` for `Body Tape Measurements`
-- [ ] Implement `last recorded value` for `Vitals`
-
 - [ ] Components to display previous values on the `Dashboard Parent Cards`
 
   - [ ] `Workouts`
