@@ -68,6 +68,19 @@ function lbsRule() {
 }
 
 /**
+ * Ensures the values are set to null if the input is empty.
+ */
+function cleanBodyWeightBmiInput() {
+  const val = actionStore.record[DatabaseField.BODY_WEIGHT_BMI][0]
+
+  if (val === null || val === undefined || val === '') {
+    actionStore.record[DatabaseField.BODY_WEIGHT_BMI][0] = null
+  } else {
+    actionStore.record[DatabaseField.BODY_WEIGHT_BMI][0] = parseFloat(val.toFixed(2))
+  }
+}
+
+/**
  * Updates the BMI based on the height setting and weight input.
  */
 function updateBmi() {
@@ -75,7 +88,7 @@ function updateBmi() {
   const totalHeightInches = Number(heightInches.value)
 
   if (totalHeightInches && weight) {
-    const calculatedBmi = Number(
+    const calculatedBmi = parseFloat(
       ((weight / (totalHeightInches * totalHeightInches)) * 703).toFixed(2)
     )
     actionStore.record[DatabaseField.BODY_WEIGHT_BMI][1] = calculatedBmi
@@ -103,9 +116,11 @@ function updateBmi() {
             :label="previousLabel(previousRecord?.[DatabaseField.BODY_WEIGHT_BMI]?.[0])"
             :rules="[lbsRule()]"
             type="number"
+            step="0.01"
             dense
             outlined
             color="primary"
+            @blur="cleanBodyWeightBmiInput()"
             @update:model-value="updateBmi()"
           />
         </div>
@@ -113,8 +128,8 @@ function updateBmi() {
       </div>
 
       <div class="q-mb-md">
-        The Body Mass Index will is automatically calculated as long as your height is recorded in
-        the Settings and you have entered a weight.
+        The Body Mass Index will is automatically calculated as long as your height is recorded on
+        the Settings page and you have entered a new weight above.
       </div>
 
       <div v-if="bmi" class="text-h5">{{ bmi }} bmi</div>

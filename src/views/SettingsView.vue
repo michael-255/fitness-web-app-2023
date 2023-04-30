@@ -33,7 +33,6 @@ const {
 const settings: Ref<any[]> = ref([])
 const heightFeet: Ref<Optional<number>> = ref(null)
 const heightInches: Ref<Optional<number>> = ref(null)
-const isFormValid = ref(true)
 const logRetentionIndex = ref(0)
 const importFile: Ref<any> = ref(null)
 const exportModel: Ref<DatabaseType[]> = ref([])
@@ -263,7 +262,7 @@ function feetRule() {
     val === null ||
     val === undefined ||
     (val >= Limit.MIN_BMI_FEET && val <= Limit.MAX_BMI_FEET) ||
-    `Height feet must be between ${Limit.MIN_BMI_FEET} and ${Limit.MAX_BMI_FEET}`
+    `${Limit.MIN_BMI_FEET}-${Limit.MAX_BMI_FEET} or blank`
 }
 
 /**
@@ -274,7 +273,7 @@ function inchesRule() {
     val === null ||
     val === undefined ||
     (val >= Limit.MIN_BMI_INCHES && val <= Limit.MAX_BMI_INCHES) ||
-    `Height inches must be between ${Limit.MIN_BMI_INCHES} and ${Limit.MAX_BMI_INCHES}`
+    `${Limit.MIN_BMI_INCHES}-${Limit.MAX_BMI_INCHES} or blank`
 }
 
 /**
@@ -309,41 +308,43 @@ async function updateHeight() {
         </div>
 
         <div class="row q-gutter-sm q-mb-md">
-          <div class="col">
+          <div class="text-h6 q-pt-xs q-mr-sm">Height</div>
+
+          <div class="col-3">
             <!-- Note: v-model.number for number types -->
             <QInput
               v-model.number="heightFeet"
               ref="inputRef"
-              label="Height, ft"
               :rules="[feetRule()]"
-              hint="Auto Saves"
+              hint="Auto Saved"
               type="number"
               dense
+              rounded
               outlined
               color="primary"
               @update:model-value="updateHeight()"
             />
           </div>
 
-          <div class="text-h4 q-mr-md">ft</div>
+          <div class="text-h6 q-pt-xs q-mr-sm">ft</div>
 
-          <div class="col">
+          <div class="col-3">
             <!-- Note: v-model.number for number types -->
             <QInput
               v-model.number="heightInches"
               ref="inputRef"
-              label="Height, in"
               :rules="[inchesRule()]"
-              hint="Auto Saves"
+              hint="Auto Saved"
               type="number"
               dense
+              rounded
               outlined
               color="primary"
               @update:model-value="updateHeight()"
             />
           </div>
 
-          <div class="text-h4 q-mr-md">in</div>
+          <div class="text-h6 q-pt-xs">in</div>
         </div>
       </QCardSection>
     </QCard>

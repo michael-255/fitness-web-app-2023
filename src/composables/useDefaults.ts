@@ -439,7 +439,7 @@ export default function useDefaults() {
               [DatabaseField.ID]: '704b252e-c1da-44e2-a5e6-9aeeaee47fc7', // New!
               [DatabaseField.NAME]: 'Body Weight (+BMI)',
               [DatabaseField.DESCRIPTION]:
-                'Track your body weight and have your BMI calculated automatically if your height is entered in the Settings.',
+                'Track your body weight and have your BMI calculated automatically if your height is entered on the Settings page.',
               [DatabaseField.IS_FAVORITED]: false,
               [DatabaseField.IS_ENABLED]: true,
               [DatabaseField.MEASUREMENT_INPUTS]: [MeasurementInput.BODY_WEIGHT_BMI],

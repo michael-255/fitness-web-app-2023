@@ -24,11 +24,12 @@ onMounted(() => {
 })
 
 /**
- * Formats the label for the input field based on the previous record value.
+ * Formats text for the last recorded value.
  * @param label
  * @param actionRecordValue
  */
-function previousLabel(label: string, actionRecordValue: Optional<number>) {
+function lastRecordedValue(label: string, actionRecordValue: Optional<number>) {
+  // TODO - Need to find the last recorded value from the database
   if (actionRecordValue) {
     return `${label} (${actionRecordValue})`
   } else {
@@ -44,7 +45,7 @@ function temperatureRule() {
     val === null ||
     val === undefined ||
     (val >= Limit.MIN_BODY_TEMP && val <= Limit.MAX_BODY_TEMP) ||
-    `If provided, temperature must be between ${Limit.MIN_BODY_TEMP} and ${Limit.MAX_BODY_TEMP}`
+    `${Limit.MIN_BODY_TEMP}-${Limit.MAX_BODY_TEMP} or blank`
 }
 
 /**
@@ -55,7 +56,7 @@ function heartRateRule() {
     val === null ||
     val === undefined ||
     (val >= Limit.MIN_HEART_RATE && val <= Limit.MAX_HEART_RATE) ||
-    `If provided, heart rate must be between ${Limit.MIN_HEART_RATE} and ${Limit.MAX_HEART_RATE}`
+    `${Limit.MIN_HEART_RATE}-${Limit.MAX_HEART_RATE} or blank`
 }
 
 /**
@@ -66,7 +67,7 @@ function bloodOxygenRule() {
     val === null ||
     val === undefined ||
     (val >= Limit.MIN_PERCENTAGE && val <= Limit.MAX_PERCENTAGE) ||
-    `If provided, blood oxygen must be between ${Limit.MIN_PERCENTAGE} and ${Limit.MAX_PERCENTAGE}`
+    `${Limit.MIN_PERCENTAGE}-${Limit.MAX_PERCENTAGE} or blank`
 }
 
 /**
@@ -77,7 +78,7 @@ function systolicRule() {
     val === null ||
     val === undefined ||
     (val >= Limit.MIN_BLOOD_PRESSURE && val <= Limit.MAX_BLOOD_PRESSURE) ||
-    `If provided, Systolic blood pressure must be between ${Limit.MIN_BLOOD_PRESSURE} and ${Limit.MAX_BLOOD_PRESSURE}}`
+    `${Limit.MIN_BLOOD_PRESSURE}-${Limit.MAX_BLOOD_PRESSURE} or blank`
 }
 
 /**
@@ -88,17 +89,32 @@ function diastolicRule() {
     val === null ||
     val === undefined ||
     (val >= Limit.MIN_BLOOD_PRESSURE && val <= Limit.MAX_BLOOD_PRESSURE) ||
-    `If provided, Diastolic blood pressure must be between ${Limit.MIN_BLOOD_PRESSURE} and ${Limit.MAX_BLOOD_PRESSURE}}`
+    `${Limit.MIN_BLOOD_PRESSURE}-${Limit.MAX_BLOOD_PRESSURE} or blank`
 }
 
 /**
- * Ensures the values are set to null if the input is empty.
- * @param val
+ * Ensures the values are set to null if the input is empty and integers if it is not.
+ * @param actionStoreValue
  * @param index
  */
-function blurValueUpdate(val: Optional<number> | '', index: number) {
-  if (val === null || val === undefined || val === '') {
+function cleanIntegerInputValue(actionStoreValue: Optional<number> | '', index: number) {
+  if (actionStoreValue === null || actionStoreValue === undefined || actionStoreValue === '') {
     actionStore.record[DatabaseField.VITALS][index] = null
+  } else {
+    actionStore.record[DatabaseField.VITALS][index] = parseInt(actionStoreValue.toFixed(0))
+  }
+}
+
+/**
+ * Ensures the values are set to null if the input is empty and decimals if it is not.
+ * @param actionStoreValue
+ * @param index
+ */
+function cleanDecimalInputValue(actionStoreValue: Optional<number> | '', index: number) {
+  if (actionStoreValue === null || actionStoreValue === undefined || actionStoreValue === '') {
+    actionStore.record[DatabaseField.VITALS][index] = null
+  } else {
+    actionStore.record[DatabaseField.VITALS][index] = parseFloat(actionStoreValue.toFixed(2))
   }
 }
 </script>
@@ -109,110 +125,115 @@ function blurValueUpdate(val: Optional<number> | '', index: number) {
       <div class="text-h6 q-mb-md">{{ label }}</div>
 
       <div class="q-mb-md">
-        Your body temperature. Typical healthy adults should expect a body temperature near 98.6°F.
+        Track your temperature, heart rate, blood oxygen, and blood pressure. The last recorded
+        value will be displayed to the right of the input. Inputs can be left blank if desired.
       </div>
 
       <div class="row q-gutter-sm q-mb-md">
-        <div class="col-6">
+        <div class="text-h6 q-pt-xs">Temperature</div>
+
+        <div class="col-3">
           <!-- Note: v-model.number for number types -->
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][0]"
             ref="inputRef"
-            :label="previousLabel('Temperature', previousRecord?.[DatabaseField.VITALS]?.[0])"
+            label="°F"
             :rules="[temperatureRule()]"
             type="number"
+            step="0.01"
             dense
+            rounded
             outlined
             color="primary"
-            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][0], 0)"
+            @blur="cleanDecimalInputValue(actionStore.record[DatabaseField.VITALS][0], 0)"
           />
         </div>
-        <div class="text-h4">°F</div>
-      </div>
-
-      <div class="q-mb-md">
-        Your heart rate in beats per minute. Typical healthy adults should expect a resting heart
-        rate near 60 bpm.
+        <div class="text-h6 q-pt-xs">→ 98.6°F</div>
       </div>
 
       <div class="row q-gutter-sm q-mb-md">
-        <div class="col-6">
+        <div class="text-h6 q-pt-xs">Heart Rate</div>
+
+        <div class="col-3">
           <!-- Note: v-model.number for number types -->
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][1]"
             ref="inputRef"
-            :label="previousLabel('Heart Rate', previousRecord?.[DatabaseField.VITALS]?.[1])"
+            label="bpm"
             :rules="[heartRateRule()]"
             type="number"
+            step="1"
             dense
+            rounded
             outlined
             color="primary"
-            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][1], 1)"
+            @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][1], 1)"
           />
         </div>
-        <div class="text-h4">bpm</div>
-      </div>
-
-      <div class="q-mb-md">
-        Your blood oxygen percentage, which can be determined using a pulse oximeter. Typical
-        healthy adults should expect a blood oxygen between 90-100%.
+        <div class="text-h6 q-pt-xs">→ 220 bpm</div>
       </div>
 
       <div class="row q-gutter-sm q-mb-md">
-        <div class="col-6">
+        <div class="text-h6 q-pt-xs">Blood Oxygen</div>
+
+        <div class="col-3">
           <!-- Note: v-model.number for number types -->
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][2]"
             ref="inputRef"
-            :label="previousLabel('Blood Oxygen', previousRecord?.[DatabaseField.VITALS]?.[2])"
+            label="%"
             :rules="[bloodOxygenRule()]"
             type="number"
+            step="1"
             dense
+            rounded
             outlined
             color="primary"
-            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][2], 2)"
+            @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][2], 2)"
           />
         </div>
-        <div class="text-h4">%</div>
+        <div class="text-h6 q-pt-xs">→ 100%</div>
       </div>
 
-      <div class="q-mb-md">
-        Your blood pressure. Typical healthy adults should expect a blood pressure near 120/80 while
-        inactive.
-      </div>
+      <div class="text-h6 q-mb-sm">Blood Pressure</div>
 
-      <div class="row q-gutter-sm">
-        <div class="col">
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="col-3">
           <!-- Note: v-model.number for number types -->
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][3]"
             ref="inputRef"
-            :label="previousLabel('Systolic', previousRecord?.[DatabaseField.VITALS]?.[3])"
+            label="Systolic"
             :rules="[systolicRule()]"
             type="number"
+            step="1"
             dense
+            rounded
             outlined
             color="primary"
-            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][3], 3)"
+            @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][3], 3)"
           />
         </div>
 
         <div class="text-h4">/</div>
 
-        <div class="col">
+        <div class="col-3">
           <!-- Note: v-model.number for number types -->
           <QInput
             v-model.number="actionStore.record[DatabaseField.VITALS][4]"
             ref="inputRef"
-            :label="previousLabel('Diastolic', previousRecord?.[DatabaseField.VITALS]?.[4])"
+            label="Diastolic"
             :rules="[diastolicRule()]"
             type="number"
+            step="1"
             dense
+            rounded
             outlined
             color="primary"
-            @blur="blurValueUpdate(actionStore.record[DatabaseField.VITALS][4], 4)"
+            @blur="cleanIntegerInputValue(actionStore.record[DatabaseField.VITALS][4], 4)"
           />
         </div>
+        <div class="text-h6 q-pt-xs">→ 360/360</div>
       </div>
     </QCardSection>
   </QCard>

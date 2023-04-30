@@ -25,14 +25,15 @@ onMounted(async () => {
 })
 
 /**
- * Formats the label for the input field based on the previous record value.
+ * Formats text for the last recorded value.
  * @param actionRecordValue
  */
-function previousLabel(actionRecordValue: Optional<number>) {
+function lastRecordedValue(actionRecordValue: Optional<number>) {
+  // TODO - Need to find the last recorded value from the database
   if (actionRecordValue !== null && actionRecordValue !== undefined) {
-    return `Previously ${actionRecordValue} inches`
+    return `→ ${actionRecordValue} in`
   } else {
-    return 'No previous data'
+    return ''
   }
 }
 
@@ -44,7 +45,22 @@ function inchesRule() {
     val === null ||
     val === undefined ||
     (val >= Limit.MIN_BODY_INCHES && val <= Limit.MAX_BODY_INCHES) ||
-    `Inches must be between ${Limit.MIN_BODY_INCHES} and ${Limit.MAX_BODY_INCHES}`
+    `${Limit.MIN_BODY_INCHES}-${Limit.MAX_BODY_INCHES} or blank`
+}
+
+/**
+ * Cleans the input value and sets it to the action store.
+ * @param actionRecordValue
+ * @param index
+ */
+function cleanInputValue(actionRecordValue: Optional<number>, index: number) {
+  if (actionRecordValue) {
+    actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][index] = parseFloat(
+      actionRecordValue.toFixed(2)
+    )
+  } else {
+    actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][index] = null
+  }
 }
 </script>
 
@@ -54,177 +70,302 @@ function inchesRule() {
       <div class="text-h6 q-mb-md">{{ label }}</div>
 
       <div class="q-mb-md">
-        All tape measurements recorded here are the circumference of the body part in inches. You
-        can leave inputs blank if desired.
+        All tape measurements recorded here are the circumference of the body part in inches. The
+        last recorded value will be displayed to the R. of the input. You can leave inputs blank if
+        desired.
       </div>
 
-      <div class="text-h6 q-mb-md">Neck</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">Neck</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][0]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[0])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][0]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][0], 0)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[0]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Chest</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">Chest</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][1]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[1])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][1]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][1], 1)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[1]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Shoulders</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">Shoulders</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][2]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[2])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][2]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][2], 2)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[2]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Right bicep</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">R. Bicep</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][3]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[3])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][3]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][3], 3)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[3]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Left bicep</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">L. Bicep</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][4]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[4])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][4]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][4], 4)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[4]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Right Forearm</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">R. Forearm</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][5]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[5])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][5]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][5], 5)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[5]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Left Forearm</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">L. Forearm</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][6]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[6])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][6]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][6], 6)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[6]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Waist</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">Waist</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][7]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[7])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][7]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][7], 7)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[7]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Right Thigh</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">R. Thigh</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][8]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[8])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][8]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][8], 8)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[8]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Left Thigh</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">L. Thigh</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][9]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[9])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][9]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][9], 9)"
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[9]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Right Calf</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">R. Calf</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][10]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[10])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][10]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="
+              cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][10], 10)
+            "
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[10]) }}
+        </div>
+      </div>
 
-      <div class="text-h6 q-mb-md">Left Calf</div>
+      <div class="row q-gutter-sm q-mb-md">
+        <div class="text-h6 q-pt-xs">L. Calf</div>
 
-      <!-- Note: v-model.number for number types -->
-      <QInput
-        v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][11]"
-        ref="inputRef"
-        :label="previousLabel(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[11])"
-        :rules="[inchesRule()]"
-        type="number"
-        dense
-        outlined
-        color="primary"
-      />
+        <div class="col-3">
+          <!-- Note: v-model.number for number types -->
+          <QInput
+            v-model.number="actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][11]"
+            ref="inputRef"
+            label="inches"
+            :rules="[inchesRule()]"
+            type="number"
+            step="0.01"
+            dense
+            rounded
+            outlined
+            color="primary"
+            @blur="
+              cleanInputValue(actionStore.record[DatabaseField.BODY_TAPE_MEASUREMENTS][11], 11)
+            "
+          />
+        </div>
+        <div class="text-h6 q-pt-xs">
+          {{ lastRecordedValue(previousRecord?.[DatabaseField.BODY_TAPE_MEASUREMENTS]?.[11]) }}
+        </div>
+      </div>
     </QCardSection>
   </QCard>
 </template>
